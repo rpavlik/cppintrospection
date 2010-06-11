@@ -128,17 +128,11 @@ const TypeDesc *TypeRegistry::findTypeDescription(const std::string &type_name) 
 
 void TypeRegistry::consolidate()
 {
-	Notify::notice("qualify_type_names...");
     qualify_type_names();
-	Notify::notice("collect_template_instances...");
     collect_template_instances();
-	Notify::notice("instantiate_templates...");
     instantiate_templates();
-	Notify::notice("fill_attributes...");
     fill_attributes();
-	Notify::notice("define_properties...");
     define_properties();
-	Notify::notice("define_properties...");
     fill_needed_headers();
 }
 
@@ -628,13 +622,8 @@ void TypeRegistry::collect_template_instances()
 
     for (TypeMap::iterator j=tfmap_.begin(); j!=tfmap_.end(); ++j)
     {
-    	//Notify::debug("doing: " + j->first);
-
         // search for user-defined instances
         const FileOptions *fo = cfg_.getFileOptions(j->first);
-
-        //Notify::debug("AAA");
-
         if (fo)
         {
             for (StringSet::const_iterator i=fo->templ_instances.begin(); i!=fo->templ_instances.end(); ++i)
@@ -644,11 +633,8 @@ void TypeRegistry::collect_template_instances()
             }
         }
 
-        //Notify::debug("BBB");
-
         for (TypeList::const_iterator i=j->second.begin(); i!=j->second.end(); ++i)
         {
-
             // examine typedef declaration
             if (!i->alias.empty())
             {

@@ -227,6 +227,12 @@ void WrapperGenerator::write_method(const FunctionDesc &fd, const TypeDesc &td, 
 {
     const MethodOptions *opt = cfg_.getMethodOptions(td.type_name, fd.name_signature);
 
+    if (cfg_.isReflectorSuppressed(td.type_name+"::"+fd.name)) 
+    {
+        Notify::info("suppressing method `" + fd.name+"`");
+        return;
+    }
+
     if (opt && opt->entirely_replaced)
     {
         Notify::info("replacing definition of method `" + fd.name_signature + "' in type `" + td.type_name + "' on user request");
@@ -429,6 +435,12 @@ void WrapperGenerator::write_reflector(const TypeDesc &td, std::ostream &os)
 
     for (BaseTypeList::const_iterator i=td.base_types.begin(); i!=td.base_types.end(); ++i)
     {
+        if (cfg_.isReflectorSuppressed(i->name))
+        {
+            Notify::info("suppressing reflector for base type `" + i->name + "' on user request");
+            continue;
+        }
+
         os << "\tI_";
         if (i->is_virtual) os << "Virtual";
         os << "BaseType(" << replace_commas(i->name) << ");\n";
