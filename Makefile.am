@@ -1,11 +1,11 @@
 # "foreign" means not GNU, and is common for avoiding boring messages about files organized differently from what gnu expects
 
 ACLOCAL_AMFLAGS = -I m4
-
+MAN_TEXT_FILES=man-genwrapper.txt
 SUBDIRS = src
 
 man_MANS = genwrapper.1 
-EXTRA_DIST = $(man_MANS) README LICENSE
+EXTRA_DIST = $(man_MANS) README LICENSE $(MAN_TEXT_FILES)
 MAINTAINERCLEANFILES = $(man_MANS)
 
 # The man pages depend on the --help strings and the version number.
