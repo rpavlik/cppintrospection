@@ -5,7 +5,7 @@ AC_PREREQ([2.61])
 AC_INIT(genwrapper, [1.2.0], [http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
-AC_CONFIG_HEADERS([include/config.h])
+#AC_CONFIG_HEADERS([include/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST # fills $host variable
 
