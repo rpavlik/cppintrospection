@@ -469,10 +469,15 @@ void TypeNameUtils::translateIdentifiers(std::string &decl, const std::string &s
     {
         if (i->type == Token::IDENTIFIER)
         {
-            if (decl.substr(i->beg, i->len) == src)
+            std::string::size_type srclen = src.length();
+            if (i->len >= srclen && decl.compare(i->beg, srclen, src) == 0
+                && (i->len == srclen
+                    || (i->len >= srclen + 2
+                        && decl[i->beg + srclen] == ':'
+                        && decl[i->beg + srclen + 1] == ':')))
             {
-                decl.replace(i->beg, i->len, dest);
-                int delta = static_cast<int>(dest.length()) - static_cast<int>(i->len);
+                decl.replace(i->beg, srclen, dest);
+                int delta = static_cast<int>(dest.length()) - static_cast<int>(srclen);
                 for (TokenList::iterator j=i; j!=tokens.end(); ++j)
                 {
                     j->beg += delta;

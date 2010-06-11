@@ -83,8 +83,7 @@ void show_help(std::ostream &os)
     os << "               temporary directory, if any.\n";
     os << "\n";
     os << "output_dir     Base output directory. Wrapper files will be placed in\n";
-    os << "               `{output_dir}/src/osgWrappers/', while VS6 project files\n";
-    os << "               will be placed in `{output_dir}/VisualStudio/osgWrappers/'.\n";
+    os << "               `{output_dir}/src/osgWrappers/introspection/'.\n";
     os << "\n";
     os << "\n";
     os << "OPTIONS:\n";
@@ -100,13 +99,13 @@ void show_help(std::ostream &os)
     os << "                  target directory\n";
 }
 
-int generate_doxyfile(const std::string &appdir, const std::string &osg_dir, const std::string &doxy_dir)
+int generate_doxyfile(const std::string& templateFile, const std::string &appdir, const std::string &osg_dir, const std::string &doxy_dir)
 {
-    std::ifstream ifs("Doxyfile.template");
+    std::ifstream ifs(templateFile.c_str());
     if (!ifs.is_open())
     {
         ifs.clear();
-        ifs.open((appdir + "Doxyfile.template").c_str());
+        ifs.open((appdir + templateFile).c_str());
         if (!ifs.is_open())
         {
             std::cerr << "genwrapper: could not open Doxygen.template" << std::endl;
@@ -137,11 +136,27 @@ int main(int argc, char *argv[])
 
     ActionType action = BUILD_WRAPPERS;
     bool create_lists = false;
+    std::string templateFile = "Doxyfile.template";
 
     typedef std::vector<std::string> StringList;
 
     StringList cfgfiles;
     StringList args;
+
+    if (argc > 1)
+    {
+        if (strncmp(argv[1], "--help", strlen("--help")) == 0)
+        {
+            show_help(std::cout); 
+            return 2;
+        }
+        else if (strncmp(argv[1], "--version", strlen("--version")) == 0)
+        {
+            std::cout << PACKAGE_VERSION << std::endl;
+            return 2;
+        }
+    }
+
 
     for (int i=1; i<argc; ++i)
     {
@@ -149,58 +164,52 @@ int main(int argc, char *argv[])
 
         if (argv[i][0] == '-' && argv[i][1] != 0)
         {
-            if (strncmp(argv[1], "--help", strlen("--help")) == 0)
-            {
-                show_help(std::cout); 
-                return 2;
-            }
-            else if (strncmp(argv[1], "--version", strlen("--version")) == 0)
-            {
-                std::cout << PACKAGE_VERSION << std::endl;
-                return 2;
-            }
-
             char opt = argv[i][1];
             switch (opt)
             {
-            case '?':
-            case 'h': 
-                show_help(std::cout); 
-                return 2;
+                case '?':
+                case 'h': 
+                    show_help(std::cout); 
+                    return 2;
 
-            case 'd':
-                action = GENERATE_DOXYFILE;
-                break;
+                case 'd':
+                    action = GENERATE_DOXYFILE;
+                    break;
 
-            case 'c':
-                if (more_args > 0)
-                {
-                    cfgfiles.push_back(argv[i+1]);
+                case 't':
+                    templateFile = argv[i+1];
                     ++i;
-                }
-                break;
+                    break;
 
-            case 'v':
-                if (more_args > 0)
-                {
-                    std::string level = argv[i+1];
-                    if (level == "QUIET") Notify::setLevel(Notify::QUIET);
-                    if (level == "ERROR") Notify::setLevel(Notify::ERROR);
-                    if (level == "WARNING") Notify::setLevel(Notify::WARNING);
-                    if (level == "NOTICE") Notify::setLevel(Notify::NOTICE);
-                    if (level == "INFO") Notify::setLevel(Notify::INFO);
-                    if (level == "DEBUG") Notify::setLevel(Notify::DEBUG);
-                    ++i;
-                }
-                break;
+                case 'c':
+                    if (more_args > 0)
+                    {
+                        cfgfiles.push_back(argv[i+1]);
+                        ++i;
+                    }
+                    break;
 
-            case 'l':
-                create_lists = true;
-                break;
+                case 'v':
+                    if (more_args > 0)
+                    {
+                        std::string level = argv[i+1];
+                        if (level == "QUIET") Notify::setLevel(Notify::QUIET);
+                        if (level == "ERROR") Notify::setLevel(Notify::ERROR);
+                        if (level == "WARNING") Notify::setLevel(Notify::WARNING);
+                        if (level == "NOTICE") Notify::setLevel(Notify::NOTICE);
+                        if (level == "INFO") Notify::setLevel(Notify::INFO);
+                        if (level == "DEBUG") Notify::setLevel(Notify::DEBUG);
+                        ++i;
+                    }
+                    break;
 
-            default: 
-                std::cerr << "genwrapper: unrecognized option `-" << opt << "'" << std::endl;
-                return 1;
+                case 'l':
+                    create_lists = true;
+                    break;
+
+                default: 
+                    std::cerr << "genwrapper: unrecognized option `-" << opt << "'" << std::endl;
+                    return 1;
             };
         }
         else
@@ -233,7 +242,9 @@ int main(int argc, char *argv[])
             osg_dir = PathNameUtils::consolidateDelimiters(args.front(), true);
             if (args.size() == 2)
                 doxy_dir = PathNameUtils::consolidateDelimiters(args.back(), true);
-            return generate_doxyfile(appdir, osg_dir, doxy_dir);
+
+
+            return generate_doxyfile(templateFile, appdir, osg_dir, doxy_dir);
         }
         else
             invalid_args = true;
@@ -298,9 +309,7 @@ int main(int argc, char *argv[])
         Notify::notice("consolidating type registry");
         registry.consolidate();
 
-        Notify::notice("done");
-
-        WrapperGenerator generator(registry, output_dir, "src/osgWrappers/", appdir, create_lists, cfg);
+        WrapperGenerator generator(registry, output_dir, "src/osgWrappers/introspection", appdir, create_lists, cfg);
 
         Notify::notice("generating wrappers");
         generator.generate();
