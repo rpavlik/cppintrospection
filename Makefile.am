@@ -14,5 +14,5 @@ common_mandeps = $(top_srcdir)/configure.ac
 # Depend on the source, not the binary; we don't need to regenerate the
 # binary when any source file changes, only the main one.
 # Use -o so that the `missing' program can infer the output file.
-genwrapper.1: $(top_srcdir)/src/genwrapper.cpp 
+genwrapper.1: $(top_srcdir)/src/main.cpp 
 	$(HELP2MAN) --name="OpenSceneGraph Introspection Wrapper Generator" --no-info $(top_builddir)/src/genwrapper -o $@
