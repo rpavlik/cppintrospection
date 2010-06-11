@@ -13,8 +13,7 @@
 #undef ERROR
 #endif
 
-const std::string version = "1.2";
-const std::string release_date = "9th July 2005";
+const std::string RELEASE_DATE = "Fri, 11 Jun 2010";
 
 void replace_string(std::string &s, const std::string &from, const std::string &to)
 {
@@ -69,7 +68,7 @@ void report_stats(const WrapperGenerator::Statistics &stats, std::ostream &os)
 void show_help(std::ostream &os)
 {
     os << "OpenSceneGraph Introspection Wrapper Generator\n";
-    os << "Version " << version << " - " << release_date << "\n";
+    os << "Version " << PACKAGE_VERSION << " - " << RELEASE_DATE << "\n";
     os << "\n";
     os << "Usage: genwrapper -h | -?\n";
     os << "       genwrapper -d path_to_osg [doxy_dir]\n";
