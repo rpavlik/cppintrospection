@@ -143,6 +143,11 @@ int main(int argc, char *argv[])
     StringList cfgfiles;
     StringList args;
 
+    if (argc > 1 && argv[1] == "--help")
+    {
+        show_help(std::cout); 
+        return 2;
+    }
     for (int i=1; i<argc; ++i)
     {
         int more_args = argc - i - 1;
