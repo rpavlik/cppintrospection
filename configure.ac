@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(genwrapper, [1.2.0], [http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
+AC_INIT(genwrapper, [1.2.1], [http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
 #AC_CONFIG_HEADERS([include/config.h])

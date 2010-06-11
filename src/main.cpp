@@ -154,6 +154,11 @@ int main(int argc, char *argv[])
                 show_help(std::cout); 
                 return 2;
             }
+            else if (strncmp(argv[1], "--version", strlen("--version")) == 0)
+            {
+                std::cout << PACKAGE_VERSION << std::endl;
+                return 2;
+            }
 
             char opt = argv[i][1];
             switch (opt)
