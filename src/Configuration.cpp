@@ -1,7 +1,7 @@
 #include "Configuration.h"
 #include "Notify.h"
 
-#include <boost/spirit/include/classic.hpp>
+#include <boost/spirit.hpp>
 #include <boost/regex.hpp>
 
 #include <algorithm>
