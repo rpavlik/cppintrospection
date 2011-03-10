@@ -1,1 +1,1 @@
-SUBDIRS = genwrappers osgIntrospection
+SUBDIRS = osgIntrospection genwrapper

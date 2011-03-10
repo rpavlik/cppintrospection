@@ -22,4 +22,14 @@ src/.deps/
 src/Makefile
 src/Makefile.in
 src/genwrapper
+doxyfile
+doxyfile.stamp
+html/
+man/
 *.o
+*.lo
+*.la
+.deps
+.libs
+*.pc
+*.tar.gz

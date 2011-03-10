@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(genwrapper, [1.3.1], [http://github.com/sat-metalab/osgintrospection/issues], [spatosc], [http://github.com/sat-metalab/osginstrospection])
+AC_INIT(osgintrospection, [2.11.1], [http://github.com/sat-metalab/osgintrospection/issues], [osgintrospection], [http://github.com/sat-metalab/osginstrospection])
 #[http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG introspection and genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
@@ -93,6 +93,8 @@ fi
 
 AC_CHECK_LIB(OpenThreads,OpenThreadsGetVersion)
 
+PKG_CHECK_MODULES(OPENTHREADS, openthreads >= 2.5.0, , AC_MSG_ERROR([missing OpenThreads]))
+
 # Mac OS X specific configure options
 #AC_ARG_WITH(osg_framework, [ --with-osg-framework=PREFIX Specify the prefix path to osg frameworks [default=standard framework paths]])
 #AC_CHECK_FRAMEWORK(osg, [#include <osg/Version>])
@@ -121,9 +123,9 @@ case "$host" in *-darwin* | *-macos10*)
   ;;
   # OSX does not include /usr/local/lib/pkgconfig path, so we export it here
   # (for everyone, just in case)
-  PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  export PKG_CONFIG_PATH
-  LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/local/lib64"
+  # PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+  # export PKG_CONFIG_PATH
+  # LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/local/lib64"
 esac
 
 CXXFLAGS+=" -Wfatal-errors"
