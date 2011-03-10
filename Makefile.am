@@ -17,6 +17,12 @@ common_mandeps = $(top_srcdir)/configure.ac
 genwrapper.1: $(top_srcdir)/src/genwrapper/main.cpp $(top_srcdir)/man-genwrapper.txt
 	$(HELP2MAN) --include=man-genwrapper.txt --name="OpenSceneGraph Introspection Wrapper Generator" --no-info $(top_builddir)/src/genwrapper/genwrapper -o $@
 
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = spatosc-@SPATOSC_API_VERSION@.pc
+
+dist_noinst_SCRIPTS = autogen.sh
+
 # man pages:
 if HAVE_DOXYGEN
 dist_man_MANS = $(top_srcdir)/man/man3/*.3
