@@ -6,7 +6,7 @@ AC_INIT(osgintrospection, [2.11.1], [http://github.com/sat-metalab/osgintrospect
 #[http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG introspection and genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
-#AC_CONFIG_HEADERS([include/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST # fills $host variable
 
@@ -50,8 +50,6 @@ AC_CHECK_TYPES([ptrdiff_t])
 AC_CHECK_LIB([m],[sqrt])
 PKG_CHECK_MODULES(XML, libxml-2.0 >= 2.0)
 PKG_CHECK_MODULES([LIBXML2], libxml-2.0 >= 2.0)
-#AC_SUBST(LIBXML_LIBS)
-#AC_SUBST(LIBXML_CFLAGS)
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h stddef.h stdlib.h string.h sys/time.h])
@@ -91,7 +89,7 @@ fi
 # another way to check for OSG libs?:
 #AC_CHECK_LIB(osg,osgGetVersion)
 
-AC_CHECK_LIB(OpenThreads,OpenThreadsGetVersion)
+# AC_CHECK_LIB(OpenThreads,OpenThreadsGetVersion)
 
 PKG_CHECK_MODULES(OPENTHREADS, openthreads >= 2.5.0, , AC_MSG_ERROR([missing OpenThreads]))
 
