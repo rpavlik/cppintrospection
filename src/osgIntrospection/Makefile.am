@@ -31,7 +31,7 @@ libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_SOURCES = \
 ## Instruct libtool to include ABI version information in the generated shared
 ## library file (.so).  The library ABI version is defined in configure.ac, so
 ## that all version information is kept in one place.
-libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_LDFLAGS = $(LIBLO_LIBS) -export-dynamic -version-info $(OSGINTROSPECTION_SO_VERSION)
+libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_LDFLAGS = $(OPENTHREADS_LIBS) -export-dynamic -version-info $(OSGINTROSPECTION_SO_VERSION)
 
 libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_includedir = $(includedir)/osgIntrospection-$(OSGINTROSPECTION_SO_VERSION)
 
