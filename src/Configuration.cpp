@@ -9,7 +9,7 @@
 #include <vector>
 #include <iterator>
 
-using namespace boost::spirit::classic;
+using namespace boost::spirit;
 
 struct config_grammar: public grammar<config_grammar>
 {
