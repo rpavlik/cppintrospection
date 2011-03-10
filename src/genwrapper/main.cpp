@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "config.h"
 
 #ifdef ERROR
 #undef ERROR
