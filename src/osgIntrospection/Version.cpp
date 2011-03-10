@@ -12,13 +12,13 @@
 */
 
 #include <osgIntrospection/Version>
-#include <osg/Version>
+#include "config.h"
 
 extern "C" {
 
 const char* osgIntrospectionGetVersion()
 {
-    return osgGetVersion();
+    return PACKAGE_VERSION;
 }
 
 
