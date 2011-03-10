@@ -24,7 +24,7 @@ AC_CANONICAL_HOST # fills $host variable
 AC_SUBST([OSGINTROSPECTION_SO_VERSION], [0:0:0])
 
 # The version of the API. Should be major.minor and not change until not backward-compatible
-AC_SUBST([OSGINTROSPECTION_API_VERSION], [0.1])
+AC_SUBST([OSGINTROSPECTION_API_VERSION], [2.11])
 
 # Checks for programs.
 AC_PROG_CXX
