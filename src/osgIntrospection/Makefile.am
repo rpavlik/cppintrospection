@@ -33,7 +33,7 @@ libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_SOURCES = \
 ## that all version information is kept in one place.
 libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_LDFLAGS = $(OPENTHREADS_LIBS) -export-dynamic -version-info $(OSGINTROSPECTION_SO_VERSION)
 
-libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_includedir = $(includedir)/osgIntrospection-$(OSGINTROSPECTION_SO_VERSION)
+libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_includedir = $(includedir)/osgintrospection-$(OSGINTROSPECTION_API_VERSION)/osgIntrospection
 
 ## PLEASE KEEP THEM IN ALPHABETICAL ORDER
 libosgintrospection_@OSGINTROSPECTION_API_VERSION@_la_include_HEADERS = \
