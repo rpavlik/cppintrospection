@@ -27,6 +27,7 @@ doxyfile.stamp
 html/
 man/
 *.o
+*~
 *.lo
 *.la
 .deps
