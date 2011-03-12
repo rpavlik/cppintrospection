@@ -144,10 +144,10 @@ void WrapperGenerator::write_header(const std::set<std::string> &incls, std::ost
     os << "//\n";
     os << "// " << std::string(75, '*') << "\n\n";
 
-    os << "#include <osgIntrospection/ReflectionMacros>\n";
-    os << "#include <osgIntrospection/TypedMethodInfo>\n";
-    os << "#include <osgIntrospection/StaticMethodInfo>\n";
-    os << "#include <osgIntrospection/Attributes>\n";
+    os << "#include <cppintrospection/ReflectionMacros>\n";
+    os << "#include <cppintrospection/TypedMethodInfo>\n";
+    os << "#include <cppintrospection/StaticMethodInfo>\n";
+    os << "#include <cppintrospection/Attributes>\n";
     os << "\n";
     for (std::set<std::string>::const_iterator i=incls.begin(); i!=incls.end(); ++i)
         os << "#include <" << *i << ">\n";

@@ -522,13 +522,13 @@ void RegistryBuilder::process_public_attrib_section(const XML::Node *node, TypeD
                     // ** pointer-to-reference-member is not supported in GCC 4.1.1
                     // **   fixe in GCC 4.1.2
                     // **   and for other compilator ???
-                    // **   -->> pointer-to-reference-member not supported in osgIntrospection at this time
+                    // **   -->> pointer-to-reference-member not supported in cppintrospection at this time
                     
-                    // ** pointer to array member not yet implemented in osgIntrospection
+                    // ** pointer to array member not yet implemented in cppintrospection
                     // **   argsstring specify if there are a "[nb]" after the variable
                     // **   and so if the variable is an array
 
-                    // ** pointer to const member not yet implemented in osgIntrospection
+                    // ** pointer to const member not yet implemented in cppintrospection
                     // **   
                     std::string type = i->second->get_first_element_content("type");
                     std::string arg  = i->second->get_first_element_content("argsstring");
