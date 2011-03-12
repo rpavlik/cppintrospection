@@ -1,3 +1,29 @@
+cppintrospection
+----------------
+
+The cppintrospection library was a part of the OpenSceneGraph library before
+version 2.9.8. And it is then removed from the kernel and work as an independent
+project. It is initially created and managed by Macro Jez and Robert Osfield,
+and then managed by Wang Rui. It has been renamed to cppintrospection by 
+Mike Wozniewski, Tristan Matthews and Alexandre Quessy in 2011.
+
+cppintrospection provides a reflection mechanism which could do non-intrusive
+callings of properties and methods at runtime. This makes OSG able to work with
+languages other than C/C++.
+
+There are some good examples that using or had used osgIntrospection for own
+purposes.
+osgDotNet: http://www.openscenegraph.org/projects/osgDotNet
+osgEdit: http://osgedit.sourceforge.net/
+osgLua: http://svn.pplux.com/lab/osgLua/
+osgPython: http://mescriva.codemaniacs.com/svn/osgPython/
+...
+
+For more information about OSG and the genwrapper tool which is used to generated
+osgIntrospection wrappers, please visit:
+http://www.openscenegraph.org
+http://www.openscenegraph.org/projects/osg/wiki/GenWrapper
+
 GenWrapper
 ----------
 
@@ -19,10 +45,18 @@ Tested Doxygen version is 1.4.1. GenWrapper may not work with other versions.
 
 REPORTING BUGS
 --------------
-http://github.com/mikewoz/genwrapper/issues
+http://github.com/sat-metalab/cppintrospection
 
 COPYRIGHT
 ---------
-This code is released in the public domain.
 
-Use, distribute, copy, modify, squeeze, trash... Do anything you wish :) 
+  Copyright (C) 2002 Robert Osfield
+  Copyright (C) 2006 Maco Jez
+  Copyright (C) 2006 Wang Rui
+  Copyright (C) 2010 Mike Wozniewski
+  Copyright (C) 2010 Tristan Matthews
+  Copyright (C) 2010 Alexandre Quessy
+  
+  Released under the terms of the OpenSceneGraph Public License, Version 0.0
+  Notes: the OSGPL is based on the LGPL, with the 4 exceptions laid in the wxWindows.
+
