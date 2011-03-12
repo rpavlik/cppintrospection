@@ -11,8 +11,8 @@
  * OpenSceneGraph Public License for more details.
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
-#ifndef OSGINTROSPECTION_TYPE
-#define OSGINTROSPECTION_TYPE
+#ifndef CPPINTROSPECTION_TYPE
+#define CPPINTROSPECTION_TYPE
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Exceptions>
@@ -62,7 +62,7 @@ namespace cppintrospection
     /// It is not possible to modify a Type object once it has been
     /// created, unless you are a class derived from Reflector (which
     /// has firm friendship with this class).
-    class OSGINTROSPECTION_EXPORT Type: public CustomAttributeProvider
+    class CPPINTROSPECTION_EXPORT Type: public CustomAttributeProvider
     {
     public:
         /// Function category specifier for querying constructors and

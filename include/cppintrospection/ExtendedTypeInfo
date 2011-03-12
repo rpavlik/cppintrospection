@@ -11,8 +11,8 @@
  * OpenSceneGraph Public License for more details.
 */
 
-#ifndef OSGINTROSPECTION_EXTENDEDTYPEINFO_
-#define OSGINTROSPECTION_EXTENDEDTYPEINFO_
+#ifndef CPPINTROSPECTION_EXTENDEDTYPEINFO_
+#define CPPINTROSPECTION_EXTENDEDTYPEINFO_
 
 #include <typeinfo>
 #include <string>

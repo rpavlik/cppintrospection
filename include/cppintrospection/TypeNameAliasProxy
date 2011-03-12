@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_TYPENAMEALIASPROXY_
-#define OSGINTROSPECTION_TYPENAMEALIASPROXY_
+#ifndef CPPINTROSPECTION_TYPENAMEALIASPROXY_
+#define CPPINTROSPECTION_TYPENAMEALIASPROXY_
 
 #include <cppintrospection/Type>
 #include <cppintrospection/Reflection>

@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_CUSTOMATTRIBUTE_
-#define OSGINTROSPECTION_CUSTOMATTRIBUTE_
+#ifndef CPPINTROSPECTION_CUSTOMATTRIBUTE_
+#define CPPINTROSPECTION_CUSTOMATTRIBUTE_
 
 namespace cppintrospection
 {

@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_VALUE_
-#define OSGINTROSPECTION_VALUE_
+#ifndef CPPINTROSPECTION_VALUE_
+#define CPPINTROSPECTION_VALUE_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Reflection>
@@ -28,7 +28,7 @@ namespace cppintrospection
 
     class Type;
 
-    class OSGINTROSPECTION_EXPORT Value
+    class CPPINTROSPECTION_EXPORT Value
     {
     public:
         /// Default constructor. Initializes internal structures

@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_CUSTOMATTRIBUTEPROVIDER_
-#define OSGINTROSPECTION_CUSTOMATTRIBUTEPROVIDER_
+#ifndef CPPINTROSPECTION_CUSTOMATTRIBUTEPROVIDER_
+#define CPPINTROSPECTION_CUSTOMATTRIBUTEPROVIDER_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/CustomAttribute>
@@ -40,7 +40,7 @@ namespace cppintrospection
     /// that can be assigned a list of custom attributes. Methods defined in
     /// this class provide the means for adding, retrieving and searching for
     /// attributes.
-    class OSGINTROSPECTION_EXPORT CustomAttributeProvider
+    class CPPINTROSPECTION_EXPORT CustomAttributeProvider
     {
     public:
         /// Returns the const list of custom attributes.

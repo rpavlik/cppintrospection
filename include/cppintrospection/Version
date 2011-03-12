@@ -11,11 +11,10 @@
  * OpenSceneGraph Public License for more details.
 */
 
-#ifndef OSGINTROSPECTION_VERSION
-#define OSGINTROSPECTION_VERSION 1
+#ifndef CPPINTROSPECTION_VERSION
+#define CPPINTROSPECTION_VERSION 1
 
 #include <cppintrospection/Export>
-
 
 extern "C" {
 
@@ -29,18 +28,18 @@ extern "C" {
  * Here is the code to add to your configure.in:
  \verbatim
  #
- # Check for the OpenSceneGraph (OSG) Introspection library
+ # Check for the Cpp Introspection library
  #
  AC_CHECK_LIB(osg, cppintrospectionGetVersion, ,
-    [AC_MSG_ERROR(OpenSceneGraph Introspection library not found. See http://www.openscenegraph.org)],)
+    [AC_MSG_ERROR(C++ Introspection library not found. See http://www.openscenegraph.org)],)
  \endverbatim
 */
-extern OSGINTROSPECTION_EXPORT const char* cppintrospectionGetVersion();
+extern CPPINTROSPECTION_EXPORT const char* cppintrospectionGetVersion();
 
 /**
  * getLibraryName_cppintrospection() returns the library name in human friendly form.
 */
-extern OSGINTROSPECTION_EXPORT const char* cppintrospectionGetLibraryName();
+extern CPPINTROSPECTION_EXPORT const char* cppintrospectionGetLibraryName();
 
 }
 

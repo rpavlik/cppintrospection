@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_READERWRITER_
-#define OSGINTROSPECTION_READERWRITER_
+#ifndef CPPINTROSPECTION_READERWRITER_
+#define CPPINTROSPECTION_READERWRITER_
 
 #include <cppintrospection/Value>
 #include <cppintrospection/Type>

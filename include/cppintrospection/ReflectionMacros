@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_REFLECTIONMACROS_
-#define OSGINTROSPECTION_REFLECTIONMACROS_
+#ifndef CPPINTROSPECTION_REFLECTIONMACROS_
+#define CPPINTROSPECTION_REFLECTIONMACROS_
 
 #include <cppintrospection/Type>
 #include <cppintrospection/Reflector>

@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_CONVERTER_
-#define OSGINTROSPECTION_CONVERTER_
+#ifndef CPPINTROSPECTION_CONVERTER_
+#define CPPINTROSPECTION_CONVERTER_
 
 #include <cppintrospection/Value>
 #include <list>

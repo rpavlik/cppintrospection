@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_COMPARATOR_
-#define OSGINTROSPECTION_COMPARATOR_
+#ifndef CPPINTROSPECTION_COMPARATOR_
+#define CPPINTROSPECTION_COMPARATOR_
 
 
 namespace cppintrospection

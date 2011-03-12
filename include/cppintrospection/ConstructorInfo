@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_CONSTRUCTORINFO_
-#define OSGINTROSPECTION_CONSTRUCTORINFO_
+#ifndef CPPINTROSPECTION_CONSTRUCTORINFO_
+#define CPPINTROSPECTION_CONSTRUCTORINFO_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Type>
@@ -23,7 +23,7 @@
 namespace cppintrospection
 {
 
-    class OSGINTROSPECTION_EXPORT ConstructorInfo: public CustomAttributeProvider
+    class CPPINTROSPECTION_EXPORT ConstructorInfo: public CustomAttributeProvider
     {
     public:
         // Standard constructor.

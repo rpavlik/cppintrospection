@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2006 David Callu
 
-#ifndef OSGINTROSPECTION_PUBLICMEMBERACCESSOR_
-#define OSGINTROSPECTION_PUBLICMEMBERACCESSOR_
+#ifndef CPPINTROSPECTION_PUBLICMEMBERACCESSOR_
+#define CPPINTROSPECTION_PUBLICMEMBERACCESSOR_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Type>

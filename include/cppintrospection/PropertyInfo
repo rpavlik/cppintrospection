@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_PROPERTYINFO_
-#define OSGINTROSPECTION_PROPERTYINFO_
+#ifndef CPPINTROSPECTION_PROPERTYINFO_
+#define CPPINTROSPECTION_PROPERTYINFO_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Type>
@@ -45,7 +45,7 @@ namespace cppintrospection
     /// attributes associated to the PropertyInfo object and passes control 
     /// to them when needed.
     ///
-    class OSGINTROSPECTION_EXPORT PropertyInfo: public CustomAttributeProvider
+    class CPPINTROSPECTION_EXPORT PropertyInfo: public CustomAttributeProvider
     {
     public:
         /// Direct initialization constructor for simple properties.

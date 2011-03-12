@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_STATICMETHODINFO_
-#define OSGINTROSPECTION_STATICMETHODINFO_
+#ifndef CPPINTROSPECTION_STATICMETHODINFO_
+#define CPPINTROSPECTION_STATICMETHODINFO_
 
 #include <cppintrospection/MethodInfo>
 #include <cppintrospection/Reflection>

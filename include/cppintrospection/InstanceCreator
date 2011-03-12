@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_INSTANCECREATOR_
-#define OSGINTROSPECTION_INSTANCECREATOR_
+#ifndef CPPINTROSPECTION_INSTANCECREATOR_
+#define CPPINTROSPECTION_INSTANCECREATOR_
 
 #include <cppintrospection/Value>
 #include <cppintrospection/variant_cast>

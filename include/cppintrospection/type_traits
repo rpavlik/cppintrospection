@@ -11,8 +11,8 @@
  * OpenSceneGraph Public License for more details.
 */
 
-#ifndef OSGINTROSPECTION_TYPE_TRAITS_
-#define OSGINTROSPECTION_TYPE_TRAITS_
+#ifndef CPPINTROSPECTION_TYPE_TRAITS_
+#define CPPINTROSPECTION_TYPE_TRAITS_
 
 
 /// is_reference is a compile-time template predicate to determine if a

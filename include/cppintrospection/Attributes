@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_ATTRIBUTES_
-#define OSGINTROSPECTION_ATTRIBUTES_
+#ifndef CPPINTROSPECTION_ATTRIBUTES_
+#define CPPINTROSPECTION_ATTRIBUTES_
 
 #include <cppintrospection/CustomAttribute>
 #include <cppintrospection/Value>

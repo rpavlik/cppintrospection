@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_TYPEDCONSTRUCTORINFO_
-#define OSGINTROSPECTION_TYPEDCONSTRUCTORINFO_
+#ifndef CPPINTROSPECTION_TYPEDCONSTRUCTORINFO_
+#define CPPINTROSPECTION_TYPEDCONSTRUCTORINFO_
 
 #include <cppintrospection/ConstructorInfo>
 #include <cppintrospection/InstanceCreator>

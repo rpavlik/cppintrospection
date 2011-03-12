@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_CONVERTERPROXY_
-#define OSGINTROSPECTION_CONVERTERPROXY_
+#ifndef CPPINTROSPECTION_CONVERTERPROXY_
+#define CPPINTROSPECTION_CONVERTERPROXY_
 
 #include <cppintrospection/Reflection>
 

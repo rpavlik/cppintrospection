@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_PARAMETERINFO_
-#define OSGINTROSPECTION_PARAMETERINFO_
+#ifndef CPPINTROSPECTION_PARAMETERINFO_
+#define CPPINTROSPECTION_PARAMETERINFO_
 
 #include <cppintrospection/Type>
 #include <cppintrospection/Value>

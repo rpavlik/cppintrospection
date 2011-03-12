@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_VARIANT_CAST_
-#define OSGINTROSPECTION_VARIANT_CAST_
+#ifndef CPPINTROSPECTION_VARIANT_CAST_
+#define CPPINTROSPECTION_VARIANT_CAST_
 
 #include <cppintrospection/Value>
 #include <cppintrospection/ReaderWriter>

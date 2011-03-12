@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_TYPEDMETHODINFO_
-#define OSGINTROSPECTION_TYPEDMETHODINFO_
+#ifndef CPPINTROSPECTION_TYPEDMETHODINFO_
+#define CPPINTROSPECTION_TYPEDMETHODINFO_
 
 #include <cppintrospection/MethodInfo>
 #include <cppintrospection/Reflection>

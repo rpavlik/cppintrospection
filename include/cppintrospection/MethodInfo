@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_METHODINFO_
-#define OSGINTROSPECTION_METHODINFO_
+#ifndef CPPINTROSPECTION_METHODINFO_
+#define CPPINTROSPECTION_METHODINFO_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/CustomAttributeProvider>
@@ -34,7 +34,7 @@ namespace cppintrospection
     /// abstract class, so it must be derived to provide the actual 
     /// implementation of isConst() and invoke(). Instances of this class
     /// can't be modified after their creation.
-    class OSGINTROSPECTION_EXPORT MethodInfo: public CustomAttributeProvider
+    class CPPINTROSPECTION_EXPORT MethodInfo: public CustomAttributeProvider
     {
     public:
         /// Possible virtual states of the function.

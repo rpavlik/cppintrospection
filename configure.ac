@@ -80,6 +80,8 @@ fi
 
 PKG_CHECK_MODULES(OPENTHREADS, openthreads >= 2.4.0, , AC_MSG_ERROR([missing OpenThreads]))
 
+PKG_CHECK_MODULES(OSG, openscenegraph >= 2.8.0, , AC_MSG_ERROR([missing OpenSceneGraph]))
+
 # Mac OS X specific configure options
 #AC_ARG_WITH(osg_framework, [ --with-osg-framework=PREFIX Specify the prefix path to osg frameworks [default=standard framework paths]])
 #AC_CHECK_FRAMEWORK(osg, [#include <osg/Version>])

@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_EXCEPTIONS_
-#define OSGINTROSPECTION_EXCEPTIONS_
+#ifndef CPPINTROSPECTION_EXCEPTIONS_
+#define CPPINTROSPECTION_EXCEPTIONS_
 
 #include <string>
 #include <cppintrospection/ExtendedTypeInfo>

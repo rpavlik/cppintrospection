@@ -12,8 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#ifndef OSGINTROSPECTION_REFLECTION_
-#define OSGINTROSPECTION_REFLECTION_
+#ifndef CPPINTROSPECTION_REFLECTION_
+#define CPPINTROSPECTION_REFLECTION_
 
 #include <cppintrospection/Export>
 #include <cppintrospection/ExtendedTypeInfo>
@@ -51,7 +51,7 @@ namespace cppintrospection
 
     /// This class provides basic reflection services such as registration
     /// of new types and queries on the global type map.
-    class OSGINTROSPECTION_EXPORT Reflection
+    class CPPINTROSPECTION_EXPORT Reflection
     {
     public:
         /// Returns the Type object associated to the given
