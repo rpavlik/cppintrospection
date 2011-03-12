@@ -14,7 +14,7 @@
 #undef ERROR
 #endif
 
-const std::string RELEASE_DATE = "Fri, 11 Jun 2010";
+const std::string RELEASE_DATE = __DATE__;
 
 void replace_string(std::string &s, const std::string &from, const std::string &to)
 {
