@@ -1,5 +1,5 @@
 AM_CXXFLAGS = -I$(top_srcdir)/include
-LDADD = $(top_builddir)/src/osgIntrospection/libosgintrospection-@OSGINTROSPECTION_API_VERSION@.la
+LDADD = $(top_builddir)/src/cppintrospection/libcppintrospection-@CPPINTROSPECTION_API_VERSION@.la
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile

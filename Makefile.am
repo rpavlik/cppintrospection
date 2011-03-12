@@ -19,7 +19,7 @@ genwrapper.1: $(top_srcdir)/src/genwrapper/main.cpp $(top_srcdir)/man-genwrapper
 
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = osgintrospection-@OSGINTROSPECTION_API_VERSION@.pc
+pkgconfig_DATA = cppintrospection-@CPPINTROSPECTION_API_VERSION@.pc
 
 dist_noinst_SCRIPTS = autogen.sh
 

@@ -838,12 +838,12 @@ namespace cppintrospection
         const cppintrospection::Type& cst = typeof(const T*);
         const cppintrospection::Type& dt = typeof(void*);
         const cppintrospection::Type& cdt = typeof(const void*);
-        cppintrospection::ConverterProxy cp1(st, dt, new osgIntrospection::ReinterpretConverter<T* , void*>);
-        cppintrospection::ConverterProxy cp2(cst, cdt, new osgIntrospection::ReinterpretConverter<const T* , const void*>);
-        cppintrospection::ConverterProxy cp1c(st, cdt, new osgIntrospection::ReinterpretConverter<T* , const void*>);
-        cppintrospection::ConverterProxy cp3(dt, st, new osgIntrospection::ReinterpretConverter<void*, T* >);
-        cppintrospection::ConverterProxy cp4(cdt, cst, new osgIntrospection::ReinterpretConverter<const void*, const T* >);
-        cppintrospection::ConverterProxy cp3c(dt, cst, new osgIntrospection::ReinterpretConverter<void*, const T* >);
+        cppintrospection::ConverterProxy cp1(st, dt, new cppintrospection::ReinterpretConverter<T* , void*>);
+        cppintrospection::ConverterProxy cp2(cst, cdt, new cppintrospection::ReinterpretConverter<const T* , const void*>);
+        cppintrospection::ConverterProxy cp1c(st, cdt, new cppintrospection::ReinterpretConverter<T* , const void*>);
+        cppintrospection::ConverterProxy cp3(dt, st, new cppintrospection::ReinterpretConverter<void*, T* >);
+        cppintrospection::ConverterProxy cp4(cdt, cst, new cppintrospection::ReinterpretConverter<const void*, const T* >);
+        cppintrospection::ConverterProxy cp3c(dt, cst, new cppintrospection::ReinterpretConverter<void*, const T* >);
     }
 
     template<>

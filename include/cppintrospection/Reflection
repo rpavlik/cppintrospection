@@ -27,7 +27,7 @@
 /// returning the Type object associated to the type of the given
 /// expression.
 #define typeof(type)  cppintrospection::Reflection::getType(extended_typeid< type >())
-#define typeofvalue(val)  cppintrospection::Reflection::getType(osgIntrospection::ExtendedTypeInfo(typeid(val), false, false))
+#define typeofvalue(val)  cppintrospection::Reflection::getType(cppintrospection::ExtendedTypeInfo(typeid(val), false, false))
 
 namespace cppintrospection
 {
