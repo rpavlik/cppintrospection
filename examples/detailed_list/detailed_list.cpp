@@ -1,4 +1,4 @@
-/* osgIntrospection example, detailed_list.
+/* cppintrospection example, detailed_list.
 *
 *  Permission is hereby granted, free of charge, to any person obtaining a copy
 *  of this software and associated documentation files (the "Software"), to deal
@@ -19,10 +19,10 @@
 
 #include <osg/ref_ptr>
 
-#include <osgIntrospection/Reflection>
-#include <osgIntrospection/Type>
-#include <osgIntrospection/MethodInfo>
-#include <osgIntrospection/PropertyInfo>
+#include <cppintrospection/Reflection>
+#include <cppintrospection/Type>
+#include <cppintrospection/MethodInfo>
+#include <cppintrospection/PropertyInfo>
 
 #include <osgDB/DynamicLibrary>
 #include <osg/Object>
@@ -30,7 +30,7 @@
 #include <iostream>
 #include <algorithm>
 
-using namespace osgIntrospection;
+using namespace cppintrospection;
 
 // borrowed from osgDB...
 std::string createLibraryNameForWrapper(const std::string& ext)
@@ -286,7 +286,7 @@ int main()
     {
         print_types();
     }
-    catch(const osgIntrospection::Exception &e)
+    catch(const cppintrospection::Exception &e)
     {
         std::cerr << e.what() << std::endl;
     }

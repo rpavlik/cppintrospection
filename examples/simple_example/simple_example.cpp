@@ -1,4 +1,4 @@
-/* osgIntrospection example, simple_example.
+/* cppintrospection example, simple_example.
 *
 *  Permission is hereby granted, free of charge, to any person obtaining a copy
 *  of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,13 @@
 
 #include <osg/ref_ptr>
 #include <osgDB/DynamicLibrary>
-#include <osgIntrospection/Reflection>
-#include <osgIntrospection/Type>
-#include <osgIntrospection/MethodInfo>
-#include <osgIntrospection/PropertyInfo>
+#include <cppintrospection/Reflection>
+#include <cppintrospection/Type>
+#include <cppintrospection/MethodInfo>
+#include <cppintrospection/PropertyInfo>
 #include <iostream>
 
-using namespace osgIntrospection;
+using namespace cppintrospection;
 
 // borrowed from osgDB...
 std::string createLibraryNameForWrapper(const std::string& ext)
@@ -155,7 +155,7 @@ int main( int argc, char** argv )
         const MethodInfo* run_method = findMethod(viewer_type, "run");
         if ( run_method ) run_method->invoke( viewer );
     }
-    catch( const osgIntrospection::Exception &e )
+    catch( const cppintrospection::Exception &e )
     {
         std::cerr << e.what() << std::endl;
     }
