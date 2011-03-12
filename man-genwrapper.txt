@@ -2,9 +2,11 @@
 genwrapper -d path_to_osg [doxy_dir] genwrapper [-c config_file] [-v level] [-p] [-m] [-l]
 
 [DESCRIPTION]
-Maco Jez's genwrapper is a utiltiy program that reads C++ header files and then automatically generates osgWrapper code from to use alongside osgIntrospection. 
+cppintrospection reads C++ header files to generate C++ source code of wrapper to allow script-like usage
 
-GenWrapper  was created as an 'ad-hoc' tool to support the development of osgIntrospection and it was never intended to be used with anything other than OSG source files, nor it was designed to meet requirements other than the author's ones. GenWrapper was tested on the OSG source tree ONLY and it's not known to work with anything else. If you want to use GenWrapper  on your own application's source tree, try to follow OSG coding conventions and directory layout in order to minimize the risk of failure. GENWRAPPER MAY OVERWRITE AND DESTROY YOUR FILES, USE AT YOUR OWN RISK. ALWAYS MAKE BACKUPS!!! 
+Maco Jez's genwrapper is a utiltiy program that reads C++ header files and then automatically generates osgWrapper code from to use alongside osgIntrospection. (cppintrospection)
+
+GenWrapper was created as an 'ad-hoc' tool to support the development of osgIntrospection and it was never intended to be used with anything other than OSG source files, nor it was designed to meet requirements other than the author's ones. GenWrapper was tested on the OSG source tree ONLY and it's not known to work with anything else. If you want to use GenWrapper on your own application's source tree, try to follow OSG coding conventions and directory layout in order to minimize the risk of failure. GENWRAPPER MAY OVERWRITE AND DESTROY YOUR FILES, USE AT YOUR OWN RISK. ALWAYS MAKE BACKUPS!!! 
 
 Wrappers are generated from a two-phases process. The first phase requires an XML description of source files to be created with Doxygen (GenWrapper can build a Doxyfile for you). In the second phase GenWrapper takes the XML input and generates C++ introspection wrappers and optionally GNU makefiles and VS6 project files. 
 
@@ -20,12 +22,18 @@ Tested Doxygen version is 1.4.1. GenWrapper may not work with other versions.
 2010 - Updated by Mike Wozniewski, Tristan Matthews and Alexandre Quessy
 
 [REPORTING BUGS]
-http://github.com/mikewoz/genwrapper/issues
+http://github.com/sat-metalab/cppintrospection
 
 [COPYRIGHT]
-This code is released in the public domain.
+Copyright (C) 2002 Robert Osfield
+Copyright (C) 2006 Maco Jez
+Copyright (C) 2006 Wang Rui
+Copyright (C) 2010 Mike Wozniewski
+Copyright (C) 2010 Tristan Matthews
+Copyright (C) 2010 Alexandre Quessy
 
-Use, distribute, copy, modify, squeeze, trash... Do anything you wish :) 
+Released under the terms of the OpenSceneGraph Public License, Version 0.0
+Notes: the OSGPL is based on the LGPL, with the 4 exceptions laid in the wxWindows.
 
 [SEE ALSO]
 osgviewer (1)
