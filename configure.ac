@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(osgintrospection, [2.11.1], [http://github.com/sat-metalab/osgintrospection/issues], [osgintrospection], [http://github.com/sat-metalab/osginstrospection])
+AC_INIT(cppintrospection, [2.11.1], [http://github.com/sat-metalab/cppintrospection/issues], [cppintrospection], [http://github.com/sat-metalab/osginstrospection])
 #[http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG introspection and genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
@@ -21,10 +21,10 @@ AC_CANONICAL_HOST # fills $host variable
 #  * current: Increment when the interface changes. (and set revision to 0)
 #  * revision: Increment when the implementation changes, but not the interface.
 #  * age: Backward-compatible with how many interface numbers.
-AC_SUBST([OSGINTROSPECTION_SO_VERSION], [0:0:0])
+AC_SUBST([CPPINTROSPECTION_SO_VERSION], [0:0:0])
 
 # The version of the API. Should be major.minor and not change until not backward-compatible
-AC_SUBST([OSGINTROSPECTION_API_VERSION], [2.11])
+AC_SUBST([CPPINTROSPECTION_API_VERSION], [2.11])
 
 # Checks for programs.
 AC_PROG_CXX
@@ -78,19 +78,6 @@ fi
 
 #TODO: check for boost::spirit
 
-# Check for OpenSceneGraph:
-#PKG_CHECK_MODULES(OpenSceneGraph, openscenegraph >= 2.8.0, , AC_MSG_ERROR([missing OpenSceneGraph]))
-# AC_CHECK_LIB(osg, osgGetVersion, , AC_MSG_ERROR([missing OpenSceneGraph]),)
-
-# and osgIntrospection:
-# AC_CHECK_LIB(osgIntrospection, osgIntrospectionGetVersion, OSGINTROSPECTION_LIB="-losgIntrospection", AC_MSG_ERROR([missing OpenSceneGraph Introspection library]),)
-# AC_SUBST([OSGINTROSPECTION_LIB])
-
-# another way to check for OSG libs?:
-#AC_CHECK_LIB(osg,osgGetVersion)
-
-# AC_CHECK_LIB(OpenThreads,OpenThreadsGetVersion)
-
 PKG_CHECK_MODULES(OPENTHREADS, openthreads >= 2.4.0, , AC_MSG_ERROR([missing OpenThreads]))
 
 # Mac OS X specific configure options
@@ -131,12 +118,12 @@ CXXFLAGS+=" -Wfatal-errors"
 
 AC_CONFIG_FILES([
         Makefile
-        osgintrospection.pc 
+        cppintrospection.pc 
         src/Makefile
         doxyfile 
         src/genwrapper/Makefile
-        src/osgIntrospection/Makefile
-        osgintrospection-${OSGINTROSPECTION_API_VERSION}.pc:osgintrospection.pc.in
+        src/cppintrospection/Makefile
+        cppintrospection-${CPPINTROSPECTION_API_VERSION}.pc:cppintrospection.pc.in
     ])
 
 AC_OUTPUT

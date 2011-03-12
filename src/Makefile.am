@@ -1,1 +1,1 @@
-SUBDIRS = osgIntrospection genwrapper
+SUBDIRS = cppintrospection genwrapper

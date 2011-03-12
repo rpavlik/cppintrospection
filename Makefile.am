@@ -15,7 +15,7 @@ common_mandeps = $(top_srcdir)/configure.ac
 # binary when any source file changes, only the main one.
 # Use -o so that the `missing' program can infer the output file.
 genwrapper.1: $(top_srcdir)/src/genwrapper/main.cpp $(top_srcdir)/man-genwrapper.txt
-	$(HELP2MAN) --include=man-genwrapper.txt --name="OpenSceneGraph Introspection Wrapper Generator" --no-info $(top_builddir)/src/genwrapper/genwrapper -o $@
+	$(HELP2MAN) --include=man-genwrapper.txt --name="C++ Introspection Wrapper Generator" --no-info $(top_builddir)/src/genwrapper/genwrapper -o $@
 
 
 pkgconfigdir = $(libdir)/pkgconfig
