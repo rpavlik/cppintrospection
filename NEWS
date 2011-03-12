@@ -1,2 +1,17 @@
 Written by Maco Jez
 Updated by Mike Wozniewski, Tristan Matthews and Alexandre Quessy
+
+2011-0?-?? cppintrospection 2.11.2
+----------------------------------
+
+This release is a developer snapshot in the 2.11 unstable series.
+
+This version contains new features and bug fixes.
+
+New features:
+    * Renamed from osgIntrospection to cppintrospection
+    * Packaged with the GNU Autotools
+
+Bug fixes: 
+    * Added a version suffix to the pkg-config name
+
