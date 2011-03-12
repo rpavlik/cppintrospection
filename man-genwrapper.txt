@@ -25,15 +25,15 @@ Tested Doxygen version is 1.4.1. GenWrapper may not work with other versions.
 http://github.com/sat-metalab/cppintrospection
 
 [COPYRIGHT]
-Copyright (C) 2002 Robert Osfield
-Copyright (C) 2006 Maco Jez
-Copyright (C) 2006 Wang Rui
-Copyright (C) 2010 Mike Wozniewski
-Copyright (C) 2010 Tristan Matthews
-Copyright (C) 2010 Alexandre Quessy
+(C) 2002 Robert Osfield
+(C) 2006 Maco Jez
+(C) 2006 Wang Rui
+(C) 2010 Mike Wozniewski
+(C) 2010 Tristan Matthews
+(C) 2010 Alexandre Quessy
 
-Released under the terms of the OpenSceneGraph Public License, Version 0.0
-Notes: the OSGPL is based on the LGPL, with the 4 exceptions laid in the wxWindows.
+Released under the terms of the OpenSceneGraph Public License, Version 0.0. 
+The OSGPL is based on the LGPL, with the 4 exceptions laid in the wxWindows.
 
 [SEE ALSO]
 osgviewer (1)
