@@ -1,1 +1,4 @@
-update examples, since they use the osgwrapper we removed from here.
+ * update examples, since they use the osgwrapper we removed from here.
+ * Add CMakeList.txt files
+ * merge with upstream again
+ * add boost requirements to private libs in pkg-config file
