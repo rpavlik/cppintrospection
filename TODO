@@ -3,3 +3,4 @@
  * merge with upstream again
  * add boost requirements to private libs in pkg-config file
  * make sure we check for help2man
+ * any method that can throw an exception should specify its throws
