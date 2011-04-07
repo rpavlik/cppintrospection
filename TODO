@@ -1,6 +1,4 @@
  * update examples, since they use the osgwrapper we removed from here.
- * Add CMakeList.txt files
- * merge with upstream again
  * add boost requirements to private libs in pkg-config file
- * make sure we check for help2man
  * any method that can throw an exception should specify its throws
+ * Add CMakeList.txt files from the original osgIntrospection project so that it still works.
