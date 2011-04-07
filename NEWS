@@ -6,7 +6,9 @@ This release is a developer snapshot in the 2.11 unstable series.
 This version contains bug fixes.
 
 Bug fixes: 
-    * 
+    * do not build man pages
+    * using glibtool on OSX
+    * lowered required of openthreads
 
 
 2011-03-12 cppintrospection 2.11.4
