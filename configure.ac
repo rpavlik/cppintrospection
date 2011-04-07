@@ -100,6 +100,7 @@ fi
 
 # Special cases
 case "$host" in *-darwin* | *-macos10*)
+  LIBTOOL="glibtool"
   if test -d /opt/local ; then
     CPPFLAGS="$CPPFLAGS -I/opt/local/include"
     LDFLAGS="$LDFLAGS -L/opt/local/lib"
