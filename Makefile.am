@@ -25,8 +25,8 @@ dist_noinst_SCRIPTS = autogen.sh
 
 # man pages:
 if HAVE_DOXYGEN
-dist_man_MANS = $(top_srcdir)/man/man3/*.3
-$(top_srcdir)/man/man3/*.3: doxyfile.stamp
+# dist_man_MANS = $(top_srcdir)/man/man3/*.3
+# $(top_srcdir)/man/man3/*.3: doxyfile.stamp
 
 doxyfile.stamp:
 	$(DOXYGEN) doxyfile
@@ -36,7 +36,7 @@ CLEANFILES = doxyfile.stamp
 
 all-local: doxyfile.stamp
 clean-local:
-	rm -rf $(top_builddir)/man
 	rm -rf html
+# 	rm -rf $(top_builddir)/man
 endif 
 
