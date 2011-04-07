@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(cppintrospection, [2.11.6], [http://github.com/sat-metalab/cppintrospection/issues], [cppintrospection], [http://github.com/sat-metalab/cppinstrospection])
+AC_INIT(cppintrospection, [2.11.7], [http://github.com/sat-metalab/cppintrospection/issues], [cppintrospection], [http://github.com/sat-metalab/cppinstrospection])
 #[http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG introspection and genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
