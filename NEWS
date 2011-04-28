@@ -1,11 +1,14 @@
-2011-??-?? cppintrospection 2.11.8
+2011-04-28 cppintrospection 3.0.0
 ----------------------------------
 
-This release is a developer snapshot in the 2.11 unstable series.
+This release is a stable release in the 3.0 stable series.
 
-This version contains bug fixes.
+This version contains no bug fix, nor new feature.
 
 Bug fixes: 
+    * (none)
+
+New features:
     * (none)
 
 

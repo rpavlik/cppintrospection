@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT(cppintrospection, [2.11.7], [http://github.com/sat-metalab/cppintrospection/issues], [cppintrospection], [http://github.com/sat-metalab/cppinstrospection])
+AC_INIT(cppintrospection, [3.0.0], [http://github.com/sat-metalab/cppintrospection/issues], [cppintrospection], [http://github.com/sat-metalab/cppinstrospection])
 #[http://www.openscenegraph.org/projects/osg/wiki/GenWrapper])
 AC_MSG_NOTICE([Configuring OSG introspection and genwrapper])
 AM_INIT_AUTOMAKE([subdir-objects -Wno-portability])
@@ -24,7 +24,7 @@ AC_CANONICAL_HOST # fills $host variable
 AC_SUBST([CPPINTROSPECTION_SO_VERSION], [0:0:0])
 
 # The version of the API. Should be major.minor and not change until not backward-compatible
-AC_SUBST([CPPINTROSPECTION_API_VERSION], [2.11])
+AC_SUBST([CPPINTROSPECTION_API_VERSION], [3.0])
 
 # Checks for programs.
 AC_PROG_CXX
