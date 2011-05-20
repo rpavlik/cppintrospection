@@ -42,6 +42,10 @@ GenWrapper  was created as an 'ad-hoc' tool to support the development of osgInt
 
 Wrappers are generated from a two-phases process. The first phase requires an XML description of source files to be created with Doxygen (GenWrapper can build a Doxyfile for you). In the second phase GenWrapper takes the XML input and generates C++ introspection wrappers and optionally GNU makefiles and VS6 project files. 
 
+RECENT HISTORY
+--------------
+The osgIntrospection project was maintained in a Subversion repository on http://www.openscenegraph.org/svn/osg/osgIntrospection/trunk and has been forked and renamed to cppintrospection by Alexandre Quessy, Mike Wozniewski and Tristan Matthews in 2011. They packaged it using the GNU Autotools, but left the CMake files there too, as an alternative build system.
+
 NOTES
 -----
 GenWrapper only overwrites files whose content has actually changed. Wrapper files are written into output_dir/src/osgWrappers. VS6 project files are written into output_dir/VisualStudio/osgWrappers.
