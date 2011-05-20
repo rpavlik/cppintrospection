@@ -48,6 +48,7 @@ The osgIntrospection project was maintained in a Subversion repository on http:/
 
 NOTES
 -----
+
 GenWrapper only overwrites files whose content has actually changed. Wrapper files are written into output_dir/src/osgWrappers. VS6 project files are written into output_dir/VisualStudio/osgWrappers.
 Change lists (option -l) are created as three text files for each target directory. Such files are named "removed.gw" (list of removed files), "added.gw" (list of added files) and "modified.gw" (list of modified files).
 
@@ -58,7 +59,15 @@ Tested Doxygen version is 1.4.1. GenWrapper may not work with other versions.
 
 REPORTING BUGS
 --------------
+
 http://github.com/sat-metalab/cppintrospection
+
+Note that the cppintrospection project is a friendly fork of osgIntrospection, which can be found at the following URL:
+http://www.openscenegraph.org/svn/osg/osgIntrospection/
+
+Please post on the OpenSceneGraph osg-users mailing list if you want to discuss about cppintrospection.
+http://www.openscenegraph.org/projects/osg/wiki/MailingLists
+
 
 COPYRIGHT
 ---------

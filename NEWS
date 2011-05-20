@@ -1,4 +1,32 @@
-2011-0?-?? cppintrospection 2.11.6
+2011-??-?? cppintrospection 3.0.2
+----------------------------------
+
+This release is a stable release in the 3.0 stable series.
+
+This version contains no bug fix, nor new feature.
+
+Bug fixes: 
+    * (none)
+
+New features:
+    * (none)
+
+
+2011-04-28 cppintrospection 3.0.0
+----------------------------------
+
+This release is a stable release in the 3.0 stable series.
+
+This version contains no bug fix, nor new feature.
+
+Bug fixes: 
+    * (none)
+
+New features:
+    * (none)
+
+
+2011-04-07 cppintrospection 2.11.6
 ----------------------------------
 
 This release is a developer snapshot in the 2.11 unstable series.
@@ -6,7 +34,9 @@ This release is a developer snapshot in the 2.11 unstable series.
 This version contains bug fixes.
 
 Bug fixes: 
-    * 
+    * do not build man pages
+    * using glibtool on OSX
+    * lowered required version of openthreads
 
 
 2011-03-12 cppintrospection 2.11.4
