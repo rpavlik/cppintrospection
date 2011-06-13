@@ -18,5 +18,10 @@ find_package(Doxygen)
 find_package(OpenGL)
 find_package(OpenSceneGraph REQUIRED)
 
+if(NOT OSG_SOURCE_DIR)
+	get_filename_component(OSG_SOURCE_DIR "${OSG_INCLUDE_DIR}/.." ABSOLUTE)
+	set(OSG_SOURCE_DIR "${OSG_SOURCE_DIR}" CACHE PATH "Path to the OpenSceneGraph source directory.")
+endif()
+
 add_definitions(-DCPPINTROSPECTION_CMAKE)
 add_subdirectory(src)
