@@ -21,7 +21,6 @@ missing
 src/.deps/
 src/Makefile
 src/Makefile.in
-src/genwrapper
 doxyfile
 doxyfile.stamp
 html/
