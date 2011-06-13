@@ -42,6 +42,7 @@ set(HEADERS
 	../../include/cppintrospection/type_traits
 	../../include/cppintrospection/variant_cast)
 
+add_definitions(-DCPPINTROSPECTION_LIBRARY)
 include_directories(../../include ${OPENSCENEGRAPH_INCLUDE_DIRS})
-add_library(cppintrospection ${SOURCES} ${HEADERS})
+add_library(cppintrospection SHARED ${SOURCES} ${HEADERS})
 target_link_libraries(cppintrospection ${OPENSCENEGRAPH_LIBRARIES})
