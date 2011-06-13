@@ -13,9 +13,8 @@ set(CPACK_PACKAGE_VERSION_PATCH "2")
 set(CPACK_PACKAGE_VERSION
 	"${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 
-find_package(Boost COMPONENTS filesystem regex thread REQUIRED)
+
 find_package(Doxygen)
-find_package(LibXml2 REQUIRED)
 find_package(OpenGL)
 find_package(OpenSceneGraph REQUIRED)
 
