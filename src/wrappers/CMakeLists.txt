@@ -28,6 +28,8 @@ function(add_wrapper _module)
 	add_dependencies(osgwrapper_${_module} generate_wrappers)
 
 	set_property(DIRECTORY APPEND PROPERTY GENWRAPPER_OUTPUTS ${SOURCES})
+
+	set_property(TARGET osgwrapper_${_module} PROPERTY PREFIX "")
 endfunction()
 
 function(generate_wrapper_sources)
