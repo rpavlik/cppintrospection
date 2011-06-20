@@ -12,12 +12,6 @@ string(REGEX MATCHALL "\"([^\"]*)\"" fns "${IGNORED}")
 string(REPLACE "\"" "" IGNORED_FILES "${fns}")
 message(STATUS "Ignored files: ${IGNORED_FILES}")
 
-list(APPEND IGNORED_FILES
-	osg/Export
-	osg/Version
-	osg/ref_ptr)
-
-
 function(add_wrapper _module)
 	set(LIBRARIES ${ARGN})
 	file(GLOB_RECURSE infiles RELATIVE "${HEADER_DIR}" "${HEADER_DIR}/${_module}/*")
