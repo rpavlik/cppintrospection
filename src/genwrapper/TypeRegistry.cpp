@@ -108,6 +108,7 @@ void TypeRegistry::registerTypeDescription(const TypeDesc &td)
         return;
 
     tfmap_[td.declaring_file_name].push_back(td);
+    filesWithTypes_.insert(td.declaring_file_name);
     registerSymbol(td.type_name);
     for (StringList::const_iterator i=td.enum_labels.begin(); i!=td.enum_labels.end(); ++i)
         registerSymbol(*i);
@@ -116,6 +117,21 @@ void TypeRegistry::registerTemplate(const TypeDesc &td)
 {
     templates_.push_back(td);
     registerSymbol(td.type_name);
+}
+
+std::vector<std::string> TypeRegistry::getFilesWithoutTypes() const
+{
+	// Allocate result vector
+	std::vector<std::string> result(allFiles_.size());
+
+	// Perform set difference
+	std::vector<std::string>::iterator last = std::set_difference(allFiles_.begin(), allFiles_.end(),
+		filesWithTypes_.begin(), filesWithTypes_.end(),
+		result.begin());
+
+	// Only keep the assigned elements
+	result.resize(last - result.begin());
+	return result;
 }
 
 const TypeDesc *TypeRegistry::findTypeDescription(const std::string &type_name) const

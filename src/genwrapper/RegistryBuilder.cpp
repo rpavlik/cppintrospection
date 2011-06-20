@@ -55,7 +55,8 @@ void RegistryBuilder::process_compound(const std::string &id, const XML::Node *n
     std::string kind = node->get_attribute("kind");
     if (kind != "struct" &&
         kind != "class" &&
-        kind != "namespace")
+        kind != "namespace" &&
+        kind != "file")
         return;
 
     TypeDesc desc;
@@ -111,6 +112,8 @@ void RegistryBuilder::process_compound(const std::string &id, const XML::Node *n
         sreg = process_class(node, desc, tparamnode != 0);
     if (kind == "namespace")
         sreg = process_namespace(node, desc, tparamnode != 0);
+    if (kind == "file")
+		reg_.registerFilename(desc.declaring_file_name);
 
     if (sreg)
     {

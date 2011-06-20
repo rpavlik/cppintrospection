@@ -24,6 +24,7 @@ public:
 
     inline void registerSymbol(const std::string &s);
     void registerTypeDescription(const TypeDesc &td);
+    void registerFilename(const std::string &s);
 
     void registerTemplate(const TypeDesc &td);
     const TypeDesc *findTemplate(const std::string &type_name) const;
@@ -31,6 +32,8 @@ public:
     const TypeDesc *findTypeDescription(const std::string &type_name) const;
     std::string getDeclaringFileName(const std::string &type_name) const;
     inline bool symbolExists(const std::string &s) const;
+
+    std::vector<std::string> getFilesWithoutTypes() const;
 
     inline const_iterator begin() const;
     inline const_iterator end() const;
@@ -67,6 +70,9 @@ private:
     typedef std::set<std::string> StringSet;
     typedef std::map<std::string, StringSet> StringSetMap;
     StringSetMap temp_inst_;
+
+    StringSet allFiles_;
+    StringSet filesWithTypes_;
 
     const Configuration &cfg_;
 };
@@ -112,6 +118,11 @@ inline void TypeRegistry::registerSymbol(const std::string &s)
 inline bool TypeRegistry::symbolExists(const std::string &s) const
 {
     return symbols_.find(s) != symbols_.end();
+}
+
+inline void TypeRegistry::registerFilename(const std::string &s)
+{
+	allFiles_.insert(s);
 }
 
 #endif
