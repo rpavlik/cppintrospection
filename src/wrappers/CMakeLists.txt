@@ -12,6 +12,12 @@ string(REGEX MATCHALL "\"([^\"]*)\"" fns "${IGNORED}")
 string(REPLACE "\"" "" IGNORED_FILES "${fns}")
 message(STATUS "Ignored files: ${IGNORED_FILES}")
 
+list(APPEND IGNORED_FILES
+	osg/Export
+	osg/Version
+	osg/ref_ptr)
+
+
 function(add_wrapper _module)
 	set(LIBRARIES ${ARGN})
 	file(GLOB_RECURSE infiles RELATIVE "${HEADER_DIR}" "${HEADER_DIR}/${_module}/*")
@@ -24,16 +30,20 @@ function(add_wrapper _module)
 	endforeach()
 	add_library(osgwrapper_${_module} MODULE ${SOURCES})
 	target_link_libraries(osgwrapper_${_module} ${LIBRARIES})
+	add_dependencies(osgwrapper_${_module} generate_wrappers)
 endfunction()
 
+
+include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
 add_wrapper(osg ${OSG_LIBRARIES})
 
 configure_file(Doxyfile.in "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
-add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/xml"
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/xml" "${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml"
 	COMMAND ${DOXYGEN_EXECUTABLE} "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile"
 	COMMENT "Parsing header files with Doxygen"
+	DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile"
 	VERBATIM)
 add_custom_target(generate_wrappers
 	COMMAND genwrapper -c "${GENWRAPPER_CONF}" "${CMAKE_CURRENT_BINARY_DIR}" "${GENERATION_DIR}"
-	DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/xml" "${GENWRAPPER_CONF}")
+	DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/xml" "${CMAKE_CURRENT_BINARY_DIR}/xml/index.xml" "${GENWRAPPER_CONF}")
 
