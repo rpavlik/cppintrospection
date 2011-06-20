@@ -43,6 +43,82 @@ WrapperGenerator::WrapperGenerator(const TypeRegistry &reg, const std::string &o
 {
 }
 
+void WrapperGenerator::generateOutput(const std::string & file,
+		TypeRegistry::TypeList const & tl,
+		FileMap & file_map,
+		FileMap & created_files,
+		FileMap & modified_files)
+{
+	std::string filename = dst_dir_ + PathNameUtils::replaceExtension(file, "cpp");
+
+	if (cfg_.isFileSuppressed(file))
+	{
+		Notify::info("suppressing output file `" + filename + "' on user request");
+		return;
+	}
+
+	std::ostringstream output;
+
+	file_map[PathNameUtils::getDirectoryName(file, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
+
+	std::set<std::string> incls;
+	incls.insert(file);
+	
+	for (TypeRegistry::TypeList::const_iterator j=tl.begin(); j!=tl.end(); ++j)
+		std::copy(j->needed_headers.begin(), j->needed_headers.end(), std::inserter(incls, incls.end()));
+	
+	write_header(incls, output);
+
+	// get custom options
+	const FileOptions *fo = cfg_.getFileOptions(file);
+
+	// replace content if requested
+	if (fo && fo->entirely_replaced)
+	{
+		Notify::info("replacing content of file `" + filename + "' on user request");
+		output << fo->replace_text << "\n";
+	} else {
+		// write user-defined header
+		
+		if (fo) write_user_header(*fo, output);
+
+		for (TypeRegistry::TypeList::const_iterator j=tl.begin(); j!=tl.end(); ++j)
+		{
+			if (cfg_.isReflectorSuppressed(j->type_name))
+			{
+				Notify::info("suppressing reflector for type `" + j->type_name + "' on user request");
+				continue;
+			}
+			write_reflector(*j, output);
+		}
+
+		// write user-defined footer
+		if (fo) write_user_footer(*fo, output);
+	}
+	int c = compare_text_files(filename, output.str());
+	if (c == 0)
+	{
+		Notify::info("no changes in file `" + filename + "'");
+	}
+	else
+	{
+		std::ofstream ofs;
+		Notify::info("creating file `" + filename + "'");        
+		if (!FileSystemUtils::createFile(filename, ofs))
+		{
+			Notify::warn("could not create file `" + filename + "'");
+		}
+		else
+		{
+			if (c == -2)
+				created_files[PathNameUtils::getDirectoryName(file, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
+			else
+				modified_files[PathNameUtils::getDirectoryName(file, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
+			ofs << output.str();
+		}
+	}
+	
+}
 void WrapperGenerator::generate()
 {
     stats_ = Statistics();
@@ -53,76 +129,7 @@ void WrapperGenerator::generate()
 
     for (TypeRegistry::const_iterator i=reg_.begin(); i!=reg_.end(); ++i)
     {
-        std::string filename = dst_dir_ + PathNameUtils::replaceExtension(i->first, "cpp");
-
-        if (cfg_.isFileSuppressed(i->first))
-        {
-            Notify::info("suppressing output file `" + filename + "' on user request");
-            continue;
-        }
-
-        std::ostringstream output;
-
-        file_map[PathNameUtils::getDirectoryName(i->first, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
-
-        std::set<std::string> incls;
-        incls.insert(i->first);
-        
-        for (TypeRegistry::TypeList::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
-            std::copy(j->needed_headers.begin(), j->needed_headers.end(), std::inserter(incls, incls.end()));
-        
-        write_header(incls, output);
-
-        // get custom options
-        const FileOptions *fo = cfg_.getFileOptions(i->first);
-
-        // replace content if requested
-        if (fo && fo->entirely_replaced)
-        {
-            Notify::info("replacing content of file `" + filename + "' on user request");
-            output << fo->replace_text << "\n";
-            continue;
-        }
-
-        // write user-defined header
-        
-        if (fo) write_user_header(*fo, output);
-
-        for (TypeRegistry::TypeList::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
-        {
-            if (cfg_.isReflectorSuppressed(j->type_name))
-            {
-                Notify::info("suppressing reflector for type `" + j->type_name + "' on user request");
-                continue;
-            }
-            write_reflector(*j, output);
-        }
-
-        // write user-defined footer
-        if (fo) write_user_footer(*fo, output);
-
-        int c = compare_text_files(filename, output.str());
-        if (c == 0)
-        {
-            Notify::info("no changes in file `" + filename + "'");
-        }
-        else
-        {
-            std::ofstream ofs;
-            Notify::info("creating file `" + filename + "'");        
-            if (!FileSystemUtils::createFile(filename, ofs))
-            {
-                Notify::warn("could not create file `" + filename + "'");
-            }
-            else
-            {
-                if (c == -2)
-                    created_files[PathNameUtils::getDirectoryName(i->first, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
-                else
-                    modified_files[PathNameUtils::getDirectoryName(i->first, false)].push_back(PathNameUtils::getRelativePathAfter(filename, "/"));
-                ofs << output.str();
-            }
-        }
+        generateOutput(i->first, i->second, file_map, created_files, modified_files);
     }
 
     if (!file_map.empty())

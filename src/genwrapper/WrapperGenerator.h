@@ -72,6 +72,12 @@ protected:
     bool read_text_file(const std::string &filename, std::string &text) const;
 
     typedef std::map<std::string, std::vector<std::string> > FileMap;
+
+    void generateOutput(const std::string & file,
+		TypeRegistry::TypeList const & tl,
+		FileMap & file_map,
+		FileMap & created_files,
+		FileMap & modified_files);
     int compare_text_files(const std::string &filename, const std::string &content) const;
     void create_lists(const FileMap &file_map, const FileMap &created_files, const FileMap &modified_files);
 
