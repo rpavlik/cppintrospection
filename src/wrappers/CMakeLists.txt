@@ -8,7 +8,9 @@ set(GENERATION_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
 include_directories(${CPPINTROSPECTION_INCLUDE_DIRS})
 
 # Extract files to exclude.
-file(STRINGS "${GENWRAPPER_CONF}" IGNORED REGEX "ignore file .*")
+# This line forces a re-CMake when the genwrapper.conf file changes.
+configure_file("${GENWRAPPER_CONF}" "${CMAKE_CURRENT_BINARY_DIR}/genwrapper.conf")
+file(STRINGS "${CMAKE_CURRENT_BINARY_DIR}/genwrapper.conf" IGNORED REGEX "ignore file .*")
 string(REGEX MATCHALL "\"([^\"]*)\"" fns "${IGNORED}")
 string(REPLACE "\"" "" IGNORED_FILES "${fns}")
 message(STATUS "Ignored files: ${IGNORED_FILES}")
