@@ -72,7 +72,21 @@ find_package(OpenSceneGraph COMPONENTS
 
 
 add_wrapper(OpenThreads ${OPENTHREADS_LIBRARIES})
+add_wrapper(osgAnimation ${OSGANIMATION_LIBRARIES})
 add_wrapper(osg ${OSG_LIBRARIES})
+add_wrapper(osgDB ${OSGDB_LIBRARIES})
+add_wrapper(osgFX ${OSGFX_LIBRARIES})
+add_wrapper(osgGA ${OSGGA_LIBRARIES})
+add_wrapper(osgManipulator ${OSGMANIPULATOR_LIBRARIES})
+add_wrapper(osgParticle ${OSGPARTICLE_LIBRARIES})
+add_wrapper(osgShadow ${OSGSHADOW_LIBRARIES})
+add_wrapper(osgSim ${OSGSIM_LIBRARIES})
+add_wrapper(osgTerrain ${OSGTERRAIN_LIBRARIES})
+add_wrapper(osgText ${OSGTEXT_LIBRARIES})
+add_wrapper(osgUtil ${OSGUTIL_LIBRARIES})
+add_wrapper(osgViewer ${OSGVIEWER_LIBRARIES})
+add_wrapper(osgVolume ${OSGVOLUME_LIBRARIES})
+add_wrapper(osgWidget ${OSGWIDGET_LIBRARIES})
 
 
 generate_wrapper_sources()
