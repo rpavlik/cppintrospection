@@ -235,17 +235,17 @@ namespace cppintrospection
         AtomicValueReflector(const std::string& name, const std::string& ns)
         :    ValueReflector<T>(name, ns)
         {
-            setReaderWriter(new StdReaderWriter<T>);
-            setComparator(new PartialOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new StdReaderWriter<T>);
+            this->setComparator(new PartialOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
 
         AtomicValueReflector(const std::string& qname)
         :    ValueReflector<T>(qname)
         {
-            setReaderWriter(new StdReaderWriter<T>);
-            setComparator(new PartialOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new StdReaderWriter<T>);
+            this->setComparator(new PartialOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
     };
 
@@ -257,17 +257,17 @@ namespace cppintrospection
         WAtomicValueReflector(const std::string& name, const std::string& ns)
         :    ValueReflector<T>(name, ns)
         {
-            setReaderWriter(new StdWReaderWriter<T>);
-            setComparator(new PartialOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new StdWReaderWriter<T>);
+            this->setComparator(new PartialOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
 
         WAtomicValueReflector(const std::string& qname)
         :    ValueReflector<T>(qname)
         {
-            setReaderWriter(new StdWReaderWriter<T>);
-            setComparator(new PartialOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new StdWReaderWriter<T>);
+            this->setComparator(new PartialOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
     };
 
@@ -283,17 +283,17 @@ namespace cppintrospection
         EnumReflector(const std::string& name, const std::string& ns)
         :    ValueReflector<T>(name, ns)
         {
-            setReaderWriter(new EnumReaderWriter<T>);
-            setComparator(new TotalOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new EnumReaderWriter<T>);
+            this->setComparator(new TotalOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
 
         EnumReflector(const std::string& qname)
         :    ValueReflector<T>(qname)
         {
-            setReaderWriter(new EnumReaderWriter<T>);
-            setComparator(new TotalOrderComparator<T>);
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->setReaderWriter(new EnumReaderWriter<T>);
+            this->setComparator(new TotalOrderComparator<T>);
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
         }
     };
 
@@ -366,7 +366,7 @@ namespace cppintrospection
 
         StdVectorReflector(const std::string& name): ValueReflector<T>(name)
         {
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
 
             PropertyInfo* pi = new PropertyInfo(typeof(T), typeof(typename T::value_type), "Item", 0, 0, 0, 0, 0, 0);
             pi->addAttribute(new CustomPropertyGetAttribute(new Getter));
@@ -441,7 +441,7 @@ namespace cppintrospection
 
         StdSetReflector(const std::string& name): ValueReflector<T>(name)
         {
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
 
             PropertyInfo* pi = new PropertyInfo(typeof(T), typeof(typename T::value_type), "Item", 0, 0, 0, 0, 0, 0);
             pi->addAttribute(new CustomPropertyGetAttribute(new Getter));
