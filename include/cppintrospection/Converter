@@ -16,6 +16,7 @@
 #define CPPINTROSPECTION_CONVERTER_
 
 #include <cppintrospection/Value>
+#include <cppintrospection/variant_cast>
 #include <list>
 
 namespace cppintrospection
