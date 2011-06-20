@@ -15,6 +15,7 @@
 #ifndef CPPINTROSPECTION_VARIANT_CAST_
 #define CPPINTROSPECTION_VARIANT_CAST_
 
+#include <cppintrospection/variant_cast_fwd>
 #include <cppintrospection/Value>
 #include <cppintrospection/ReaderWriter>
 

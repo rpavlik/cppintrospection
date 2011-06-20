@@ -40,7 +40,8 @@ set(HEADERS
 	../../include/cppintrospection/Value
 	../../include/cppintrospection/Version
 	../../include/cppintrospection/type_traits
-	../../include/cppintrospection/variant_cast)
+	../../include/cppintrospection/variant_cast
+	../../include/cppintrospection/variant_cast_fwd)
 
 add_definitions(-DCPPINTROSPECTION_LIBRARY)
 include_directories(../../include ${OPENSCENEGRAPH_INCLUDE_DIRS})
