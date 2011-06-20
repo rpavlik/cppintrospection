@@ -206,17 +206,17 @@ struct BaseTypeConverters<x, reflected_type, true>
 
 #define I_BaseType(x) \
     { \
-     addBaseType(typeof( x )); \
+     this->addBaseType(typeof( x )); \
      BaseTypeConverters< x , reflected_type, cppintrospection::is_polymorphic <x >::value > btc; \
     }
 
 #define I_VirtualBaseType(x) \
     { \
-     addBaseType(typeof( x )); \
+     this->addBaseType(typeof( x )); \
      BaseTypeConverters< x, reflected_type, false > btc; \
     }
 
-#define I_EnumLabel(x)                       addEnumLabel(x, #x, true);
+#define I_EnumLabel(x)                       this->addEnumLabel(x, #x, true);
 
 
 
@@ -228,7 +228,7 @@ struct BaseTypeConverters<x, reflected_type, true>
 // --------------------------------------------------------------------------
 
 #define I_PublicMemberProperty(t, n) \
-  cap=addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, 0, 0)); \
+  cap=this->addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, 0, 0)); \
   cap->addAttribute(new cppintrospection::CustomPropertyGetAttribute(new cppintrospection::PublicMemberAccessor< reflected_type, t >(&reflected_type::n))); \
   cap->addAttribute(new cppintrospection::CustomPropertySetAttribute(new cppintrospection::PublicMemberAccessor< reflected_type, t >(&reflected_type::n)));
 
@@ -238,12 +238,12 @@ struct BaseTypeConverters<x, reflected_type, true>
 // --------------------------------------------------------------------------
 
 #define I_SimpleProperty(t, n, get, set) \
-    cap=addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
+    cap=this->addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
       get, \
       set))
 
 #define I_ArrayProperty(t, n, get, set, count, add, insert, remove) \
-    cap=addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
+    cap=this->addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
       get, \
       set, \
       count, \
@@ -252,7 +252,7 @@ struct BaseTypeConverters<x, reflected_type, true>
       remove))
 
 #define I_IndexedProperty(t, n, get, set, remove) \
-    cap=addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
+    cap=this->addProperty(new cppintrospection::PropertyInfo(cppintrospection::Reflection::getType(extended_typeid< reflected_type >()), cppintrospection::Reflection::getType(extended_typeid< t >()), #n, \
       get, \
       set, \
       remove))
