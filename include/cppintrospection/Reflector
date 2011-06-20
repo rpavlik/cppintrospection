@@ -536,7 +536,7 @@ namespace cppintrospection
 
         StdListReflector(const std::string& name): ValueReflector<T>(name)
         {
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
 
             PropertyInfo* pi = new PropertyInfo(typeof(T), typeof(typename T::value_type), "Item", 0, 0, 0, 0, 0, 0);
             pi->addAttribute(new CustomPropertyGetAttribute(new Getter));
@@ -647,7 +647,7 @@ namespace cppintrospection
 
         StdMapReflector(const std::string& name): ValueReflector<T>(name)
         {
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
 
             PropertyInfo* pi = new PropertyInfo(typeof(T), typeof(typename T::mapped_type), "Item", 0, 0, 0);
             pi->addAttribute(new CustomPropertyGetAttribute(new Getter));
@@ -710,7 +710,7 @@ namespace cppintrospection
 
         StdPairReflector(const std::string& name): ValueReflector<T>(name)
         {
-            addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
+            this->addConstructor(new TypedConstructorInfo0<T, instance_creator_type>(ParameterInfoList()));
 
             PropertyInfo* pi1 = new PropertyInfo(typeof(T), typeof(typename T::first_type), "first", 0, 0);
             pi1->addAttribute(new CustomPropertyGetAttribute(new Accessor(0)));
