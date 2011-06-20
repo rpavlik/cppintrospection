@@ -131,6 +131,14 @@ void WrapperGenerator::generate()
     {
         generateOutput(i->first, i->second, file_map, created_files, modified_files);
     }
+    
+    std::vector<std::string> remainingFiles = reg_.getFilesWithoutTypes();
+    TypeRegistry::TypeList emptyTypeList;
+    for (std::vector<std::string>::iterator it = remainingFiles.begin(); it != remainingFiles.end(); ++it)
+    {
+		Notify::warn("There were no types defined in " + *it);
+		generateOutput(*it, emptyTypeList, file_map, created_files, modified_files);
+	}
 
     if (!file_map.empty())
     {
