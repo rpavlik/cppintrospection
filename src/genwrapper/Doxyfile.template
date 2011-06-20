@@ -187,12 +187,17 @@ EXPAND_ONLY_PREDEF     = YES
 SEARCH_INCLUDES        = YES
 INCLUDE_PATH           = "$(INPUT_DIR)include"
 INCLUDE_FILE_PATTERNS  = 
-EXPAND_AS_DEFINED      = META_Object \
-                         META_StateAttribute \
+EXPAND_AS_DEFINED      = META_Action \
+                         META_ActionVisitor \
+                         META_Effect \
                          META_Node \
+                         META_NodeVisitor \
+                         META_Object \
                          META_Shape \
+                         META_StateAttribute \
                          META_Technique \
-                         META_Effect
+                         META_ViewDependentShadowTechnique \
+                         META_ViewDependentShadowTechniqueData
 PREDEFINED             = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------
