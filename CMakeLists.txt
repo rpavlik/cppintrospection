@@ -13,7 +13,10 @@ set(CPACK_PACKAGE_VERSION_PATCH "2")
 set(CPACK_PACKAGE_VERSION
 	"${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 
+option(BUILD_GENWRAPPER "Build the wrapper generation tool?" ON)
+option(BUILD_WRAPPERS "Build the wrappers for OpenSceneGraph?" OFF)
 
+set(CPPINTROSPECTION_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 find_package(Doxygen)
 find_package(OpenGL)
 find_package(OpenSceneGraph REQUIRED)
