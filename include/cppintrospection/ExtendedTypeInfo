@@ -21,13 +21,16 @@
 namespace cppintrospection
 {
 	class ExtendedTypeInfo;
+}
 
-	template <typename T>
-	ExtendedTypeInfo extended_typeid(T);
+template <typename T>
+cppintrospection::ExtendedTypeInfo extended_typeid(T);
 
-	template <typename T>
-	ExtendedTypeInfo extended_typeid();
+template <typename T>
+cppintrospection::ExtendedTypeInfo extended_typeid();
 
+namespace cppintrospection
+{
     /// This class is a wrapper for std::type_info that also records whether
     /// a type is a reference or const reference.  It permits cppintrospection
     /// to make use of reference information that is ignored by typeid(), and
