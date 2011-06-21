@@ -17,7 +17,6 @@
 
 #include <cppintrospection/Export>
 #include <cppintrospection/Reflection>
-#include <cppintrospection/type_traits>
 
 #include <vector>
 #include <memory>

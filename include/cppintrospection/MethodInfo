@@ -21,7 +21,6 @@
 #include <cppintrospection/Exceptions>
 #include <cppintrospection/ParameterInfo>
 
-#include <cstdarg>
 #include <string>
 #include <vector>
 
