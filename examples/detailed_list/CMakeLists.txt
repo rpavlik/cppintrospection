@@ -1,0 +1,2 @@
+add_executable(detailed_list detailed_list.cpp)
+target_link_libraries(detailed_list cppintrospection)

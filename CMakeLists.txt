@@ -40,6 +40,7 @@ endif()
 
 add_definitions(-DCPPINTROSPECTION_CMAKE)
 add_subdirectory(src)
+add_subdirectory(examples)
 
 ###
 # Create config files to allow easy use of this library
