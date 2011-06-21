@@ -26,5 +26,40 @@ if(NOT OSG_SOURCE_DIR)
 	set(OSG_SOURCE_DIR "${OSG_SOURCE_DIR}" CACHE PATH "Path to the OpenSceneGraph source directory.")
 endif()
 
+set(BIN_DIR bin)
+set(INCLUDE_DIR include)
+set(ARCH_DIR lib)
+set(DATA_DIR share/cppintrospection)
+if(WIN32)
+	set(LIB_DIR bin)
+	set(EXPORT_DIR cmake)
+else()
+	set(LIB_DIR lib)
+	set(EXPORT_DIR ${LIB_DIR}/cppintrospection)
+endif()
+
 add_definitions(-DCPPINTROSPECTION_CMAKE)
 add_subdirectory(src)
+
+###
+# Create config files to allow easy use of this library
+###
+
+
+# Set up use from build tree
+configure_file(cppintrospection-config-build-tree.cmake.in cppintrospectionConfig.cmake @ONLY)
+export(TARGETS cppintrospection
+	NAMESPACE cppintrospection_imported_
+	FILE cppintrospection-targets.cmake)
+export(PACKAGE cppintrospection)
+
+# Set up use from install tree
+#install(EXPORT cppintrospection-sdk
+#	DESTINATION ${EXPORT_DIR}
+#	NAMESPACE cppintrospection_imported_
+#	FILE cppintrospection-targets.cmake)
+#configure_file(cppintrospection-config.cmake.in cppintrospection-config-for-install.cmake @ONLY)
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cppintrospection-config-for-install.cmake
+#	RENAME cppintrospection-config.cmake
+#	DESTINATION ${EXPORT_DIR})
+

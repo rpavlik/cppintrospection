@@ -47,3 +47,11 @@ add_definitions(-DCPPINTROSPECTION_LIBRARY)
 include_directories(../../include ${OPENSCENEGRAPH_INCLUDE_DIRS})
 add_library(cppintrospection SHARED ${SOURCES} ${HEADERS})
 target_link_libraries(cppintrospection ${OPENSCENEGRAPH_LIBRARIES})
+
+
+install(TARGETS cppintrospection
+	EXPORT cppintrospection-sdk
+	RUNTIME DESTINATION ${BIN_DIR} COMPONENT runtime
+	LIBRARY DESTINATION ${LIB_DIR} COMPONENT sdk
+	ARCHIVE DESTINATION ${ARCH_DIR} COMPONENT sdk
+	PUBLIC_HEADER DESTINATION ${INCLUDE_DIR}/cppintrospection COMPONENT sdk)

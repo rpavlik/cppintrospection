@@ -1,0 +1,50 @@
+# CMake cross-platform build system
+# 2009-2010 Ryan Pavlik <rpavlik@iastate.edu>
+# http://academic.cleardefinition.com/
+# Iowa State University HCI Graduate Program/VRAC
+#
+# Will set:
+#  GLOVETOOLS_LIBRARIES
+#  GLOVETOOLS_INCLUDE_DIRS
+#  GLOVETOOLS_RUNTIME_LIBRARIES and GLOVETOOLS_RUNTIME_LIBRARY_DIRS if applicable
+#  GLOVETOOLS_FOUND
+
+
+include("@CMAKE_CURRENT_BINARY_DIR@/cppintrospection-targets.cmake")
+
+set(CPPINTROSPECTION_LIBRARIES cppintrospection_imported_cppintrospection)
+set(CPPINTROSPECTION_RUNTIME_LIBRARIES)
+set(GLOVETOOLS_RUNTIME_LIBRARY_DIRS @RUNTIME_LIBRARY_DIRS@)
+
+
+# Runtime library info - only useful for shared libraries
+get_property(_type TARGET ${CPPINTROSPECTION_LIBRARIES} PROPERTY TYPE)
+if(_type STREQUAL "SHARED_LIBRARY")
+	get_property(_configs TARGET ${CPPINTROSPECTION_LIBRARIES} PROPERTY IMPORTED_CONFIGURATIONS)
+	foreach(_config ${_configs})
+		get_property(_libloc TARGET ${CPPINTROSPECTION_LIBRARIES} PROPERTY IMPORTED_LOCATION_${_config})
+		if(EXISTS "${_libloc}")
+			list(APPEND CPPINTROSPECTION_RUNTIME_LIBRARIES "${_libloc}")
+
+			get_filename_component(_libpath "${_libloc}" PATH)
+			list(APPEND CPPINTROSPECTION_RUNTIME_LIBRARY_DIRS ${_libpath})
+		endif()
+	endforeach()
+endif()
+
+if(CPPINTROSPECTION_RUNTIME_LIBRARIES)
+	list(REMOVE_DUPLICATES CPPINTROSPECTION_RUNTIME_LIBRARIES)
+endif()
+
+if(CPPINTROSPECTION_RUNTIME_LIBRARY_DIRS)
+	list(REMOVE_DUPLICATES CPPINTROSPECTION_RUNTIME_LIBRARY_DIRS)
+endif()
+
+set(CPPINTROSPECTION_INCLUDE_DIRS "@CMAKE_CURRENT_SOURCE_DIR@/include")
+
+set(CPPINTROSPECTION_FOUND ON)
+if(NOT "${OPENSCENEGRAPH_VERSION}" VERSION_EQUAL "@OPENSCENEGRAPH_VERSION@")
+	message(STATUS "CPPINTROSPECTION found, but current build uses OpenSceneGraph version ${OPENSCENEGRAPH_VERSION} while CPPINTROSPECTION was built with @OPENSCENEGRAPH_VERSION@!")
+	set(GLOVETOOLS_FOUND OFF)
+endif()
+
