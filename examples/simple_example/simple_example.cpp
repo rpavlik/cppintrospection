@@ -18,11 +18,14 @@
 
 
 #include <osg/ref_ptr>
-#include <osgDB/DynamicLibrary>
 #include <cppintrospection/Reflection>
 #include <cppintrospection/Type>
 #include <cppintrospection/MethodInfo>
 #include <cppintrospection/PropertyInfo>
+
+#include <osgDB/DynamicLibrary>
+#include <osg/Object>
+
 #include <iostream>
 
 using namespace cppintrospection;
@@ -48,6 +51,7 @@ std::string createLibraryNameForWrapper(const std::string& ext)
 #else
     return "osgwrapper_" + ext + ADDQUOTES(OSG_PLUGIN_EXTENSION);
 #endif
+
 }
 
 int checkType( const Type& type )
