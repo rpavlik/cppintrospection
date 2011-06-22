@@ -1218,12 +1218,11 @@ namespace cppintrospection
         FunctionType f_;
     };
 
-    template<typename C> 
     class StaticProtectedMethodInfo: public MethodInfo
     {
     public:
-        StaticProtectedMethodInfo(const std::string& qname, const ParameterInfoList& plist, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
-        :    MethodInfo(qname, typeof(C), typeof(void), plist, briefHelp, detailedHelp)
+        StaticProtectedMethodInfo(const std::string& qname, const Type& declarationType, const ParameterInfoList& plist, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
+        :    MethodInfo(qname, declarationType, typeof(void), plist, briefHelp, detailedHelp)
         {
         }
 

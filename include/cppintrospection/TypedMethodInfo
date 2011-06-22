@@ -2972,12 +2972,11 @@ namespace cppintrospection
         FunctionType f_;
     };
 
-    template<typename C>
     class TypedProtectedMethodInfo: public MethodInfo
     {
     public:
-        TypedProtectedMethodInfo(const std::string& qname, bool isConstMethod, const ParameterInfoList& plist, VirtualState virtualState, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
-        :    MethodInfo(qname, typeof(C), typeof(void), plist, virtualState, briefHelp, detailedHelp), is_const_(isConstMethod)
+        TypedProtectedMethodInfo(const std::string& qname, const Type& declarationType, bool isConstMethod, const ParameterInfoList& plist, VirtualState virtualState, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
+        :    MethodInfo(qname, declarationType, typeof(void), plist, virtualState, briefHelp, detailedHelp), is_const_(isConstMethod)
         {
         }
 
