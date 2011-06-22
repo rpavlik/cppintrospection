@@ -82,7 +82,7 @@ namespace cppintrospection
     /// last one is used with array properties.
     struct PropertySetter
     {
-        virtual void set(Value&  /*instance*/, ValueList&  /*indices*/, const Value&  /*value*/) const { throw PropertyAccessException("[n/a inside a custom accessor]", PropertyAccessException::ISET); }
+        virtual void set(Value&  /*instance*/, const ValueList&  /*indices*/, const Value&  /*value*/) const { throw PropertyAccessException("[n/a inside a custom accessor]", PropertyAccessException::ISET); }
         virtual void set(Value&  /*instance*/, const Value&  /*value*/) const { throw PropertyAccessException("[n/a inside a custom accessor]", PropertyAccessException::SET); }
         virtual void set(Value&  /*instance*/, int /*i*/, const Value&  /*value*/) const { throw PropertyAccessException("[n/a inside a custom accessor]", PropertyAccessException::ASET); }
         virtual ~PropertySetter() {}
