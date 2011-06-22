@@ -18,6 +18,7 @@
 #include <string>
 #include <cppintrospection/type_traits>
 
+// Forward declarations
 namespace cppintrospection
 {
 	class ExtendedTypeInfo;
@@ -28,6 +29,7 @@ cppintrospection::ExtendedTypeInfo extended_typeid(T);
 
 template <typename T>
 cppintrospection::ExtendedTypeInfo extended_typeid();
+// End forward declarations
 
 namespace cppintrospection
 {
