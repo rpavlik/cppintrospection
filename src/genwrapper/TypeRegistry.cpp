@@ -196,7 +196,6 @@ void TypeRegistry::qualify_single_type(TypeDesc &td)
     for (AttributList::iterator k=td.public_attrib.begin(); k!=td.public_attrib.end(); ++k)
     {
         AttributDesc &ad = *k;
-        TypeNameUtils::qualifyAllIdentifiers(ad.name, td, *this);
         TypeNameUtils::qualifyAllIdentifiers(ad.type, td, *this);
     }
 }
