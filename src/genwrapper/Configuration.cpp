@@ -344,7 +344,17 @@ void Configuration::instantiate_template(const std::string &s)
 
 void Configuration::replace_with(const std::string &s)
 {
-    std::string t(s.substr(1, s.length()-2));
+    std::string in(s.substr(1, s.length()-2));
+    std::string t;
+    for (unsigned int i = 0; i < in.size(); ++i) {
+        // Skip only backslashes followed by a quotation mark.
+        if (in[i] == '\\' && i + 1 < in.size() && in[i+1] == '"') {
+            continue;
+        } else {
+            t += in[i];
+        }
+    }
+
     switch (context())
     {
     case FILE:
