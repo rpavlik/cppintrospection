@@ -15,6 +15,8 @@ string(REGEX MATCHALL "\"([^\"]*)\"" fns "${IGNORED}")
 string(REPLACE "\"" "" IGNORED_FILES "${fns}")
 message(STATUS "Ignored files: ${IGNORED_FILES}")
 
+add_custom_target(wrappers)
+
 function(add_wrapper _module)
 	set(LIBRARIES ${ARGN})
 	file(GLOB_RECURSE infiles RELATIVE "${HEADER_DIR}" "${HEADER_DIR}/${_module}/*")
@@ -28,6 +30,7 @@ function(add_wrapper _module)
 	add_library(osgwrapper_${_module} MODULE ${SOURCES})
 	target_link_libraries(osgwrapper_${_module} ${LIBRARIES})
 	add_dependencies(osgwrapper_${_module} generate_wrappers)
+	add_dependencies(wrappers osgwrapper_${_module})
 
 	set_property(DIRECTORY APPEND PROPERTY GENWRAPPER_OUTPUTS ${SOURCES})
 
