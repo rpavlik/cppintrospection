@@ -40,7 +40,7 @@ namespace cppintrospection
         virtual Value convert(const Value& src) const
         {
             Value accum(src);
-            for (ConverterList::const_iterator i=cvt_.begin(); i!=cvt_.end(); ++i)
+            for (ConverterList::const_iterator i=cvt_.begin(), e = cvt_.end(); i!=e; ++i)
                 accum = (*i)->convert(accum);
             return accum;
         }

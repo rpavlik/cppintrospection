@@ -20,9 +20,11 @@ using namespace cppintrospection;
 
 void PropertyInfo::getInheritedProviders(CustomAttributeProviderList& providers) const
 {
-    for (int i=0; i<_declarationType.getNumBaseTypes(); ++i)
+    const int n = _declarationType.getNumBaseTypes();
+    const ParameterInfoList& indexParams = getIndexParameters();
+    for (int i=0; i<n; ++i)
     {
-        const PropertyInfo* pi = _declarationType.getBaseType(i).getProperty(_name, _ptype, getIndexParameters(), false);
+        const PropertyInfo* pi = _declarationType.getBaseType(i).getProperty(_name, _ptype, indexParams, false);
         if (pi)
         {
             providers.push_back(pi);
