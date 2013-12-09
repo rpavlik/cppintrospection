@@ -86,6 +86,7 @@ namespace cppintrospection
         
     private:
         template<typename C> friend class Reflector;
+        friend class GenericReflectorBase;
         template<typename C> friend struct TypeNameAliasProxy;
         friend struct ConverterProxy;
 

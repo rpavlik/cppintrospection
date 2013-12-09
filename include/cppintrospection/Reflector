@@ -685,14 +685,14 @@ namespace cppintrospection
 
     template<typename T>
     Reflector<T>::Reflector(const std::string& name, const std::string& ns, bool abstract)
-    :    GenericReflectorBase(Reflection::getOrRegisterType(extended_typeid<T>(), true), name, ns, abstract)
+    :    GenericReflectorBase(extended_typeid<T>(), name, ns, abstract)
     {
         init();
     }
 
     template<typename T>
     Reflector<T>::Reflector(const std::string& qname, bool abstract)
-    :    GenericReflectorBase(Reflection::getOrRegisterType(extended_typeid<T>(), true), qname, abstract)
+    :    GenericReflectorBase(extended_typeid<T>(), qname, abstract)
     {
         init();
     }
@@ -703,7 +703,7 @@ namespace cppintrospection
         // pointer type
         if (!_type->_pointed_type)
         {
-            Type * ptype = registerPtype(Reflection::getOrRegisterType(extended_typeid<T*>(), true),
+            Type * ptype = registerPtype(extended_typeid<T*>(),
                 new PtrReaderWriter<T*>(),
                 new TotalOrderComparator<T*>());
             ptype->_cons.push_back(new PtrConstructor(ptype));
@@ -712,10 +712,10 @@ namespace cppintrospection
         // const pointer type
         if (!_type->_pointed_type || !_type->_is_const)
         {
-            Type * cptype = registerPtype(Reflection::getOrRegisterType(extended_typeid<const T*>(), true),
+            Type * cptype = registerPtype(extended_typeid<const T*>(),
                 new PtrReaderWriter<const T*>(),
-                new TotalOrderComparator<const T*>(),
-                true);
+                new TotalOrderComparator<const T*>());
+            cptype->_is_const = true;
             cptype->_cons.push_back(new PtrConstructor(cptype));
         }
 
@@ -731,13 +731,14 @@ namespace cppintrospection
         // reference type
         if (!_type->_referenced_type)
         {
-            registerReftype(Reflection::getOrRegisterType(extended_typeid<T&>(), true));
+            registerReftype(extended_typeid<T&>());
         }
 
         // const reference type
         if (!_type->_referenced_type || !_type->_is_const)
         {
-            registerReftype(Reflection::getOrRegisterType(extended_typeid<const T&>(), true), true);
+            Type * cptype = registerReftype(extended_typeid<const T&>());
+            cptype->_is_const = true;
         }
     }
 

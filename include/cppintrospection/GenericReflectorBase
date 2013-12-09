@@ -29,11 +29,12 @@ namespace cppintrospection
     struct Comparator;
     class CustomAttributeProvider;
     class CustomAttribute;
+    class ExtendedTypeInfo;
 
     class CPPINTROSPECTION_EXPORT GenericReflectorBase {
         public:
-        GenericReflectorBase(Type * t, const std::string & name, const std::string & ns, bool abstract);
-        GenericReflectorBase(Type * t, const std::string & qname, bool abstract);
+        GenericReflectorBase(const ExtendedTypeInfo &ti, const std::string & name, const std::string & ns, bool abstract);
+        GenericReflectorBase(const ExtendedTypeInfo &ti, const std::string & qname, bool abstract);
         protected:
         /// Returns the Type object being described.
         Type* getType() { return _type; }
@@ -79,9 +80,9 @@ namespace cppintrospection
         void setDeclaringFile(const std::string& file) const;
 
         protected:
-        Type*  registerPtype(Type * ptype, const ReaderWriter* rw, const Comparator* cmp, bool isconst = false);
-        Type * registerReftype(Type* ptype, bool isconst = false);
-        Type*  registerRelatedType(Type* reltype);
+        Type*  registerPtype(const ExtendedTypeInfo &ti, const ReaderWriter* rw, const Comparator* cmp);
+        Type * registerReftype(const ExtendedTypeInfo &ti);
+        Type*  registerRelatedType(const ExtendedTypeInfo &ti);
         static std::string purify(const std::string& s);
         static void split_qualified_name(const std::string& q, std::string& n, std::string& ns);
 

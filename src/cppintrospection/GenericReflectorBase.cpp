@@ -13,14 +13,14 @@
 
 #include <cppintrospection/GenericReflectorBase>
 #include <cppintrospection/Type>
-
+#include <cppintrospection/Reflection>
 #include <cppintrospection/MethodInfo>
 
 namespace cppintrospection {
-    GenericReflectorBase::GenericReflectorBase(Type *t,
+    GenericReflectorBase::GenericReflectorBase(const ExtendedTypeInfo &ti,
                                                const std::string &qname,
                                                bool abstract)
-        : _type(t) {
+        : _type(Reflection::getOrRegisterType(ti, true)) {
         if (!_type->_name.empty()) {
             _type->_aliases.push_back(purify(qname));
         } else {
@@ -30,10 +30,11 @@ namespace cppintrospection {
         _type->_is_abstract = abstract;
     }
 
-    GenericReflectorBase::GenericReflectorBase(Type *t, const std::string &name,
+    GenericReflectorBase::GenericReflectorBase(const ExtendedTypeInfo &ti,
+                                               const std::string &name,
                                                const std::string &ns,
                                                bool abstract)
-        : _type(t) {
+        : _type(Reflection::getOrRegisterType(ti, true)) {
         if (!_type->_name.empty())
             _type->_aliases.push_back(ns.empty() ? purify(name)
                                                  : purify(ns + "::" + name));
@@ -44,30 +45,25 @@ namespace cppintrospection {
         _type->_is_abstract = abstract;
     }
 
-    Type *GenericReflectorBase::registerPtype(Type *ptype,
+    Type *GenericReflectorBase::registerPtype(const ExtendedTypeInfo &ti,
                                               const ReaderWriter *rw,
-                                              const Comparator *cmp,
-                                              bool isconst) {
-        registerRelatedType(ptype);
-        if (isconst) {
-            ptype->_is_const = true;
-        }
+                                              const Comparator *cmp) {
+        Type *ptype = registerRelatedType(ti);
         ptype->_pointed_type = _type;
         ptype->_rw = rw;
         ptype->_cmp = cmp;
         return ptype;
     }
 
-    Type *GenericReflectorBase::registerReftype(Type *ptype, bool isconst) {
-        registerRelatedType(ptype);
-        if (isconst) {
-            ptype->_is_const = true;
-        }
+    Type *GenericReflectorBase::registerReftype(const ExtendedTypeInfo &ti) {
+        Type *ptype = registerRelatedType(ti);
         ptype->_referenced_type = _type;
         return ptype;
     }
 
-    Type *GenericReflectorBase::registerRelatedType(Type *rtype) {
+    Type *
+    GenericReflectorBase::registerRelatedType(const ExtendedTypeInfo &ti) {
+        Type *rtype = Reflection::getOrRegisterType(ti, true);
         rtype->_name = _type->_name;
         rtype->_namespace = _type->_namespace;
         rtype->_is_defined = true;
