@@ -52,31 +52,35 @@ bool cppintrospection::areArgumentsCompatible(const ValueList& vl, const Paramet
         return false;
     }
 
-    ParameterInfoList::const_iterator i1 = pl.begin();
-    ValueList::const_iterator i2 = vl.begin();
+    ParameterInfoList::const_iterator pi = pl.begin();
+    ParameterInfoList::const_iterator pe = pl.end();
+    ValueList::const_iterator vi = vl.begin();
+    ValueList::const_iterator ve = vl.end();
 
     int exact_args = 0;
 
-    for (; i1<pl.end(); ++i1)
+    for (; pi != pe; ++pi)
     {
-        if (i2 == vl.end())
+        if (vi == ve)
         {
-            if ((*i1)->getDefaultValue().isEmpty())
+            // We have run out of values - all remaining parameters must have defaults.
+            if ((*pi)->getDefaultValue().isEmpty())
                 return false;
             continue;
         }
 
-        if ((*i1)->getParameterType() != i2->getType())
+        if ((*pi)->getParameterType() == vi->getType())
         {
-            if (i2->tryConvertTo((*i1)->getParameterType()).isEmpty())
-            {
-                return false;
-            }                        
-        }
-        else
+            // Exact match.
             ++exact_args;
+        }
+        else if (vi->tryConvertTo((*pi)->getParameterType()).isEmpty())
+        {
+            // Convertible match failed
+            return false;
+        }
 
-        ++i2;
+        ++vi;
     }
 
     match = static_cast<float>(exact_args) / pl.size();
