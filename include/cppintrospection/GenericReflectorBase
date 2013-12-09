@@ -15,6 +15,7 @@
 #ifndef CPPINTROSPECTION_GENERIC_REFLECTOR_BASE_
 #define CPPINTROSPECTION_GENERIC_REFLECTOR_BASE_
 
+#include <cppintrospection/Export>
 #include <string>
 #include <vector>
 
@@ -29,7 +30,7 @@ namespace cppintrospection
     class CustomAttributeProvider;
     class CustomAttribute;
 
-    class GenericReflectorBase {
+    class CPPINTROSPECTION_EXPORT GenericReflectorBase {
         public:
         GenericReflectorBase(Type * t, const std::string & name, const std::string & ns, bool abstract);
         GenericReflectorBase(Type * t, const std::string & qname, bool abstract);
