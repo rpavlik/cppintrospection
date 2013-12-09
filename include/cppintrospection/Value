@@ -223,7 +223,7 @@ namespace cppintrospection
             // returns the actual pointed type if applicable
             virtual const Type* ptype() const { return 0; }
             // returns whether the data is a null pointer
-            virtual bool isNullPointer() const = 0;
+            virtual bool isnullptr() const = 0;
 
             Instance_base *inst_;
             Instance_base *_ref_inst;
@@ -234,11 +234,11 @@ namespace cppintrospection
         template<typename T>
         struct Instance_box: Instance_box_base
         {
-            Instance_box(): Instance_box_base(), _isNullPointer(false) {}
+            Instance_box(): Instance_box_base(), nullptr_(false) {}
 
-            Instance_box(const T &d, bool isNullPointer = false)
+            Instance_box(const T &d, bool isnullptr = false)
             :    Instance_box_base(),
-                _isNullPointer(isNullPointer)
+                nullptr_(isnullptr)
             {
                 Instance<T> *vl = new Instance<T>(d);
                 inst_ = vl;
@@ -257,7 +257,7 @@ namespace cppintrospection
                 new_inbox->inst_ = vl;
                 new_inbox->_ref_inst = new Instance<T &>(vl->_data);
                 new_inbox->_const_ref_inst = new Instance<const T &>(vl->_data);
-                new_inbox->_isNullPointer = _isNullPointer;
+                new_inbox->nullptr_ = nullptr_;
                 return new_inbox;
             }
 
@@ -266,13 +266,13 @@ namespace cppintrospection
                 return &typeof(T);
             }
 
-            virtual bool isNullPointer() const
+            virtual bool isnullptr() const
             {
-                return _isNullPointer;
+                return nullptr_;
             }
 
         private:
-            bool _isNullPointer;
+            bool nullptr_;
 
             Instance_box& operator = (const Instance_box&) { return *this; }
 
@@ -321,7 +321,7 @@ namespace cppintrospection
                 return &typeofvalue(*static_cast<Instance<T> *>(inst_)->_data);
             }
 
-            virtual bool isNullPointer() const
+            virtual bool isnullptr() const
             {
                 return static_cast<Instance<T> *>(inst_)->_data == 0;
             }
@@ -427,7 +427,7 @@ namespace cppintrospection
 
     inline bool Value::isNullPointer() const
     {
-        return _inbox->isNullPointer();
+        return _inbox->isnullptr();
     }
 
 }
