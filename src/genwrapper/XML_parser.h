@@ -17,13 +17,13 @@ namespace XML
         {
             xmlDoc *doc = xmlParseFile(filename.c_str());
             if (!doc)
-                return false;
+                return NULL;
 
             xmlNode *root = xmlDocGetRootElement(doc);
             if (!root)
             {
                 xmlFreeDoc(doc);
-                return false;
+                return NULL;
             }
 
             Node *node = new Node(doc, root);
