@@ -12,9 +12,10 @@
 */
 
 #include <cppintrospection/GenericReflectorBase>
-#include <cppintrospection/Type>
-#include <cppintrospection/Reflection>
-#include <cppintrospection/MethodInfo>
+#include <cppintrospection/MethodInfo>  // for MethodInfo
+#include <cppintrospection/Reflection>  // for Reflection
+#include <cppintrospection/Type>        // for Type, ConstructorInfoList, etc
+#include <utility>                      // for make_pair
 
 namespace cppintrospection {
     GenericReflectorBase::GenericReflectorBase(const ExtendedTypeInfo &ti,

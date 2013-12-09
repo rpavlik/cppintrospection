@@ -21,9 +21,6 @@
 #include <cppintrospection/Attributes>
 
 #include <string>
-#include <typeinfo>
-#include <iosfwd>
-#include <vector>
 
 namespace cppintrospection
 {

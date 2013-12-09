@@ -13,17 +13,19 @@
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
 #include <cppintrospection/Type>
-#include <cppintrospection/Value>
-#include <cppintrospection/Reflection>
-#include <cppintrospection/PropertyInfo>
-#include <cppintrospection/MethodInfo>
-#include <cppintrospection/ReaderWriter>
-#include <cppintrospection/Utility>
-#include <cppintrospection/ConstructorInfo>
-#include <cppintrospection/Comparator>
+#include <cppintrospection/Comparator>  // for Comparator
+#include <cppintrospection/ConstructorInfo>  // for ConstructorInfo
+#include <cppintrospection/CustomAttributeProvider>
+#include <cppintrospection/Exceptions>
+#include <cppintrospection/ExtendedTypeInfo>  // for ExtendedTypeInfo
+#include <cppintrospection/MethodInfo>  // for MethodInfo
+#include <cppintrospection/PropertyInfo>  // for PropertyInfo
+#include <cppintrospection/ReaderWriter>  // for ReaderWriter
+#include <cppintrospection/Utility>     // for areParametersCompatible, etc
+#include <cppintrospection/Value>       // for ValueList, Value
 
-#include <iterator>
-#include <algorithm>
+#include <algorithm>                    // for copy, sort
+#include <iterator>                     // for back_insert_iterator, etc
 
 using namespace cppintrospection;
 

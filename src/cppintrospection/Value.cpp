@@ -13,15 +13,17 @@
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
 #include <cppintrospection/Value>
-#include <cppintrospection/Type>
+#include <algorithm>                    // for swap
+#include <cppintrospection/Comparator>  // for Comparator
+#include <cppintrospection/Converter>   // for CompositeConverter, etc
 #include <cppintrospection/Exceptions>
-#include <cppintrospection/ReaderWriter>
-#include <cppintrospection/Comparator>
-#include <cppintrospection/Converter>
-#include <cppintrospection/Reflection>
+#include <cppintrospection/ReaderWriter>  // for ReaderWriter, etc
+#include <cppintrospection/Reflection>  // for Reflection
+#include <cppintrospection/Type>        // for Type
 
-#include <sstream>
-#include <memory>
+#include <memory>                       // for auto_ptr, etc
+#include <sstream>                      // for ostream, istream, etc
+
 
 using namespace cppintrospection;
 

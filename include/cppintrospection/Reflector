@@ -15,30 +15,33 @@
 #ifndef CPPINTROSPECTION_REFLECTOR_
 #define CPPINTROSPECTION_REFLECTOR_
 
+#include <cppintrospection/Attributes>  // for CustomPropertyGetAttribute, etc
+#include <cppintrospection/Comparator>  // for PartialOrderComparator, etc
+#include <cppintrospection/ConstructorInfo>  // for ConstructorInfo
+#include <cppintrospection/Converter>   // for ReinterpretConverter, etc
+#include <cppintrospection/ExtendedTypeInfo>  // for extended_typeid
 #include <cppintrospection/GenericReflectorBase>
-#include <cppintrospection/Reflection>
-#include <cppintrospection/Type>
-#include <cppintrospection/Value>
-#include <cppintrospection/PropertyInfo>
-#include <cppintrospection/MethodInfo>
-#include <cppintrospection/ConstructorInfo>
 #include <cppintrospection/InstanceCreator>
-#include <cppintrospection/ReaderWriter>
+#include <cppintrospection/ParameterInfo>  // for ParameterInfo, etc
+#include <cppintrospection/PropertyInfo>  // for PropertyInfo
+#include <cppintrospection/ReaderWriter>  // for EnumReaderWriter, etc
+#include <cppintrospection/Reflection>  // for typeof, Reflection
 #include <cppintrospection/TypedConstructorInfo>
-#include <cppintrospection/Comparator>
-#include <cppintrospection/ConverterProxy>
-#include <cppintrospection/Converter>
-#include <cppintrospection/Utility>
+#include <cppintrospection/Type>        // for ParameterInfoList, Type, etc
+#include <cppintrospection/Utility>     // for getInstance
+#include <cppintrospection/Value>       // for Value, ValueList
+#include <cppintrospection/variant_cast>  // for variant_cast
 
-#include <string>
-#include <sstream>
-#include <iterator>
+
+#include <iterator>                     // for advance
+#include <string>                       // for string
+#include <typeinfo>                     // for type_info
+#include <utility>                      // for make_pair
+
 
 namespace cppintrospection
 {
 
-    class CustomAttribute;
-    class ReaderWriter;
 
     /// A Reflector is a proxy class that is used to create a new description
     /// of a given type. If the type to be described is simple and doesn't

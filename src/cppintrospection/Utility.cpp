@@ -13,6 +13,11 @@
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
 #include <cppintrospection/Utility>
+#include <cppintrospection/ParameterInfo>  // for ParameterInfo
+#include <cppintrospection/Value>       // for ValueList, Value
+
+#include <vector>                       // for vector, etc
+
 
 using namespace cppintrospection;
 

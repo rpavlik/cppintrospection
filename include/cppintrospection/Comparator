@@ -15,6 +15,9 @@
 #ifndef CPPINTROSPECTION_COMPARATOR_
 #define CPPINTROSPECTION_COMPARATOR_
 
+#include <cppintrospection/Exceptions>
+#include <cppintrospection/ExtendedTypeInfo>
+#include <cppintrospection/variant_cast>
 
 namespace cppintrospection
 {

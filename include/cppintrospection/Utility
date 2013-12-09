@@ -15,13 +15,12 @@
 #ifndef CPPINTROSPECTION_UTILITY_
 #define CPPINTROSPECTION_UTILITY_
 
-#include <cppintrospection/Export>
-#include <cppintrospection/Value>
-#include <cppintrospection/ParameterInfo>
-#include <cppintrospection/MethodInfo>
-#include <cppintrospection/variant_cast>
+#include <cppintrospection/Export>      // for CPPINTROSPECTION_EXPORT
+#include <cppintrospection/ParameterInfo>  // for ParameterInfo
+#include <cppintrospection/Type>        // for ParameterInfoList
+#include <cppintrospection/Value>       // for ValueList, Value
+#include <cppintrospection/variant_cast>  // for variant_cast, etc
 
-#include <vector>
 
 namespace cppintrospection
 {
