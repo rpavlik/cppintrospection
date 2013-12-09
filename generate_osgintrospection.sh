@@ -23,10 +23,12 @@ function doConversion() {
 			cat $fn | doConversion > "$out/include/osgIntrospection/$(basename $fn)"
 		done
 		for fn in src/cppintrospection/*.cpp; do
-			cat $fn | doConversion > "$out/src/osgIntrospection/$(basename $fn)"
+		    if [ "$(basename $fn)" != "Version.cpp" ]; then
+    			cat $fn | doConversion > "$out/src/osgIntrospection/$(basename $fn)"
+    		fi
 		done
 	) || (
-		echo "$out already exists - delete it before regenerating!" >2
+		echo "$out already exists - delete it before regenerating!"
 		exit 1
 	)
 )
