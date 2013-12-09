@@ -83,12 +83,13 @@ namespace cppintrospection
         // all the known types before exiting your program: otherwise, you will get a lot of false positive memory leaks in debug builds.
         // It might also be used to dynamically reload the description of the known types (?)
         static void uninitialize();
+
+        static void registerConverter(const Type& source, const Type& dest, const Converter* cvt);
         
     private:
         template<typename C> friend class Reflector;
         friend class GenericReflectorBase;
         template<typename C> friend struct TypeNameAliasProxy;
-        friend struct ConverterProxy;
 
         struct StaticData
         {
@@ -105,7 +106,6 @@ namespace cppintrospection
         static StaticData& getOrCreateStaticData();
         static Type* registerType(const ExtendedTypeInfo &ti);
         static Type* getOrRegisterType(const ExtendedTypeInfo &ti, bool replace_if_defined = false);
-        static void registerConverter(const Type& source, const Type& dest, const Converter* cvt);
 
     private:
         static bool accum_conv_path(const Type& source, const Type& dest, ConverterList& conv, std::vector<const Type* > &chain, CastType castType);

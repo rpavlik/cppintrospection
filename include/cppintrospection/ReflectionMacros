@@ -180,9 +180,9 @@ struct BaseTypeConverters
         const cppintrospection::Type& cst = typeof(const reflected_type*); \
         const cppintrospection::Type& dt = typeof(x*); \
         const cppintrospection::Type& cdt = typeof(const x*); \
-        cppintrospection::ConverterProxy cp1(st, dt, new cppintrospection::StaticConverter<reflected_type* , x*>); \
-        cppintrospection::ConverterProxy cp2(cst, cdt, new cppintrospection::StaticConverter<const reflected_type* , const x*>); \
-        cppintrospection::ConverterProxy cp1c(st, cdt, new cppintrospection::StaticConverter<reflected_type* , const x*>); \
+        cppintrospection::Reflection::registerConverter(st, dt, new cppintrospection::StaticConverter<reflected_type* , x*>); \
+        cppintrospection::Reflection::registerConverter(cst, cdt, new cppintrospection::StaticConverter<const reflected_type* , const x*>); \
+        cppintrospection::Reflection::registerConverter(st, cdt, new cppintrospection::StaticConverter<reflected_type* , const x*>); \
     }
 };
 
@@ -195,12 +195,12 @@ struct BaseTypeConverters<x, reflected_type, true>
         const cppintrospection::Type& cst = typeof(const reflected_type*); \
         const cppintrospection::Type& dt = typeof(x*); \
         const cppintrospection::Type& cdt = typeof(const x*); \
-        cppintrospection::ConverterProxy cp1(st, dt, new cppintrospection::StaticConverter<reflected_type* , x*>); \
-        cppintrospection::ConverterProxy cp2(cst, cdt, new cppintrospection::StaticConverter<const reflected_type* , const x*>); \
-        cppintrospection::ConverterProxy cp1c(st, cdt, new cppintrospection::StaticConverter<reflected_type* , const x*>); \
-        cppintrospection::ConverterProxy cp3(dt, st, new cppintrospection::DynamicConverter<x*, reflected_type* >); \
-        cppintrospection::ConverterProxy cp4(cdt, cst, new cppintrospection::DynamicConverter<const x*, const reflected_type* >); \
-        cppintrospection::ConverterProxy cp3c(dt, cst, new cppintrospection::DynamicConverter<x*, const reflected_type* >); \
+        cppintrospection::Reflection::registerConverter(st, dt, new cppintrospection::StaticConverter<reflected_type* , x*>); \
+        cppintrospection::Reflection::registerConverter(cst, cdt, new cppintrospection::StaticConverter<const reflected_type* , const x*>); \
+        cppintrospection::Reflection::registerConverter(st, cdt, new cppintrospection::StaticConverter<reflected_type* , const x*>); \
+        cppintrospection::Reflection::registerConverter(dt, st, new cppintrospection::DynamicConverter<x*, reflected_type* >); \
+        cppintrospection::Reflection::registerConverter(cdt, cst, new cppintrospection::DynamicConverter<const x*, const reflected_type* >); \
+        cppintrospection::Reflection::registerConverter(dt, cst, new cppintrospection::DynamicConverter<x*, const reflected_type* >); \
     }
 };
 
