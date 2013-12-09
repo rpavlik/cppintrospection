@@ -2,6 +2,7 @@ set(SOURCES
 	ConstructorInfo.cpp
 	CustomAttributeProvider.cpp
 	DefaultReflectors.cpp
+	GenericReflectorBase.cpp
 	MethodInfo.cpp
 	PropertyInfo.cpp
 	Reflection.cpp
@@ -22,6 +23,7 @@ set(HEADERS
 	../../include/cppintrospection/Exceptions
 	../../include/cppintrospection/Export
 	../../include/cppintrospection/ExtendedTypeInfo
+	../../include/cppintrospection/GenericReflectorBase
 	../../include/cppintrospection/InstanceCreator
 	../../include/cppintrospection/MethodInfo
 	../../include/cppintrospection/ParameterInfo

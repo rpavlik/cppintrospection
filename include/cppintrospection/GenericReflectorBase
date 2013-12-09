@@ -1,0 +1,96 @@
+/* -*-c++-*- OpenSceneGraph - Copyright (C) 1998-2006 Robert Osfield 
+ *
+ * This library is open source and may be redistributed and/or modified under  
+ * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or 
+ * (at your option) any later version.  The full license is in LICENSE file
+ * included with this distribution, and on the openscenegraph.org website.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * OpenSceneGraph Public License for more details.
+*/
+//cppintrospection - Copyright (C) 2005 Marco Jez
+
+#ifndef CPPINTROSPECTION_GENERIC_REFLECTOR_BASE_
+#define CPPINTROSPECTION_GENERIC_REFLECTOR_BASE_
+
+#include <string>
+#include <vector>
+
+namespace cppintrospection
+{
+    class Type;
+    class PropertyInfo;
+    class MethodInfo;
+    class ConstructorInfo;
+    class ReaderWriter;
+    struct Comparator;
+    class CustomAttributeProvider;
+    class CustomAttribute;
+
+    class GenericReflectorBase {
+        public:
+        GenericReflectorBase(Type * t, const std::string & name, const std::string & ns, bool abstract);
+        GenericReflectorBase(Type * t, const std::string & qname, bool abstract);
+        protected:
+        /// Returns the Type object being described.
+        Type* getType() { return _type; }
+
+        /// Declares a new base type for the current type.
+        void addBaseType(const Type& type);
+
+        /// Sets the comparator object for the current type.
+        void setComparator(const Comparator* cmp);
+
+        /// Adds a property description to the current type.
+        PropertyInfo* addProperty(PropertyInfo* pi);
+
+        /// Adds a method description to the current type.
+        MethodInfo* addMethod(MethodInfo* mi);
+
+        /// Adds a protected method description to the current type.
+        MethodInfo* addProtectedMethod(MethodInfo* mi);
+
+        /// Adds an enumeration label to the current type.
+        void addEnumLabel(int v, const std::string& label, bool strip_namespace = true);
+
+        /// Adds a constructor description to the current type.
+        /// As soon as a constructor is added through this method,
+        /// the automatically-generated default constructor is
+        /// removed.
+        ConstructorInfo* addConstructor(ConstructorInfo* ci);
+
+        /// Adds a protected constructor description to the current
+        /// type.
+        ConstructorInfo* addProtectedConstructor(ConstructorInfo* ci);
+
+        /// Returns a string containing the qualified version of 'name'.
+        std::string qualifyName(const std::string& name) const;
+
+        /// Adds a custom attribute to the type being described.
+        CustomAttributeProvider *addAttribute(const CustomAttribute* attrib);
+
+        /// Sets the current type's ReaderWriter object.
+        void setReaderWriter(const ReaderWriter* rw);
+
+        /// Sets the current type's declaring file.
+        void setDeclaringFile(const std::string& file) const;
+
+        protected:
+        Type*  registerPtype(Type * ptype, const ReaderWriter* rw, const Comparator* cmp, bool isconst = false);
+        Type * registerReftype(Type* ptype, bool isconst = false);
+        Type*  registerRelatedType(Type* reltype);
+        static std::string purify(const std::string& s);
+        static void split_qualified_name(const std::string& q, std::string& n, std::string& ns);
+
+        typedef std::vector<MethodInfo* > TempMethodList;
+        TempMethodList _temp_methods;
+        TempMethodList _temp_protected_methods;
+        Type* _type;
+    };
+
+}
+
+#endif
+

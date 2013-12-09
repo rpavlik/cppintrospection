@@ -15,6 +15,7 @@
 #ifndef CPPINTROSPECTION_REFLECTOR_
 #define CPPINTROSPECTION_REFLECTOR_
 
+#include <cppintrospection/GenericReflectorBase>
 #include <cppintrospection/Reflection>
 #include <cppintrospection/Type>
 #include <cppintrospection/Value>
@@ -55,7 +56,7 @@ namespace cppintrospection
     /// explicitly.
     ///
     template<typename T>
-    class Reflector
+    class Reflector : public GenericReflectorBase
     {
     public:
         typedef T reflected_type;
@@ -73,51 +74,6 @@ namespace cppintrospection
         /// fully-qualified name of the type being reflected, i.e. containing
         /// both the namespace and the name (separated by "::"). 
         Reflector(const std::string& qname, bool abstract = false);
-
-    protected:
-
-        /// Returns the Type object being described.
-        Type* getType() { return _type; }
-
-        /// Declares a new base type for the current type.
-        void addBaseType(const Type& type);
-
-        /// Sets the comparator object for the current type.
-        void setComparator(const Comparator* cmp);
-
-        /// Adds a property description to the current type.
-        PropertyInfo* addProperty(PropertyInfo* pi);
-
-        /// Adds a method description to the current type.
-        MethodInfo* addMethod(MethodInfo* mi);
-
-        /// Adds a protected method description to the current type.
-        MethodInfo* addProtectedMethod(MethodInfo* mi);
-
-        /// Adds an enumeration label to the current type.
-        void addEnumLabel(int v, const std::string& label, bool strip_namespace = true);
-
-        /// Adds a constructor description to the current type.
-        /// As soon as a constructor is added through this method,
-        /// the automatically-generated default constructor is
-        /// removed.
-        ConstructorInfo* addConstructor(ConstructorInfo* ci);
-
-        /// Adds a protected constructor description to the current
-        /// type.
-        ConstructorInfo* addProtectedConstructor(ConstructorInfo* ci);
-
-        /// Returns a string containing the qualified version of 'name'.
-        std::string qualifyName(const std::string& name) const;
-
-        /// Adds a custom attribute to the type being described.
-        CustomAttributeProvider *addAttribute(const CustomAttribute* attrib);
-
-        /// Sets the current type's ReaderWriter object.
-        void setReaderWriter(const ReaderWriter* rw);
-
-        /// Sets the current type's declaring file.
-        void setDeclaringFile(const std::string& file) const;
 
     private:
         struct PtrConstructor: ConstructorInfo
@@ -140,20 +96,10 @@ namespace cppintrospection
             Value createInstance(ValueList& ) const { const T *x = 0; return x; }
         };
 
-
-
-
-
         void init();
         void init_reference_types();
         void init_void_converter();
-        static std::string purify(const std::string& s);
-        static void split_qualified_name(const std::string& q, std::string& n, std::string& ns);
 
-        typedef std::vector<MethodInfo* > TempMethodList;
-        TempMethodList _temp_methods;
-        TempMethodList _temp_protected_methods;
-        Type* _type;
     };
 
     /// This reflector ought to be used to describe types that can be
@@ -739,30 +685,15 @@ namespace cppintrospection
 
     template<typename T>
     Reflector<T>::Reflector(const std::string& name, const std::string& ns, bool abstract)
-    :    _type(Reflection::getOrRegisterType(extended_typeid<T>(), true))
+    :    GenericReflectorBase(Reflection::getOrRegisterType(extended_typeid<T>(), true), name, ns, abstract)
     {
-        if (!_type->_name.empty())
-            _type->_aliases.push_back(ns.empty()? purify(name): purify(ns+"::"+name));
-        else
-        {
-            _type->_name = purify(name);
-            _type->_namespace = purify(ns);
-        }
-        _type->_is_abstract = abstract;
         init();
     }
 
     template<typename T>
     Reflector<T>::Reflector(const std::string& qname, bool abstract)
-    :    _type(Reflection::getOrRegisterType(extended_typeid<T>(), true))
+    :    GenericReflectorBase(Reflection::getOrRegisterType(extended_typeid<T>(), true), qname, abstract)
     {
-        if (!_type->_name.empty())
-            _type->_aliases.push_back(purify(qname));
-        else
-        {
-            split_qualified_name(purify(qname), _type->_name, _type->_namespace);
-        }
-        _type->_is_abstract = abstract;
         init();
     }
 
@@ -772,28 +703,20 @@ namespace cppintrospection
         // pointer type
         if (!_type->_pointed_type)
         {
-            Type* ptype = Reflection::getOrRegisterType(extended_typeid<T*>(), true);
-            ptype->_name = _type->_name;
-            ptype->_namespace = _type->_namespace;
-            ptype->_pointed_type = _type;
-            ptype->_is_defined = true;
+            Type * ptype = registerPtype(Reflection::getOrRegisterType(extended_typeid<T*>(), true),
+                new PtrReaderWriter<T*>(),
+                new TotalOrderComparator<T*>());
             ptype->_cons.push_back(new PtrConstructor(ptype));
-            ptype->_rw = new PtrReaderWriter<T*>();
-            ptype->_cmp = new TotalOrderComparator<T*>();
         }
 
         // const pointer type
         if (!_type->_pointed_type || !_type->_is_const)
         {
-            Type* cptype = Reflection::getOrRegisterType(extended_typeid<const T*>(), true);
-            cptype->_name = _type->_name;
-            cptype->_namespace = _type->_namespace;
-            cptype->_is_const = true;
-            cptype->_pointed_type = _type;
-            cptype->_is_defined = true;
-            cptype->_cons.push_back(new ConstPtrConstructor(cptype));
-            cptype->_rw = new PtrReaderWriter<const T*>();
-            cptype->_cmp = new TotalOrderComparator<const T*>();
+            Type * cptype = registerPtype(Reflection::getOrRegisterType(extended_typeid<const T*>(), true),
+                new PtrReaderWriter<const T*>(),
+                new TotalOrderComparator<const T*>(),
+                true);
+            cptype->_cons.push_back(new PtrConstructor(cptype));
         }
 
         init_reference_types();
@@ -808,22 +731,13 @@ namespace cppintrospection
         // reference type
         if (!_type->_referenced_type)
         {
-            Type* ptype = Reflection::getOrRegisterType(extended_typeid<T&>(), true);
-            ptype->_name = _type->_name;
-            ptype->_namespace = _type->_namespace;
-            ptype->_referenced_type = _type;
-            ptype->_is_defined = true;
+            registerReftype(Reflection::getOrRegisterType(extended_typeid<T&>(), true));
         }
 
         // const reference type
         if (!_type->_referenced_type || !_type->_is_const)
         {
-            Type* cptype = Reflection::getOrRegisterType(extended_typeid<const T&>(), true);
-            cptype->_name = _type->_name;
-            cptype->_namespace = _type->_namespace;
-            cptype->_is_const = true;
-            cptype->_referenced_type = _type;
-            cptype->_is_defined = true;
+            registerReftype(Reflection::getOrRegisterType(extended_typeid<const T&>(), true), true);
         }
     }
 
@@ -848,160 +762,6 @@ namespace cppintrospection
 
     template<>
     void Reflector<void>::init_void_converter();
-
-    template<typename T>
-    std::string Reflector<T>::purify(const std::string& s)
-    {
-        std::string r(s);
-        while (true)
-        {
-            std::string::size_type p = r.find(" COMMA ");
-            if (p == std::string::npos) break;
-            r.replace(p, 7, ", ");
-        };
-        return r;
-    }
-
-    template<typename T>
-    void Reflector<T>::split_qualified_name(const std::string& q, std::string& n, std::string& ns)
-    {
-        int templ = 0;
-        std::string::size_type split_point = std::string::npos;
-        std::string::size_type j = 0;
-        for (std::string::const_iterator i=q.begin(); i!=q.end(); ++i, ++j)
-        {
-            if (*i == '<') ++templ;
-            if (*i == '>') --templ;
-            if (templ == 0)
-            {
-                if (*i == ':' && (i+1)!=q.end() && *(i+1) == ':')
-                    split_point = j;
-            }
-        }
-        if (split_point == std::string::npos)
-        {
-            ns.clear();
-            n = q;
-        }
-        else
-        {
-            n = q.substr(split_point+2);
-            ns = q.substr(0, split_point);
-        }
-    }
-
-    template<typename T>
-    void Reflector<T>::addBaseType(const Type& type)
-    {
-        _type->_base.push_back(&type);
-    }
-
-    template<typename T>
-    PropertyInfo* Reflector<T>::addProperty(PropertyInfo* pi)
-    {
-        _type->_props.push_back(pi);
-        return pi;
-    }
-
-    template<typename T>
-    MethodInfo* Reflector<T>::addMethod(MethodInfo* mi)
-    {
-        for (TempMethodList::iterator i=_temp_methods.begin(); i!=_temp_methods.end(); ++i)
-        {
-            if (mi->overrides(*i))
-                return *i;
-        }
-
-        _temp_methods.push_back(mi);
-        _type->_methods.push_back(mi);
-        return mi;
-    }
-
-    template<typename T>
-    MethodInfo* Reflector<T>::addProtectedMethod(MethodInfo* mi)
-    {
-        for (TempMethodList::iterator i=_temp_protected_methods.begin(); i!=_temp_protected_methods.end(); ++i)
-        {
-            if (mi->overrides(*i))
-                return *i;
-        }
-
-        _temp_protected_methods.push_back(mi);
-        _type->_protected_methods.push_back(mi);
-        return mi;
-    }
-
-    template<typename T>
-    void Reflector<T>::addEnumLabel(int v, const std::string& label, bool strip_namespace)
-    {
-        if (strip_namespace)
-        {
-            std::string::size_type p = label.rfind("::");
-            if (p != std::string::npos)
-            {
-                _type->_labels.insert(std::make_pair(v, label.substr(p+2)));
-                return;
-            }
-        }
-        _type->_labels.insert(std::make_pair(v, label));
-    }
-
-    template<typename T>
-    ConstructorInfo* Reflector<T>::addConstructor(ConstructorInfo* ci)
-    {
-        _type->_cons.push_back(ci);
-        return ci;
-    }
-
-    template<typename T>
-    ConstructorInfo* Reflector<T>::addProtectedConstructor(ConstructorInfo* ci)
-    {
-        _type->_protected_cons.push_back(ci);
-        return ci;
-    }
-
-    template<typename T>
-    std::string Reflector<T>::qualifyName(const std::string& name) const
-    {
-        std::string s;
-        if (!_type->_namespace.empty())
-        {
-            s.append(_type->_namespace);
-            s.append("::");
-        }
-        if (!_type->_name.empty())
-        {
-            s.append(_type->_name);
-            s.append("::");
-        }
-        s.append(name);
-        return s;
-    }
-
-    template<typename T>
-    CustomAttributeProvider *Reflector<T>::addAttribute(const CustomAttribute* attrib)
-    {
-        return _type->addAttribute(attrib);
-    }
-
-    template<typename T>
-    void Reflector<T>::setReaderWriter(const ReaderWriter* rw)
-    {
-        _type->_rw = rw;
-    }
-
-    template<typename T>
-    void Reflector<T>::setComparator(const Comparator* cmp)
-    {
-        _type->_cmp = cmp;
-    }
-
-    template<typename T>
-    void Reflector<T>::setDeclaringFile(const std::string& file) const
-    {
-        _type->_declaringFile = file;
-    }
-
 }
 
 #endif

@@ -276,6 +276,7 @@ namespace cppintrospection
         virtual void getInheritedProviders(CustomAttributeProviderList& providers) const;
 
     private:
+        friend class GenericReflectorBase;
         template<typename C> friend class Reflector;
         template<typename C> friend struct TypeNameAliasProxy;
         friend class Reflection;
