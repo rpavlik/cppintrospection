@@ -697,6 +697,11 @@ namespace cppintrospection
         init();
     }
 
+    template<template <typename, typename> class ConverterType, typename T1, typename T2>
+    inline void registerConverterWrapper() {
+        Reflection::registerConverter(typeof(T1), typeof(T2), new ConverterType<T1, T2>);
+    }
+
     template<typename T>
     void Reflector<T>::init()
     {
@@ -721,6 +726,8 @@ namespace cppintrospection
 
         init_reference_types();
         init_void_converter();
+
+        registerConverterWrapper<cppintrospection::StaticConverter, T*, const T*>();
 
         _type->_is_defined = true;
     }
