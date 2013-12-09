@@ -145,19 +145,21 @@ const Converter* Reflection::getConverter(const Type& source, const Type& dest)
 
 bool Reflection::getConversionPath(const Type& source, const Type& dest, ConverterList& conv)
 {
-    ConverterList temp;
-    std::vector<const Type* > chain;
 
-    if (accum_conv_path(source, dest, temp, chain, STATIC_CAST))
     {
-        conv.swap(temp);
-        return true;
+        ConverterList temp;
+        std::vector<const Type* > chain;
+        if (accum_conv_path(source, dest, temp, chain, STATIC_CAST))
+        {
+            conv.swap(temp);
+            return true;
+        }
     }
 
     if (source.isPointer() && dest.isPointer())
     {
-        chain.clear();
-        temp.clear();
+        ConverterList temp;
+        std::vector<const Type* > chain;
         if (accum_conv_path(source, dest, temp, chain, DYNAMIC_CAST))
         {
             conv.swap(temp);
