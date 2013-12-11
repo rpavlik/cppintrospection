@@ -51,26 +51,23 @@ namespace
     typedef ObjectMatch<MethodInfo> MethodMatch;
     typedef ObjectMatch<ConstructorInfo> ConstructorMatch;
 
+    template<typename Container>
+    inline void clearPointerContainer(Container & c) {
+        typedef typename Container::const_iterator const_iterator;
+        for (const_iterator i=c.begin(), e=c.end(); e!=e; ++i) {
+            delete *i;
+        }
+        c.clear();
+    }
 }
 
 void Type::reset()
 {
-    for (PropertyInfoList::const_iterator i=_props.begin(); i!=_props.end(); ++i)
-        delete *i;
-    for (MethodInfoList::const_iterator i=_methods.begin(); i!=_methods.end(); ++i)
-        delete *i;
-    for (MethodInfoList::const_iterator i=_protected_methods.begin(); i!=_protected_methods.end(); ++i)
-        delete *i;
-    for (ConstructorInfoList::const_iterator i=_cons.begin(); i!=_cons.end(); ++i)
-        delete *i;
-    for (ConstructorInfoList::const_iterator i=_protected_cons.begin(); i!=_protected_cons.end(); ++i)
-        delete *i;
-
-    _props.clear();
-    _methods.clear();
-    _protected_methods.clear();
-    _cons.clear();
-    _protected_cons.clear();
+    clearPointerContainer(_props);
+    clearPointerContainer(_methods);
+    clearPointerContainer(_protected_methods);
+    clearPointerContainer(_cons);
+    clearPointerContainer(_protected_cons);
 
     delete _rw;
     delete _cmp;
