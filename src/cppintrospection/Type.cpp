@@ -214,7 +214,7 @@ Value Type::invokeMethod(const std::string& name, Value& instance, ValueList& ar
 void Type::getAllProperties(PropertyInfoList& props) const
 {
     check_defined();
-    std::copy(_props.begin(), _props.end(),    std::back_inserter(props));
+    std::copy(_props.begin(), _props.end(), std::back_inserter(props));
     for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
     {
         (*i)->getAllProperties(props);
