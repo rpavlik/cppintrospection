@@ -78,7 +78,10 @@ const Type& Reflection::getType(const std::string& qname)
 
     for (TypeMap::const_iterator i=types.begin(), e=types.end(); i!=e; ++i)
     {
-        if (i->second->isDefined() && i->second->getQualifiedName().compare(qname) == 0)
+        if (!i->second->isDefined()) {
+            continue;
+        }
+        if (i->second->getQualifiedName().compare(qname) == 0)
             return *i->second;
         for (int j=0; j<i->second->getNumAliases(); ++j)
             if (i->second->getAlias(j).compare(qname) == 0)
