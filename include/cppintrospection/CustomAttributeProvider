@@ -73,13 +73,15 @@ namespace cppintrospection
         /// [template version]
         template<typename T> inline bool isDefined(bool inherit) const
         {
-            for (CustomAttributeList::const_iterator i=attribs_.begin(); i!=attribs_.end(); ++i)
+            for (CustomAttributeList::const_iterator i=attribs_.begin(), e = attribs_.end(); i != e; ++i)
+            {
                 if (typeid(**i) == typeid(T)) return true;
+            }
             if (inherit)
             {
                 CustomAttributeProviderList providers;
                 getInheritedProviders(providers);
-                for (CustomAttributeProviderList::const_iterator i=providers.begin(); i!=providers.end(); ++i)
+                for (CustomAttributeProviderList::const_iterator i = providers.begin(), e = providers.end(); i != e; ++i)
                 {
                     if ((*i)->isDefined<T>(true)) return true;
                 }
@@ -98,13 +100,15 @@ namespace cppintrospection
         /// [template version]
         template<typename T> inline const T *getAttribute(bool inherit) const
         {
-            for (CustomAttributeList::const_iterator i=attribs_.begin(); i!=attribs_.end(); ++i)
+            for (CustomAttributeList::const_iterator i=attribs_.begin(), e = attribs_.end(); i != e; ++i)
+            {
                 if (typeid(**i) == typeid(T)) return static_cast<const T *>(*i);
+            }
             if (inherit)
             {
                 CustomAttributeProviderList providers;
                 getInheritedProviders(providers);
-                for (CustomAttributeProviderList::const_iterator i=providers.begin(); i!=providers.end(); ++i)
+                for (CustomAttributeProviderList::const_iterator i = providers.begin(), e = providers.end(); i != e; ++i)
                 {
                     const T *ca = (*i)->getAttribute<T>(true);
                     if (ca) return ca;
@@ -116,7 +120,7 @@ namespace cppintrospection
     protected:
         virtual void getInheritedProviders(CustomAttributeProviderList& providers) const = 0;
         virtual ~CustomAttributeProvider() {
-            for(CustomAttributeList::iterator it = attribs_.begin(); it != attribs_.end(); ++it) {
+            for(CustomAttributeList::iterator it = attribs_.begin(), e = attribs_.end(); it != e; ++it) {
                 delete (*it);
             }
         }

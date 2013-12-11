@@ -28,12 +28,12 @@ Reflection::StaticData* Reflection::_static_data = 0;
 
 Reflection::StaticData::~StaticData()
 {
-    for (TypeMap::iterator i=typemap.begin(); i!=typemap.end(); ++i)
+    for (TypeMap::iterator i=typemap.begin(), e = typemap.end(); i!=e; ++i)
         delete i->second;
 
-    for (ConverterMapMap::iterator i=convmap.begin(); i!=convmap.end(); ++i)
+    for (ConverterMapMap::iterator i=convmap.begin(), e=convmap.end(); i!= e; ++i)
     {
-        for (ConverterMap::iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        for (ConverterMap::iterator j=i->second.begin(), e2=i->second.end(); j != e2; ++j)
         {
             delete j->second;
         }
@@ -76,7 +76,7 @@ const Type& Reflection::getType(const std::string& qname)
 {
     const TypeMap& types = getTypes();
 
-    for (TypeMap::const_iterator i=types.begin(); i!=types.end(); ++i)
+    for (TypeMap::const_iterator i=types.begin(), e=types.end(); i!=e; ++i)
     {
         if (i->second->isDefined() && i->second->getQualifiedName().compare(qname) == 0)
             return *i->second;

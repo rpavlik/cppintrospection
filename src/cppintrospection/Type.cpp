@@ -84,7 +84,7 @@ Type::~Type()
 bool Type::isSubclassOf(const Type& type) const
 {
     check_defined();
-    for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+    for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
     {
         if ((*i)->getExtendedTypeInfo() == type.getExtendedTypeInfo())
             return true;
@@ -112,9 +112,9 @@ const MethodInfo *Type::getCompatibleMethod(const std::string& name, const Value
     MatchList matches;
 
     int pos = 0;
-    for (MethodInfoList::const_iterator j=methods->begin(); j!=methods->end(); ++j, ++pos)
+    for (MethodInfoList::const_iterator i=methods->begin(), e=methods->end(); i!=e; ++i, ++pos)
     {
-        const MethodInfo *mi = *j;
+        const MethodInfo *mi = *i;
         if (mi->getName().compare(name) == 0)
         {
             float match;
@@ -141,9 +141,9 @@ const MethodInfo *Type::getCompatibleMethod(const std::string& name, const Value
 const MethodInfo *Type::getMethod(const std::string& name, const ParameterInfoList& params, bool inherit) const
 {
     check_defined();
-    for (MethodInfoList::const_iterator j=_methods.begin(); j!=_methods.end(); ++j)
+    for (MethodInfoList::const_iterator i=_methods.begin(), e=_methods.end(); i!=e; ++i)
     {
-        const MethodInfo *mi = *j;
+        const MethodInfo *mi = *i;
         if (mi->getName().compare(name) == 0)
         {
             if (areParametersCompatible(params, mi->getParameters()))
@@ -155,7 +155,7 @@ const MethodInfo *Type::getMethod(const std::string& name, const ParameterInfoLi
 
     if (inherit)
     {
-        for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+        for (TypeList::const_iterator i=_base.begin(), e = _base.end(); i!=e; ++i)
         {
             const MethodInfo *mi = (*i)->getMethod(name, params, true);
             if (mi) return mi;
@@ -174,7 +174,7 @@ void Type::getInheritedProviders(CustomAttributeProviderList& providers) const
 const PropertyInfo *Type::getProperty(const std::string& name, const Type& ptype, const ParameterInfoList& indices, bool inherit) const
 {
     check_defined();
-    for (PropertyInfoList::const_iterator i=_props.begin(); i!=_props.end(); ++i)
+    for (PropertyInfoList::const_iterator i=_props.begin(), e=_props.end(); i!=e; ++i)
     {
         const PropertyInfo *pi = *i;
         if (pi->getName() == name && pi->getPropertyType() == ptype)
@@ -188,7 +188,7 @@ const PropertyInfo *Type::getProperty(const std::string& name, const Type& ptype
 
     if (inherit)
     {
-        for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+        for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
         {
             const PropertyInfo *pi = (*i)->getProperty(name, ptype, indices, true);
             if (pi) return pi;
@@ -275,15 +275,15 @@ const ConstructorInfo *Type::getCompatibleConstructor(const ValueList& values) c
     MatchList matches;
 
     int pos = 0;
-    for (ConstructorInfoList::const_iterator j=_cons.begin(); j!=_cons.end(); ++j, ++pos)
+    for (ConstructorInfoList::const_iterator i=_cons.begin(), e=_cons.end(); i!=e; ++i, ++pos)
     {
         float match;
-        if (areArgumentsCompatible(values, (*j)->getParameters(), match))
+        if (areArgumentsCompatible(values, (*i)->getParameters(), match))
         {
             ConstructorMatch mm;
             mm.list_pos = pos;
             mm.match = match;
-            mm.object = *j;
+            mm.object = *i;
             matches.push_back(mm);
         }
     }
@@ -301,10 +301,10 @@ const ConstructorInfo *Type::getConstructor(const ParameterInfoList& params) con
 {
     check_defined();
 
-    for (ConstructorInfoList::const_iterator j=_cons.begin(); j!=_cons.end(); ++j)
+    for (ConstructorInfoList::const_iterator i=_cons.begin(), e=_cons.end(); i!=e; ++i)
     {
-        if (areParametersCompatible(params, (*j)->getParameters()))
-            return *j;
+        if (areParametersCompatible(params, (*i)->getParameters()))
+            return *i;
     }
 
     return 0;

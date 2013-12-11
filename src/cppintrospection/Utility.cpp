@@ -29,8 +29,10 @@ bool cppintrospection::areParametersCompatible(const ParameterInfoList& pl1, con
             return true;
 
         ParameterInfoList::const_iterator i1 = pl1.begin();
+        ParameterInfoList::const_iterator e1 = pl1.end();
         ParameterInfoList::const_iterator i2 = pl2.begin();
-        for (; i1<pl1.end(); ++i1, ++i2)
+
+        for (; i1!=e1; ++i1, ++i2)
         {
             const ParameterInfo &p1 = **i1;
             const ParameterInfo &p2 = **i2;
