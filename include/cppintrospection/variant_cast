@@ -25,7 +25,34 @@
 namespace cppintrospection
 {
 
-    
+    namespace detail
+    {
+
+        template <typename T> struct variant_cast_helper
+        {
+            static Value::Instance_base *getInstance(const Value &v)
+            {
+                return v._inbox->inst_;
+            }
+        };
+
+        template <typename T> struct variant_cast_helper<T &>
+        {
+            static Value::Instance_base *getInstance(const Value &v)
+            {
+                return v._inbox->_ref_inst;
+            }
+        };
+
+        template <typename T> struct variant_cast_helper<T const &>
+        {
+            static Value::Instance_base *getInstance(const Value &v)
+            {
+                return v._inbox->_const_ref_inst;
+            }
+        };
+
+    } // end of namespace detail
 
     /// Tries to convert an instance of Value to an object of type T.
     /// If T is a plain type or a pointer type (either const or non-const),
@@ -42,19 +69,9 @@ namespace cppintrospection
     {
         std::cerr << "********** variant_cast *******\nType: " << v.getType().getQualifiedName() << std::endl;
         std::cerr << "Instance type: " << v.getInstanceType().getQualifiedName() << std::endl;
-        // return value
-        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
+        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(
+            detail::variant_cast_helper<T>::getInstance(v));
         std::cerr << "value: " << i << std::endl;
-        if (i) return i->_data;
-
-        // return reference to value
-        i = dynamic_cast<Value::Instance<T> *>(v._inbox->_ref_inst);
-        std::cerr << "ref: " << i << std::endl;
-        if (i) return i->_data;
-
-        // return const reference to value
-        i = dynamic_cast<Value::Instance<T> *>(v._inbox->_const_ref_inst);
-        std::cerr << "constref: " << i << std::endl;
         if (i) return i->_data;
 
         // try to convert v to type T and restart
@@ -67,19 +84,10 @@ namespace cppintrospection
     /// Returns false otherwise.
     template<typename T> bool requires_conversion(const Value& v)
     {
-        // direct value
-        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
-        if (i) return false;
+        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(
+            detail::variant_cast_helper<T>::getInstance(v));
 
-        // reference to value
-        i = dynamic_cast<Value::Instance<T> *>(v._inbox->_ref_inst);
-        if (i) return false;
-
-        // const reference to value
-        i = dynamic_cast<Value::Instance<T> *>(v._inbox->_const_ref_inst);
-        if (i) return false;
-        
-        return true;
+        return !i;
     }
 
     /// Returns a typed pointer to the data contained in a Value 
