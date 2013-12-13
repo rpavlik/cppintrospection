@@ -32,46 +32,60 @@
 
 namespace intro = cppintrospection;
 
-void translate_cppintrospection_exceptions(cppintrospection::Exception &e) {
+void translate_cppintrospection_exceptions(cppintrospection::Exception &e)
+{
     BOOST_ERROR(e.what());
 }
 
-template <typename T> struct dereferenceIfRequested {
-    static T apply(T v) { return v; }
+template <typename T> struct dereferenceIfRequested
+{
+    static T apply(T v)
+    {
+        return v;
+    }
 };
 
-template <typename T> struct dereferenceIfRequested<T &> {
-    static T &apply(T *v) { return *v; }
+template <typename T> struct dereferenceIfRequested<T &>
+{
+    static T &apply(T *v)
+    {
+        return *v;
+    }
 };
 
-class Fixture {
-  public:
+class Fixture
+{
+public:
     Fixture()
         : p_ptr(&p)
-        , c_ptr(&c) {
+        , c_ptr(&c)
+    {
         ensureRegistered();
-        boost::unit_test::unit_test_monitor.register_exception_translator<
-            intro::Exception &>(&translate_cppintrospection_exceptions);
+        boost::unit_test::unit_test_monitor.register_exception_translator
+            <intro::Exception &>(&translate_cppintrospection_exceptions);
         acceptType = &intro::Reflection::getType("Acceptor");
     }
-    template <typename T> T getParentAs() {
+    template <typename T> T getParentAs()
+    {
         return dereferenceIfRequested<T>::apply(p_ptr);
     }
 
-    template <typename T> T getChildAs() {
+    template <typename T> T getChildAs()
+    {
         return dereferenceIfRequested<T>::apply(c_ptr);
     }
 
     const intro::Type *acceptType;
 
-  private:
+private:
     Parent p;
     Parent *p_ptr;
     Child c;
     Child *c_ptr;
 };
 
-inline intro::ValueList createValueList(intro::Value v) {
+inline intro::ValueList createValueList(intro::Value v)
+{
     return intro::ValueList(1, v);
 }
 
@@ -94,7 +108,8 @@ void testVariantCast(Input input) {
 
 #endif
 
-BOOST_AUTO_TEST_CASE(ParentPtrToParentPtr) {
+BOOST_AUTO_TEST_CASE(ParentPtrToParentPtr)
+{
     Fixture f;
     BOOST_CHECK(intro::variant_cast<Parent *>(f.getParentAs<Parent *>()));
 
@@ -102,17 +117,19 @@ BOOST_AUTO_TEST_CASE(ParentPtrToParentPtr) {
         "acceptParentPtr", createValueList(f.getParentAs<Parent *>()), true));
 }
 
-BOOST_AUTO_TEST_CASE(ConstParentPtrToConstParentPtr) {
+BOOST_AUTO_TEST_CASE(ConstParentPtrToConstParentPtr)
+{
     Fixture f;
-    BOOST_CHECK(
-        intro::variant_cast<const Parent *>(f.getParentAs<const Parent *>()));
+    BOOST_CHECK(intro::variant_cast
+                <const Parent *>(f.getParentAs<const Parent *>()));
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtrConst",
         createValueList(f.getParentAs<const Parent *>()), true));
 }
 
-BOOST_AUTO_TEST_CASE(ParentPtrToConstParentPtr) {
+BOOST_AUTO_TEST_CASE(ParentPtrToConstParentPtr)
+{
     Fixture f;
     BOOST_CHECK(intro::variant_cast<const Parent *>(f.getParentAs<Parent *>()));
 
@@ -121,7 +138,8 @@ BOOST_AUTO_TEST_CASE(ParentPtrToConstParentPtr) {
         true));
 }
 
-BOOST_AUTO_TEST_CASE(ChildPtrToParentPtr) {
+BOOST_AUTO_TEST_CASE(ChildPtrToParentPtr)
+{
     Fixture f;
     BOOST_CHECK(intro::variant_cast<Parent *>(f.getChildAs<Child *>()));
 
@@ -129,20 +147,22 @@ BOOST_AUTO_TEST_CASE(ChildPtrToParentPtr) {
         "acceptParentPtr", createValueList(f.getChildAs<Child *>()), true));
 }
 
-BOOST_AUTO_TEST_CASE(ConstChildPtrToConstParentPtr) {
+BOOST_AUTO_TEST_CASE(ConstChildPtrToConstParentPtr)
+{
     Fixture f;
-    BOOST_CHECK(
-        intro::variant_cast<const Parent *>(f.getChildAs<const Child *>()));
+    BOOST_CHECK(intro::variant_cast
+                <const Parent *>(f.getChildAs<const Child *>()));
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtrConst", createValueList(f.getChildAs<const Child *>()),
         true));
 }
 
-
-BOOST_AUTO_TEST_CASE(ParentPtrToParentRef) {
+BOOST_AUTO_TEST_CASE(ParentPtrToParentRef)
+{
     Fixture f;
-    BOOST_CHECK_NO_THROW(intro::variant_cast<Parent &>(f.getParentAs<Parent *>()));
+    BOOST_CHECK_NO_THROW(intro::variant_cast
+                         <Parent &>(f.getParentAs<Parent *>()));
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentRef", createValueList(f.getParentAs<Parent *>()), true));
