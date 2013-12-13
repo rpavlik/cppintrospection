@@ -1,0 +1,45 @@
+/** @file
+        @brief Header
+
+        @date 2013
+
+        @author
+        Ryan Pavlik
+        <rpavlik@iastate.edu> and <abiryan@ryand.net>
+        http://academic.cleardefinition.com/
+        Iowa State University Virtual Reality Applications Center
+        Human-Computer Interaction Graduate Program
+*/
+
+//          Copyright Iowa State University 2013.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
+#ifndef INCLUDED_debug_GUID_c8baefa0_0639_4fac_a43d_5dcd499fb911
+#define INCLUDED_debug_GUID_c8baefa0_0639_4fac_a43d_5dcd499fb911
+
+// Internal Includes
+// - none
+
+// Library/third-party includes
+#include <cxxabi.h>
+
+// Standard includes
+#include <string>
+#include <iostream>
+#include <typeinfo>
+#include <stdlib.h>
+
+inline std::string getDemangledImpl(const char *name) {
+    int status;
+    char *realname;
+    realname = abi::__cxa_demangle(name, 0, 0, &status);
+    std::string ret(realname);
+    free(realname);
+    return ret;
+}
+
+#define getDemangledName(X) getDemangledImpl(typeid(X).name())
+
+#endif // INCLUDED_debug_GUID_c8baefa0_0639_4fac_a43d_5dcd499fb911
