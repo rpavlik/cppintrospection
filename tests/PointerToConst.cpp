@@ -77,6 +77,8 @@ public:
 
     const intro::Type *acceptType;
 
+    Acceptor a;
+
 private:
     Parent p;
     Parent *p_ptr;
@@ -115,6 +117,11 @@ BOOST_AUTO_TEST_CASE(ParentPtrToParentPtr)
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtr", createValueList(f.getParentAs<Parent *>()), true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getParentAs<Parent *>()),
+         f.acceptType->invokeMethod("acceptParentPtr", &f.a, vl, true)));
 }
 
 BOOST_AUTO_TEST_CASE(ConstParentPtrToConstParentPtr)
@@ -126,6 +133,11 @@ BOOST_AUTO_TEST_CASE(ConstParentPtrToConstParentPtr)
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtrConst",
         createValueList(f.getParentAs<const Parent *>()), true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getParentAs<const Parent *>()),
+         f.acceptType->invokeMethod("acceptParentPtrConst", &f.a, vl, true)));
 }
 
 BOOST_AUTO_TEST_CASE(ParentPtrToConstParentPtr)
@@ -136,6 +148,11 @@ BOOST_AUTO_TEST_CASE(ParentPtrToConstParentPtr)
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtrConst", createValueList(f.getParentAs<Parent *>()),
         true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getParentAs<Parent *>()),
+         f.acceptType->invokeMethod("acceptParentPtrConst", &f.a, vl, true)));
 }
 
 BOOST_AUTO_TEST_CASE(ChildPtrToParentPtr)
@@ -145,6 +162,11 @@ BOOST_AUTO_TEST_CASE(ChildPtrToParentPtr)
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtr", createValueList(f.getChildAs<Child *>()), true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getChildAs<Child *>()),
+         f.acceptType->invokeMethod("acceptParentPtr", &f.a, vl, true)));
 }
 
 BOOST_AUTO_TEST_CASE(ConstChildPtrToConstParentPtr)
@@ -156,6 +178,11 @@ BOOST_AUTO_TEST_CASE(ConstChildPtrToConstParentPtr)
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentPtrConst", createValueList(f.getChildAs<const Child *>()),
         true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getChildAs<const Child *>()),
+         f.acceptType->invokeMethod("acceptParentPtrConst", &f.a, vl, true)));
 }
 
 BOOST_AUTO_TEST_CASE(ParentPtrToParentRef)
@@ -166,4 +193,26 @@ BOOST_AUTO_TEST_CASE(ParentPtrToParentRef)
 
     BOOST_CHECK(f.acceptType->getCompatibleMethod(
         "acceptParentRef", createValueList(f.getParentAs<Parent *>()), true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getParentAs<Parent *>()),
+         f.acceptType->invokeMethod("acceptParentRef", &f.a, vl, true)));
 }
+
+/*
+BOOST_AUTO_TEST_CASE(ChildPtrToParentRef)
+{
+    Fixture f;
+    BOOST_CHECK_NO_THROW(intro::variant_cast
+                         <Parent &>(f.getChildAs<Child *>()));
+
+    BOOST_CHECK(f.acceptType->getCompatibleMethod(
+        "acceptParentRef", createValueList(f.getChildAs<Child *>()), true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getChildAs<Child *>()),
+         f.acceptType->invokeMethod("acceptParentRef", &f.a, vl, true)));
+}
+*/
