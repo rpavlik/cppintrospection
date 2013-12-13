@@ -27,6 +27,14 @@ namespace cppintrospection
 
     namespace detail
     {
+        template <typename T> struct change_reference_to_pointer
+        {
+            typedef T type;
+        };
+        template <typename T> struct change_reference_to_pointer<T &>
+        {
+            typedef T *type;
+        };
 
         template <typename T> struct variant_cast_helper
         {
@@ -75,10 +83,10 @@ namespace cppintrospection
         if (i) return i->_data;
 
         // try to convert v to type T and restart
-        return variant_cast<T>(v.convertTo(typeof(T)));
+        return variant_cast<T>(v.convertTo(
+            typeof(typename detail::change_reference_to_pointer<T>::type)));
     }
-    
-    
+
     /// Returns true if the Value passed as parameter can't be casted to
     /// the specified type without a (potentially slow) conversion.
     /// Returns false otherwise.
