@@ -271,6 +271,7 @@ bool Value::operator >=(const Value& other) const
 
     Value temp(convertTo(*other._type));
     return !cmp2->isLessThanOrEqualTo(temp, other) || cmp2->isEqualTo(temp, other);
+}
 
 Value::Instance_base::~Instance_base()
 {
