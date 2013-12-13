@@ -20,8 +20,12 @@
 
 #include <sstream>
 
+#include <cppintrospection/debug>
+
 namespace cppintrospection
 {
+
+    
 
     /// Tries to convert an instance of Value to an object of type T.
     /// If T is a plain type or a pointer type (either const or non-const),
@@ -36,16 +40,21 @@ namespace cppintrospection
     /// Conversions that attempt to make a const pointer non-const will fail.
     template<typename T> T variant_cast(const Value& v)
     {
+        std::cerr << "********** variant_cast *******\nType: " << v.getType().getQualifiedName() << std::endl;
+        std::cerr << "Instance type: " << v.getInstanceType().getQualifiedName() << std::endl;
         // return value
         Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
+        std::cerr << "value: " << i << std::endl;
         if (i) return i->_data;
 
         // return reference to value
         i = dynamic_cast<Value::Instance<T> *>(v._inbox->_ref_inst);
+        std::cerr << "ref: " << i << std::endl;
         if (i) return i->_data;
 
         // return const reference to value
         i = dynamic_cast<Value::Instance<T> *>(v._inbox->_const_ref_inst);
+        std::cerr << "constref: " << i << std::endl;
         if (i) return i->_data;
 
         // try to convert v to type T and restart
