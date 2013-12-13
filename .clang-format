@@ -1,0 +1,10 @@
+---
+BasedOnStyle:  WebKit
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: true
+AccessModifierOffset: -4
+ColumnLimit:     80
+DerivePointerBinding: true
+NamespaceIndentation: All
+...
+
