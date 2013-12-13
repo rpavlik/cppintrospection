@@ -339,12 +339,17 @@ namespace cppintrospection
 
                 typedef typename remove_pointer<T>::type bare_type;
                 inbox->inst_ = vl;
-                bool notnull = !(vl->_data == NULL);
-                inbox->_ref_inst
-                    = notnull ? new Instance<bare_type &>(*(vl->_data)) : NULL;
-                inbox->_const_ref_inst = notnull ? new Instance
-                                             <const bare_type &>(*(vl->_data))
-                                                 : NULL;
+                if (vl->_data)
+                {
+                    inbox->_ref_inst = new Instance<bare_type &>(*(vl->_data));
+                    inbox->_const_ref_inst = new Instance
+                        <const bare_type &>(*(vl->_data));
+                }
+                else
+                {
+                    inbox->_ref_inst = NULL;
+                    inbox->_const_ref_inst = NULL;
+                }
             }
         };
 
