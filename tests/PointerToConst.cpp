@@ -139,13 +139,6 @@ BOOST_AUTO_TEST_CASE(ConstChildPtrToConstParentPtr) {
         true));
 }
 
-BOOST_AUTO_TEST_CASE(ParentRefToParentPtr) {
-    Fixture f;
-    BOOST_CHECK(intro::variant_cast<Parent *>(f.getParentAs<Parent &>()));
-
-    BOOST_CHECK(f.acceptType->getCompatibleMethod(
-        "acceptParentPtr", createValueList(f.getParentAs<Parent &>()), true));
-}
 
 BOOST_AUTO_TEST_CASE(ParentPtrToParentRef) {
     Fixture f;
