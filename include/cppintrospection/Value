@@ -1,16 +1,16 @@
-/* -*-c++-*- OpenSceneGraph - Copyright (C) 1998-2006 Robert Osfield 
+/* -*-c++-*- OpenSceneGraph - Copyright (C) 1998-2006 Robert Osfield
  *
- * This library is open source and may be redistributed and/or modified under  
- * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or 
+ * This library is open source and may be redistributed and/or modified under
+ * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or
  * (at your option) any later version.  The full license is in LICENSE file
  * included with this distribution, and on the openscenegraph.org website.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * OpenSceneGraph Public License for more details.
 */
-//cppintrospection - Copyright (C) 2005 Marco Jez
+// cppintrospection - Copyright (C) 2005 Marco Jez
 
 #ifndef CPPINTROSPECTION_VALUE_
 #define CPPINTROSPECTION_VALUE_
@@ -41,13 +41,13 @@ namespace cppintrospection
 
         /// Direct initialization constructor for void pointers.
         /// Although one of the constructor templates below could
-        /// certainly handle void pointers as well, we need to treat 
+        /// certainly handle void pointers as well, we need to treat
         /// them separately because void* can't be dereferenced.
         inline Value(void *v);
 
         /// Direct initialization constructor for const void pointers.
         /// Although one of the constructor templates below could
-        /// certainly handle void pointers as well, we need to treat 
+        /// certainly handle void pointers as well, we need to treat
         /// them separately because void* can't be dereferenced.
         inline Value(const void *v);
 
@@ -57,7 +57,7 @@ namespace cppintrospection
         /// to handle polymorphic types. This means you'll be able to
         /// call getInstanceType() to get the actual type of the
         /// dereferenced value.
-        template<typename T> Value(T *v);
+        template <typename T> Value(T *v);
 
         /// Direct initialization constructor template for non-const
         /// pointers. By initializing an instance of Value through
@@ -65,17 +65,17 @@ namespace cppintrospection
         /// to handle polymorphic types. This means you'll be able to
         /// call getInstanceType() to get the actual type of the
         /// dereferenced value.
-        template<typename T> Value(const T *v);
+        template <typename T> Value(const T *v);
 
         /// Direct initialization constructor template for all types
         /// that are not handled by any of the constructors above.
         /// Calling getInstanceType() on an instance constructed
         /// this way returns the same as getType().
-        template<typename T> Value(const T &v);
+        template <typename T> Value(const T &v);
 
         /// Copy constructor. The underlying value's type must have
         /// consistent copy semantics.
-        inline Value(const Value& copy);
+        inline Value(const Value &copy);
 
         /// Destructor. Frees internal resources but it does NOT delete
         /// the value held. For example, this function will produce a
@@ -83,7 +83,7 @@ namespace cppintrospection
         inline ~Value();
 
         /// Assignment operator. Behaves like the copy constructor.
-        inline Value& operator=(const Value& copy);
+        inline Value &operator=(const Value &copy);
 
         /// Returns whether the value is a pointer and it points to
         /// something whose type is different than void.
@@ -96,7 +96,7 @@ namespace cppintrospection
         inline bool isNullPointer() const;
 
         /// Returns the exact type of the value held.
-        inline const Type& getType() const;
+        inline const Type &getType() const;
 
         /// If the value is a pointer to a non-void type, this method
         /// returns the actual type of the dereferenced pointer. Please
@@ -104,25 +104,26 @@ namespace cppintrospection
         /// because the latter would return the non-polymorphic type.
         /// If the value is not a pointer, this method behaves like
         /// getType().
-        inline const Type& getInstanceType() const;
+        inline const Type &getInstanceType() const;
 
         /// Equal to operator.
-        bool operator==(const Value& other) const;
+        bool operator==(const Value &other) const;
 
         /// Less than or equal to operator.
-        bool operator<=(const Value& other) const;
-        
+        bool operator<=(const Value &other) const;
+
         /// Inequality test operator. Returns !operator==(other).
-        bool operator!=(const Value& other) const;
+        bool operator!=(const Value &other) const;
 
         /// Greater than operator. Returns !operator<=(other).
-        bool operator>(const Value& other) const;
+        bool operator>(const Value &other) const;
 
         /// Less than operator. Returns !operator==(other) && operator<=(other).
-        bool operator<(const Value& other) const;
-        
-        /// Greater than or equal to operator. Returns operator==(other) || !operator<=(other)
-        bool operator>=(const Value& other) const;
+        bool operator<(const Value &other) const;
+
+        /// Greater than or equal to operator. Returns operator==(other) ||
+        /// !operator<=(other)
+        bool operator>=(const Value &other) const;
 
         /// Tries to convert this instance to a Value of the given type.
         /// The conversion is performed by rendering to a temporary stream
@@ -131,7 +132,7 @@ namespace cppintrospection
         /// types, or both, don't have a ReaderWriter object, the conversion
         /// fails and an exception is thrown. If the conversion can't be
         /// completed for other reasons, other exceptions may be thrown.
-        Value convertTo(const Type& outtype) const;
+        Value convertTo(const Type &outtype) const;
 
         /// Tries to convert this instance to a Value of the given type.
         /// The conversion is performed by rendering to a temporary stream
@@ -139,9 +140,9 @@ namespace cppintrospection
         /// in the destination format. If either the source or destination
         /// types, or both, don't have a ReaderWriter object, the conversion
         /// fails and an empty Value is returned.
-        /// Please note that unlike convertTo(), this method does not 
+        /// Please note that unlike convertTo(), this method does not
         /// intentionally throw any exceptions.
-        Value tryConvertTo(const Type& outtype) const;
+        Value tryConvertTo(const Type &outtype) const;
 
         /// Tries to get a string representation of the underlying value.
         /// This requires the value's type to have a ReaderWriter object
@@ -149,65 +150,70 @@ namespace cppintrospection
         /// exception is thrown.
         std::string toString() const;
         std::wstring toWString() const;
-        
-        /// Swaps the content of this Value with another Value
-        void swap(Value& v);
 
+        /// Swaps the content of this Value with another Value
+        void swap(Value &v);
 
     private:
         // It's good to have friends!
-        template<typename T> friend T variant_cast(const Value& v);
-        template<typename T> friend bool requires_conversion(const Value& v);
-        template<typename T> friend T *extract_raw_data(Value& v);
-        template<typename T> friend const T *extract_raw_data(const Value& v);
+        template <typename T> friend T variant_cast(const Value &v);
+        template <typename T> friend bool requires_conversion(const Value &v);
+        template <typename T> friend T *extract_raw_data(Value &v);
+        template <typename T> friend const T *extract_raw_data(const Value &v);
 
         // throw an exception if the value is empty
         void check_empty() const;
 
         // Base class for holding values. Provides a clone() method
         // which must be overriden in descendant classes.
-        struct Instance_base  
-        { 
+        struct Instance_base
+        {
             virtual Instance_base *clone() const = 0;
-            virtual ~Instance_base() {} 
+            virtual ~Instance_base()
+            {
+            }
         };
 
         // Generic descendant of Instance_base for holding values of
         // type T. Note that values are created on the stack.
-        template<typename T>
-        struct Instance: Instance_base
+        template <typename T> struct Instance : Instance_base
         {
-            Instance(T data): _data(data) {}
-            
-            virtual Instance_base *clone() const { return new Instance<T>(*this); }
-            virtual ~Instance() {}
-            T _data;
-            
-        protected:
-        
-            Instance& operator = (const Instance& rhs)
+            Instance(T data) : _data(data)
             {
-                if (&rhs!=this) 
+            }
+
+            virtual Instance_base *clone() const
+            {
+                return new Instance<T>(*this);
+            }
+            virtual ~Instance()
+            {
+            }
+            T _data;
+
+        protected:
+            Instance &operator=(const Instance &rhs)
+            {
+                if (&rhs != this)
                 {
                     _data = rhs._data;
                 }
                 return *this;
             }
-            
         };
 
         // Base class for storage of Instance objects. Actually three
         // instances are created: the main instance which keeps the
         // desired value, an additional instance that keeps a reference
         // to that value, and another instance that keeps a const
-        // reference to that value. These additional instances are queried 
+        // reference to that value. These additional instances are queried
         // when casting the Value to a reference type.
         struct Instance_box_base
         {
             Instance_box_base()
-            :    inst_(0),
-                _ref_inst(0),
-                _const_ref_inst(0)
+                : inst_(0)
+                , _ref_inst(0)
+                , _const_ref_inst(0)
             {
             }
 
@@ -221,9 +227,12 @@ namespace cppintrospection
             // clones the instance box
             virtual Instance_box_base *clone() const = 0;
             // returns the type of the value held
-            virtual const Type* type() const = 0;
+            virtual const Type *type() const = 0;
             // returns the actual pointed type if applicable
-            virtual const Type* ptype() const { return 0; }
+            virtual const Type *ptype() const
+            {
+                return 0;
+            }
             // returns whether the data is a null pointer
             virtual bool isnullptr() const = 0;
 
@@ -233,10 +242,13 @@ namespace cppintrospection
         };
 
         // Generic instance box for non-pointer values.
-        template<typename T>
-        struct Instance_box: Instance_box_base
+        template <typename T> struct Instance_box : Instance_box_base
         {
-            Instance_box(): Instance_box_base(), nullptr_(false) {}
+            Instance_box()
+                : Instance_box_base()
+                , nullptr_(false)
+            {
+            }
 
             Instance_box(const T &d, bool isnullptr = false)
                 : Instance_box_base()
@@ -247,7 +259,7 @@ namespace cppintrospection
                 Instance<T> *vl = new Instance<T>(d);
                 populate(this, vl);
             }
-            
+
             virtual Instance_box_base *clone() const
             {
                 std::cerr << "Cloning an instance box for T = "
@@ -263,7 +275,7 @@ namespace cppintrospection
                 return new_inbox;
             }
 
-            virtual const Type* type() const
+            virtual const Type *type() const
             {
                 return &typeof(T);
             }
@@ -282,21 +294,23 @@ namespace cppintrospection
                 inbox->_const_ref_inst = new Instance<const T &>(vl->_data);
             }
 
-            Instance_box& operator = (const Instance_box&) { return *this; }
-
+            Instance_box &operator=(const Instance_box &)
+            {
+                return *this;
+            }
         };
 
-        // Generic instance box for pointer values. Unlike Instance_box<>, 
+        // Generic instance box for pointer values. Unlike Instance_box<>,
         // this struct template provides a ptype() method that unreferences
         // the pointer (T is supposed to be a pointer) and gets its actual
         // type.
-        template<typename T>
-        struct Ptr_instance_box: Instance_box_base
+        template <typename T> struct Ptr_instance_box : Instance_box_base
         {
-            Ptr_instance_box(): Instance_box_base() {}
+            Ptr_instance_box() : Instance_box_base()
+            {
+            }
 
-            Ptr_instance_box(const T &d)
-            :    Instance_box_base()
+            Ptr_instance_box(const T &d) : Instance_box_base()
             {
                 std::cerr << "Making a ptr instance box for T = "
                           << getDemangledName(T) << std::endl;
@@ -310,20 +324,20 @@ namespace cppintrospection
                           << getDemangledName(T) << std::endl;
                 Ptr_instance_box<T> *new_inbox = new Ptr_instance_box<T>();
 
-                // ??? this static_cast<> shouldn't be necessary, but the 
+                // ??? this static_cast<> shouldn't be necessary, but the
                 // MSVC++ compiler complains about invalid casting without it!
                 Instance<T> *vl = static_cast<Instance<T> *>(inst_->clone());
-                
+
                 populate(new_inbox, vl);
                 return new_inbox;
             }
 
-            virtual const Type* type() const
+            virtual const Type *type() const
             {
                 return &typeof(T);
             }
 
-            virtual const Type* ptype() const
+            virtual const Type *ptype() const
             {
                 if (!static_cast<Instance<T> *>(inst_)->_data) return 0;
                 return &typeofvalue(*static_cast<Instance<T> *>(inst_)->_data);
@@ -347,72 +361,68 @@ namespace cppintrospection
                                              <const bare_type &>(*(vl->_data))
                                                  : NULL;
             }
-
         };
 
         Instance_box_base *_inbox;
-        const Type* _type;
-        const Type* _ptype;
+        const Type *_type;
+        const Type *_ptype;
     };
 
     /// A vector of values.
     typedef std::vector<Value> ValueList;
-    
-    
+
     // INLINE METHODS
 
     inline Value::Value()
-    :    _inbox(0),
-        _type(&Reflection::type_void()),
-        _ptype(0)
+        : _inbox(0)
+        , _type(&Reflection::type_void())
+        , _ptype(0)
     {
     }
 
-    template<typename T> Value::Value(const T &v)
-    :    _ptype(0)
+    template <typename T> Value::Value(const T &v) : _ptype(0)
     {
         _inbox = new Instance_box<T>(v);
         _type = _inbox->type();
     }
 
-    inline Value::Value(const void *v)
-    :    _ptype(0)
+    inline Value::Value(const void *v) : _ptype(0)
     {
         _inbox = new Instance_box<const void *>(v, v == 0);
         _type = _inbox->type();
     }
 
-    inline Value::Value(void *v)
-    :    _ptype(0)
+    inline Value::Value(void *v) : _ptype(0)
     {
         _inbox = new Instance_box<void *>(v, v == 0);
         _type = _inbox->type();
     }
 
-    template<typename T> Value::Value(const T *v)
+    template <typename T> Value::Value(const T *v)
     {
         _inbox = new Ptr_instance_box<const T *>(v);
         _type = _inbox->type();
         _ptype = _inbox->ptype();
     }
 
-    template<typename T> Value::Value(T *v)
+    template <typename T> Value::Value(T *v)
     {
         _inbox = new Ptr_instance_box<T *>(v);
         _type = _inbox->type();
         _ptype = _inbox->ptype();
     }
 
-    inline Value::Value(const Value& copy)
-    :    _inbox(copy._inbox? copy._inbox->clone(): 0),
-        _type(copy._type),
-        _ptype(copy._ptype)
+    inline Value::Value(const Value &copy)
+        : _inbox(copy._inbox ? copy._inbox->clone() : 0)
+        , _type(copy._type)
+        , _ptype(copy._ptype)
     {
     }
 
-    inline Value& Value::operator=(const Value& copy)
+    inline Value &Value::operator=(const Value &copy)
     {
-        std::auto_ptr<Instance_box_base> new_inbox(copy._inbox? copy._inbox->clone(): 0);
+        std::auto_ptr<Instance_box_base> new_inbox(
+            copy._inbox ? copy._inbox->clone() : 0);
         delete _inbox;
         _inbox = new_inbox.release();
         _type = copy._type;
@@ -425,15 +435,14 @@ namespace cppintrospection
         delete _inbox;
     }
 
-    inline const Type& Value::getType() const 
-    { 
-        return *_type; 
+    inline const Type &Value::getType() const
+    {
+        return *_type;
     }
 
-    inline const Type& Value::getInstanceType() const
+    inline const Type &Value::getInstanceType() const
     {
-        if (_ptype)
-            return *_ptype;
+        if (_ptype) return *_ptype;
         return *_type;
     }
 
@@ -451,7 +460,6 @@ namespace cppintrospection
     {
         return _inbox->isnullptr();
     }
-
 }
 
 #endif
