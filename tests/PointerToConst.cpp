@@ -200,7 +200,6 @@ BOOST_AUTO_TEST_CASE(ParentPtrToParentRef)
          f.acceptType->invokeMethod("acceptParentRef", &f.a, vl, true)));
 }
 
-/*
 BOOST_AUTO_TEST_CASE(ChildPtrToParentRef)
 {
     Fixture f;
@@ -215,4 +214,4 @@ BOOST_AUTO_TEST_CASE(ChildPtrToParentRef)
         (vl = createValueList(f.getChildAs<Child *>()),
          f.acceptType->invokeMethod("acceptParentRef", &f.a, vl, true)));
 }
-*/
+
