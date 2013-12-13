@@ -31,7 +31,8 @@
 #include <typeinfo>
 #include <stdlib.h>
 
-inline std::string getDemangledImpl(const char *name) {
+inline std::string getDemangledImpl(const char *name)
+{
     int status;
     char *realname;
     realname = abi::__cxa_demangle(name, 0, 0, &status);
@@ -41,5 +42,15 @@ inline std::string getDemangledImpl(const char *name) {
 }
 
 #define getDemangledName(X) getDemangledImpl(typeid(X).name())
+
+template <typename TagType> struct Counter
+{
+    static int click()
+    {
+        static int n = 0;
+        n++;
+        return n;
+    }
+};
 
 #endif // INCLUDED_debug_GUID_c8baefa0_0639_4fac_a43d_5dcd499fb911
