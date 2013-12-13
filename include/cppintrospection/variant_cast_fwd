@@ -17,6 +17,10 @@
 
 namespace cppintrospection
 {
+    namespace detail
+    {
+        template <typename T> struct variant_cast_helper;
+    }
 	class Value;
 	template<typename T> T variant_cast(const Value& v);
     template<typename T> bool requires_conversion(const Value& v);
