@@ -26,6 +26,18 @@ using namespace cppintrospection;
 
 Reflection::StaticData* Reflection::_static_data = 0;
 
+struct Reflection::StaticData
+{
+    TypeMap typemap;
+    const Type* type_void;
+
+    typedef std::map<const Type*, const Converter*> ConverterMap;
+    typedef std::map<const Type*, ConverterMap> ConverterMapMap;
+    ConverterMapMap convmap;
+
+    ~StaticData();
+};
+
 Reflection::StaticData::~StaticData()
 {
     for (TypeMap::iterator i=typemap.begin(), e = typemap.end(); i!=e; ++i)

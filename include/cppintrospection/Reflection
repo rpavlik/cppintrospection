@@ -91,17 +91,7 @@ namespace cppintrospection
         friend class GenericReflectorBase;
         template<typename C> friend struct TypeNameAliasProxy;
 
-        struct StaticData
-        {
-            TypeMap typemap;
-            const Type* type_void;
-            
-            typedef std::map<const Type* , const Converter* > ConverterMap;
-            typedef std::map<const Type* , ConverterMap> ConverterMapMap;
-            ConverterMapMap convmap;
-            
-            ~StaticData();
-        };
+        struct StaticData;
 
         static StaticData& getOrCreateStaticData();
         static Type* registerType(const ExtendedTypeInfo &ti);
