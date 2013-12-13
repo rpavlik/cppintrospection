@@ -27,6 +27,48 @@
 
 using namespace cppintrospection;
 
+Value::Value()
+    : _inbox(0)
+    , _type(&Reflection::type_void())
+    , _ptype(0)
+{
+}
+
+Value::Value(const void* v) : _ptype(0)
+{
+    _inbox = new Instance_box<const void*>(v, v == 0);
+    _type = _inbox->type();
+}
+
+Value::Value(void* v) : _ptype(0)
+{
+    _inbox = new Instance_box<void*>(v, v == 0);
+    _type = _inbox->type();
+}
+
+Value::Value(const Value& copy)
+    : _inbox(copy._inbox ? copy._inbox->clone() : 0)
+    , _type(copy._type)
+    , _ptype(copy._ptype)
+{
+}
+
+Value& Value::operator=(const Value& copy)
+{
+    std::auto_ptr
+        <Instance_box_base> new_inbox(copy._inbox ? copy._inbox->clone() : 0);
+    delete _inbox;
+    _inbox = new_inbox.release();
+    _type = copy._type;
+    _ptype = copy._ptype;
+    return *this;
+}
+
+Value::~Value()
+{
+    delete _inbox;
+}
+
 Value Value::convertTo(const Type& outtype) const
 {
     Value v = tryConvertTo(outtype);
@@ -229,4 +271,26 @@ bool Value::operator >=(const Value& other) const
 
     Value temp(convertTo(*other._type));
     return !cmp2->isLessThanOrEqualTo(temp, other) || cmp2->isEqualTo(temp, other);
+
+Value::Instance_base::~Instance_base()
+{
+}
+
+Value::Instance_box_base::Instance_box_base()
+    : inst_(0)
+    , _ref_inst(0)
+    , _const_ref_inst(0)
+{
+}
+
+Value::Instance_box_base::~Instance_box_base()
+{
+    delete inst_;
+    delete _ref_inst;
+    delete _const_ref_inst;
+}
+
+const Type* Value::Instance_box_base::ptype() const
+{
+    return 0;
 }
