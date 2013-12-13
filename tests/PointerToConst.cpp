@@ -91,25 +91,6 @@ inline intro::ValueList createValueList(intro::Value v)
     return intro::ValueList(1, v);
 }
 
-#if 0
-namespace cppintrospection {
-    std::ostream &operator<<(std::ostream &os, Exception const &e) {
-        os << "cppintrospection::Exception: " << e.what();
-        return os;
-    }
-}
-
-template <typename Src, typename Dest, typename Input>
-void testVariantCast(Input input) {
-    BOOST_MESSAGE(("Variant cast of underlying "
-                  + typeof<Input>().getQualifiedName() + "from "
-                  + typeof<Src>().getQualifiedName() + " to "
-                  + typeof<Dest>().getQualifiedName()));
-    BOOST_CHECK_NO_THROW(intro::variant_cast<Dest>(static_cast<Src>(input)));
-}
-
-#endif
-
 BOOST_AUTO_TEST_CASE(ParentPtrToParentPtr)
 {
     Fixture f;
