@@ -1,16 +1,16 @@
-/* -*-c++-*- OpenSceneGraph - Copyright (C) 1998-2006 Robert Osfield 
+/* -*-c++-*- OpenSceneGraph - Copyright (C) 1998-2006 Robert Osfield
  *
- * This library is open source and may be redistributed and/or modified under  
- * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or 
+ * This library is open source and may be redistributed and/or modified under
+ * the terms of the OpenSceneGraph Public License (OSGPL) version 0.0 or
  * (at your option) any later version.  The full license is in LICENSE file
  * included with this distribution, and on the openscenegraph.org website.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * OpenSceneGraph Public License for more details.
 */
-//cppintrospection - Copyright (C) 2005 Marco Jez
+// cppintrospection - Copyright (C) 2005 Marco Jez
 
 #ifndef CPPINTROSPECTION_VARIANT_CAST_
 #define CPPINTROSPECTION_VARIANT_CAST_
@@ -68,18 +68,16 @@ namespace cppintrospection
     /// Tries to convert an instance of Value to an object of type T.
     /// If T is a plain type or a pointer type (either const or non-const),
     /// and it matches the type of the value contained in v, then the actual
-    /// value of type T is returned. If T is a [const] reference type, and 
-    /// its base (non reference) type matches the internal value's type, 
+    /// value of type T is returned. If T is a [const] reference type, and
+    /// its base (non reference) type matches the internal value's type,
     /// then a [const] reference to the internal value is returned.
     /// If none of the above conditions are met, a conversion is attempted
-    /// as described in Value::convert() and then variant_cast is called again 
+    /// as described in Value::convert() and then variant_cast is called again
     /// with the converted value as parameter.
     /// If the conversion can't be completed, an exception is thrown.
     /// Conversions that attempt to make a const pointer non-const will fail.
-    template<typename T> T variant_cast(const Value& v)
+    template <typename T> T variant_cast(const Value &v)
     {
-        std::cerr << "********** variant_cast *******\nType: " << v.getType().getQualifiedName() << std::endl;
-        std::cerr << "Instance type: " << v.getInstanceType().getQualifiedName() << std::endl;
         // template specialization will help us choose which member to use.
         Value::Instance<T> *i = detail::variant_cast_helper
             <T>::getInstance(v);
@@ -94,7 +92,7 @@ namespace cppintrospection
     /// Returns true if the Value passed as parameter can't be casted to
     /// the specified type without a (potentially slow) conversion.
     /// Returns false otherwise.
-    template<typename T> bool requires_conversion(const Value& v)
+    template <typename T> bool requires_conversion(const Value &v)
     {
         Value::Instance<T> *i = detail::variant_cast_helper
             <T>::getInstance(v);
@@ -102,26 +100,27 @@ namespace cppintrospection
         return !i;
     }
 
-    /// Returns a typed pointer to the data contained in a Value 
+    /// Returns a typed pointer to the data contained in a Value
     /// instance. If the value's type is not identical to type T,
     /// a null pointer is returned.
-    template<typename T> T* extract_raw_data(Value& v)
+    template <typename T> T *extract_raw_data(Value &v)
     {
-        Value::Instance<T>* i = dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
+        Value::Instance<T> *i = dynamic_cast
+            <Value::Instance<T> *>(v._inbox->inst_);
         if (i) return &i->_data;
         return 0;
     }
 
-    /// Returns a typed pointer to the data contained in a const Value 
+    /// Returns a typed pointer to the data contained in a const Value
     /// instance. If the value's type is not identical to type T, a
     /// null pointer is returned.
-    template<typename T> const T* extract_raw_data(const Value& v)
+    template <typename T> const T *extract_raw_data(const Value &v)
     {
-        Value::Instance<T>* i = dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
+        Value::Instance<T> *i = dynamic_cast
+            <Value::Instance<T> *>(v._inbox->inst_);
         if (i) return &i->_data;
         return 0;
     }
-
 }
 
 #endif
