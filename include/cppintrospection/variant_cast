@@ -38,25 +38,28 @@ namespace cppintrospection
 
         template <typename T> struct variant_cast_helper
         {
-            static Value::Instance_base *getInstance(const Value &v)
+            static Value::Instance<T> *getInstance(const Value &v)
             {
-                return v._inbox->inst_;
+                return dynamic_cast<Value::Instance<T> *>(v._inbox->inst_);
             }
         };
 
-        template <typename T> struct variant_cast_helper<T &>
+        template <typename T>
+        struct variant_cast_helper<T &> : variant_cast_helper<T>
         {
-            static Value::Instance_base *getInstance(const Value &v)
+            static Value::Instance<T &> *getInstance(const Value &v)
             {
-                return v._inbox->_ref_inst;
+                return dynamic_cast
+                    <Value::Instance<T &> *>(v._inbox->_ref_inst);
             }
         };
 
         template <typename T> struct variant_cast_helper<T const &>
         {
-            static Value::Instance_base *getInstance(const Value &v)
+            static Value::Instance<T const &> *getInstance(const Value &v)
             {
-                return v._inbox->_const_ref_inst;
+                return dynamic_cast
+                    <Value::Instance<T const &> *>(v._inbox->_const_ref_inst);
             }
         };
 
@@ -77,8 +80,9 @@ namespace cppintrospection
     {
         std::cerr << "********** variant_cast *******\nType: " << v.getType().getQualifiedName() << std::endl;
         std::cerr << "Instance type: " << v.getInstanceType().getQualifiedName() << std::endl;
-        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(
-            detail::variant_cast_helper<T>::getInstance(v));
+        // template specialization will help us choose which member to use.
+        Value::Instance<T> *i = detail::variant_cast_helper
+            <T>::getInstance(v);
         std::cerr << "value: " << i << std::endl;
         if (i) return i->_data;
 
@@ -92,8 +96,8 @@ namespace cppintrospection
     /// Returns false otherwise.
     template<typename T> bool requires_conversion(const Value& v)
     {
-        Value::Instance<T> *i = dynamic_cast<Value::Instance<T> *>(
-            detail::variant_cast_helper<T>::getInstance(v));
+        Value::Instance<T> *i = detail::variant_cast_helper
+            <T>::getInstance(v);
 
         return !i;
     }
