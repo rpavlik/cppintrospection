@@ -18,6 +18,8 @@
 #include <cppintrospection/Export>
 #include <cppintrospection/Reflection>
 
+#include <cppintrospection/debug>
+
 #include <vector>
 #include <memory>
 #include <string>
@@ -237,26 +239,26 @@ namespace cppintrospection
             Instance_box(): Instance_box_base(), nullptr_(false) {}
 
             Instance_box(const T &d, bool isnullptr = false)
-            :    Instance_box_base(),
-                nullptr_(isnullptr)
+                : Instance_box_base()
+                , nullptr_(isnullptr)
             {
+                std::cerr << "Making an instance box for T = "
+                          << getDemangledName(T) << std::endl;
                 Instance<T> *vl = new Instance<T>(d);
-                inst_ = vl;
-                _ref_inst = new Instance<T &>(vl->_data);
-                _const_ref_inst = new Instance<const T &>(vl->_data);
+                populate(this, vl);
             }
             
             virtual Instance_box_base *clone() const
             {
+                std::cerr << "Cloning an instance box for T = "
+                          << getDemangledName(T) << std::endl;
                 Instance_box<T> *new_inbox = new Instance_box<T>();
 
-                // ??? this static_cast<> shouldn't be necessary, but the 
+                // ??? this static_cast<> shouldn't be necessary, but the
                 // MSVC++ compiler complains about invalid casting without it!
                 Instance<T> *vl = static_cast<Instance<T> *>(inst_->clone());
-                
-                new_inbox->inst_ = vl;
-                new_inbox->_ref_inst = new Instance<T &>(vl->_data);
-                new_inbox->_const_ref_inst = new Instance<const T &>(vl->_data);
+
+                populate(new_inbox, vl);
                 new_inbox->nullptr_ = nullptr_;
                 return new_inbox;
             }
@@ -273,6 +275,12 @@ namespace cppintrospection
 
         private:
             bool nullptr_;
+            static void populate(Instance_box *inbox, Instance<T> *vl)
+            {
+                inbox->inst_ = vl;
+                inbox->_ref_inst = new Instance<T &>(vl->_data);
+                inbox->_const_ref_inst = new Instance<const T &>(vl->_data);
+            }
 
             Instance_box& operator = (const Instance_box&) { return *this; }
 
@@ -290,23 +298,23 @@ namespace cppintrospection
             Ptr_instance_box(const T &d)
             :    Instance_box_base()
             {
+                std::cerr << "Making a ptr instance box for T = "
+                          << getDemangledName(T) << std::endl;
                 Instance<T> *vl = new Instance<T>(d);
-                inst_ = vl;
-                _ref_inst = new Instance<T &>(vl->_data);
-                _const_ref_inst = new Instance<const T &>(vl->_data);
+                populate(this, vl);
             }
 
             virtual Instance_box_base *clone() const
             {
+                std::cerr << "Cloning a ptr instance box for T = "
+                          << getDemangledName(T) << std::endl;
                 Ptr_instance_box<T> *new_inbox = new Ptr_instance_box<T>();
 
                 // ??? this static_cast<> shouldn't be necessary, but the 
                 // MSVC++ compiler complains about invalid casting without it!
                 Instance<T> *vl = static_cast<Instance<T> *>(inst_->clone());
                 
-                new_inbox->inst_ = vl;
-                new_inbox->_ref_inst = new Instance<T &>(vl->_data);
-                new_inbox->_const_ref_inst = new Instance<const T &>(vl->_data);
+                populate(new_inbox, vl);
                 return new_inbox;
             }
 
@@ -324,6 +332,20 @@ namespace cppintrospection
             virtual bool isnullptr() const
             {
                 return static_cast<Instance<T> *>(inst_)->_data == 0;
+            }
+
+        private:
+            static void populate(Ptr_instance_box<T> *inbox, Instance<T> *vl)
+            {
+
+                typedef typename remove_pointer<T>::type bare_type;
+                inbox->inst_ = vl;
+                bool notnull = !(vl->_data == NULL);
+                inbox->_ref_inst
+                    = notnull ? new Instance<bare_type &>(*(vl->_data)) : NULL;
+                inbox->_const_ref_inst = notnull ? new Instance
+                                             <const bare_type &>(*(vl->_data))
+                                                 : NULL;
             }
 
         };
