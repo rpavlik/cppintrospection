@@ -87,6 +87,13 @@ Value Value::tryConvertTo(const Type& outtype) const
     if (_type->isConstPointer() && outtype.isNonConstPointer())
         return Value();
 
+    if (_type->isPointer() && outtype.isReference())
+    {
+        std::cout << "Taking the pointer to reference implicit conversion in "
+                     "tryConvertTo!" << std::endl;
+        return *this;
+    }
+
     // search custom converters
     ConverterList conv;
     if (Reflection::getConversionPath(*_type, outtype, conv))
