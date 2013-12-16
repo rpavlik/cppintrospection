@@ -166,7 +166,6 @@ bool Reflection::getConversionPath(const Type& source, const Type& dest, Convert
         std::vector<const Type* > chain;
         if (accum_conv_path(source, dest, temp, chain, STATIC_CAST))
         {
-            std::cerr << "STATIC_CAST success getConversionPath for " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
             conv.swap(temp);
             return true;
         }
@@ -178,13 +177,11 @@ bool Reflection::getConversionPath(const Type& source, const Type& dest, Convert
         std::vector<const Type* > chain;
         if (accum_conv_path(source, dest, temp, chain, DYNAMIC_CAST))
         {
-            std::cerr << "DYNAMIC_CAST success getConversionPath for " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
             conv.swap(temp);
             return true;
         }
     }
 
-    std::cerr << "FAILED getConversionPath for " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
     return false;
 }
 
@@ -200,19 +197,11 @@ bool Reflection::accum_conv_path(const Type& source, const Type& dest, Converter
     // search a converter from "source"
     StaticData::ConverterMapMap::const_iterator i = getOrCreateStaticData().convmap.find(&source);
     if (i == getOrCreateStaticData().convmap.end()) {
-        std::cerr << "No conversions known from source! " << source.getQualifiedName() << std::endl;
         return false;
     }
 
     // search a converter to "dest"
     const StaticData::ConverterMap& cmap = i->second;
-    std::cerr << "Know " << cmap.size() << " conversions from source: " << source.getQualifiedName() << " to type with address " << &dest << std::endl;
-    if (source.getQualifiedName() == "osg::LineSegment *") {
-        for (StaticData::ConverterMap::const_iterator i2 = cmap.begin(), e = cmap.end(); i2 != e; ++i2) {
-            const Converter * c = (*i2).second;
-            std::cerr << "to " << (*i2).first << ": " << (*i2).first->getQualifiedName()  << std::endl;
-        }
-    }
     StaticData::ConverterMap::const_iterator j = cmap.find(&dest);
     if (j != cmap.end() && (j->second->getCastType() == castType))
     {

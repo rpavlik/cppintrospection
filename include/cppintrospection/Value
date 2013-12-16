@@ -241,16 +241,12 @@ namespace cppintrospection
                 : Instance_box_base()
                 , nullptr_(isnullptr)
             {
-                std::cerr << "Making an instance box for T = "
-                          << getDemangledName(T) << std::endl;
                 Instance<T> *vl = new Instance<T>(d);
                 populate(this, vl);
             }
 
             virtual Instance_box_base *clone() const
             {
-                std::cerr << "Cloning an instance box for T = "
-                          << getDemangledName(T) << " for the nth time, n = " << Counter<Instance_box<T> >::click() << std::endl;
                 Instance_box<T> *new_inbox = new Instance_box<T>();
 
                 // ??? this static_cast<> shouldn't be necessary, but the
@@ -299,16 +295,12 @@ namespace cppintrospection
 
             Ptr_instance_box(const T &d) : Instance_box_base()
             {
-                std::cerr << "Making a ptr instance box for T = "
-                          << getDemangledName(T) << std::endl;
                 Instance<T> *vl = new Instance<T>(d);
                 populate(this, vl);
             }
 
             virtual Instance_box_base *clone() const
             {
-                std::cerr << "Cloning a ptr instance box for T = "
-                          << getDemangledName(T) << " for the nth time, n = " << Counter<Ptr_instance_box<T> >::click() << std::endl;
                 Ptr_instance_box<T> *new_inbox = new Ptr_instance_box<T>();
 
                 // ??? this static_cast<> shouldn't be necessary, but the

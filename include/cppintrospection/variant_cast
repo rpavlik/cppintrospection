@@ -81,7 +81,6 @@ namespace cppintrospection
         // template specialization will help us choose which member to use.
         Value::Instance<T> *i = detail::variant_cast_helper
             <T>::getInstance(v);
-        std::cerr << "value: " << i << std::endl;
         if (i) return i->_data;
 
         // try to convert v to type T and restart
