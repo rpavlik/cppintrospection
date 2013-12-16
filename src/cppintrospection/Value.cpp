@@ -89,9 +89,20 @@ Value Value::tryConvertTo(const Type& outtype) const
 
     if (_type->isPointer() && outtype.isReference())
     {
-        std::cout << "Taking the pointer to reference implicit conversion in "
-                     "tryConvertTo!" << std::endl;
-        return *this;
+        if (_type->getPointedType() == outtype.getReferencedType())
+        {
+            std::cerr
+                << "Taking the pointer to reference implicit conversion in "
+                   "tryConvertTo!" << std::endl;
+            return *this;
+        }
+        std::string qname = outtype.getQualifiedName();
+        qname.replace(qname.end() - 2, qname.end(), " *");
+
+        std::cerr << "Attempting to convert to the pointer instead of the "
+                     "reference in tryConvertTo! " << qname << std::endl;
+        const Type& outPtrType = Reflection::getType(qname);
+        return tryConvertTo(outPtrType);
     }
 
     // search custom converters

@@ -196,3 +196,19 @@ BOOST_AUTO_TEST_CASE(ChildPtrToParentRef)
          f.acceptType->invokeMethod("acceptParentRef", &f.a, vl, true)));
 }
 
+BOOST_AUTO_TEST_CASE(ChildPtrToParentRefConst)
+{
+    Fixture f;
+    BOOST_CHECK_NO_THROW(intro::variant_cast
+                         <Parent const &>(f.getChildAs<Child *>()));
+
+    BOOST_CHECK(f.acceptType->getCompatibleMethod(
+        "acceptParentRefConst", createValueList(f.getChildAs<Child *>()),
+        true));
+
+    intro::ValueList vl;
+    BOOST_CHECK_NO_THROW(
+        (vl = createValueList(f.getChildAs<Child *>()),
+         f.acceptType->invokeMethod("acceptParentRefConst", &f.a, vl, true)));
+}
+
