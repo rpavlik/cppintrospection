@@ -203,14 +203,15 @@ bool Reflection::accum_conv_path(const Type& source, const Type& dest, Converter
     // search a converter to "dest"
     const StaticData::ConverterMap& cmap = i->second;
     StaticData::ConverterMap::const_iterator j = cmap.find(&dest);
-    if (j != cmap.end() && (j->second->getCastType() == castType))
+    StaticData::ConverterMap::const_iterator e = cmap.end();
+    if (j != e && (j->second->getCastType() == castType))
     {
         conv.push_back(j->second);
         return true;
     }
 
     // search a undirect converter from "source" to ... to "dest"
-    for (j=cmap.begin(); j!=cmap.end(); ++j)
+    for (j=cmap.begin(); j!=e; ++j)
     {
         if ((j->second->getCastType() == castType) && accum_conv_path(*j->first, dest, conv, chain, castType))
         {

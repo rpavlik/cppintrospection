@@ -118,10 +118,12 @@ namespace cppintrospection {
     }
 
     MethodInfo *GenericReflectorBase::addMethod(MethodInfo *mi) {
-        for (TempMethodList::iterator i = _temp_methods.begin();
-             i != _temp_methods.end(); ++i) {
             if (mi->overrides(*i))
                 return *i;
+        for (TempMethodList::iterator i = _temp_methods.begin(),
+                                      e = _temp_methods.end();
+             i != e; ++i)
+        {
         }
 
         _temp_methods.push_back(mi);
@@ -130,10 +132,12 @@ namespace cppintrospection {
     }
 
     MethodInfo *GenericReflectorBase::addProtectedMethod(MethodInfo *mi) {
-        for (TempMethodList::iterator i = _temp_protected_methods.begin();
-             i != _temp_protected_methods.end(); ++i) {
             if (mi->overrides(*i))
                 return *i;
+        for (TempMethodList::iterator i = _temp_protected_methods.begin(),
+                                      e = _temp_protected_methods.end();
+             i != e; ++i)
+        {
         }
 
         _temp_protected_methods.push_back(mi);

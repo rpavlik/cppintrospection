@@ -573,8 +573,8 @@ namespace cppintrospection
             virtual void getIndexValueSet(int /*whichindex*/, const Value& instance, ValueList& values) const
             {
                 const T& ctr = getInstance<T>(instance);
-                for (const_iterator i=ctr.begin(); 
-                    i!=ctr.end(); 
+                for (const_iterator i=ctr.begin(), e=ctr.end(); 
+                    i!=e; 
                     ++i)
                 {
                     values.push_back(Value(i->first).convertTo(_itype));

@@ -274,7 +274,7 @@ Value PropertyInfo::getDefaultValue() const
     if (isArray() || isIndexed()) return Value();
 
     const CustomAttributeList& cal = getCustomAttributes();
-    for (CustomAttributeList::const_iterator i=cal.begin(); i!=cal.end(); ++i)
+    for (CustomAttributeList::const_iterator i=cal.begin(), e=cal.end(); i!=e; ++i)
     {
         if (dynamic_cast<const NoDefaultValueAttribute *>(*i) != 0) 
             return Value();
@@ -309,7 +309,7 @@ void PropertyInfo::getIndexValueSet(int whichindex, const Value& instance, Value
     {
         std::map<int, const IndexTypeAttribute *> ita_map;
         const CustomAttributeList& cal = getCustomAttributes();
-        for (CustomAttributeList::const_iterator i=cal.begin(); i!=cal.end(); ++i)
+        for (CustomAttributeList::const_iterator i=cal.begin(), e=cal.end(); i!=e; ++i)
         {
             const IndexTypeAttribute *ita = dynamic_cast<const IndexTypeAttribute *>(*i);
             if (ita)
@@ -326,7 +326,7 @@ void PropertyInfo::getIndexValueSet(int whichindex, const Value& instance, Value
                 throw IndexValuesNotDefinedException(_name, getIndexParameters().at(whichindex)->getName());
         }
 
-        for (EnumLabelMap::const_iterator i=elm->begin(); i!=elm->end(); ++i)
+        for (EnumLabelMap::const_iterator i=elm->begin(), e=elm->end(); i!=e; ++i)
         {
             if (ita_map[whichindex])
                 values.push_back(Value(i->first).convertTo(ita_map[whichindex]->getIndexType()));

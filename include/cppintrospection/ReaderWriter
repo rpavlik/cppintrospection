@@ -168,7 +168,7 @@ namespace cppintrospection
                     std::vector<std::string> labels;
 
                     // it could be a bitmask
-                    for (EnumLabelMap::const_iterator i=elm.begin(); i!=elm.end(); ++i)
+                    for (EnumLabelMap::const_iterator i=elm.begin(), e=elm.end(); i!=e; ++i)
                     {
                         if (i->first != 0 && ((i->first & numeric) == i->first))
                         {
@@ -180,7 +180,7 @@ namespace cppintrospection
                     // check whether all bits were discovered
                     if (numeric == 0)
                     {
-                        for (std::vector<std::string>::const_iterator i=labels.begin(); i!=labels.end(); ++i)
+                        for (std::vector<std::string>::const_iterator i=labels.begin(), e=labels.end(); i!=e; ++i)
                         {
                             os << *i;
                             if ((i+1) != labels.end()) os << " | ";
@@ -211,7 +211,7 @@ namespace cppintrospection
             {
                 const Type& type = v.getType();
                 const EnumLabelMap& elm = type.getEnumLabels();
-                for (EnumLabelMap::const_iterator i=elm.begin(); i!=elm.end(); ++i)
+                for (EnumLabelMap::const_iterator i=elm.begin(), e=elm.end(); i!=e; ++i)
                 {
                     if (i->second.compare(s) == 0)
                     {

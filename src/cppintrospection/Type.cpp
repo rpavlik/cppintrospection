@@ -54,7 +54,7 @@ namespace
     template<typename Container>
     inline void clearPointerContainer(Container & c) {
         typedef typename Container::const_iterator const_iterator;
-        for (const_iterator i=c.begin(), e=c.end(); e!=e; ++i) {
+        for (const_iterator i=c.begin(), e=c.end(); i!=e; ++i) {
             delete *i;
         }
         c.clear();
@@ -215,7 +215,7 @@ void Type::getAllProperties(PropertyInfoList& props) const
 {
     check_defined();
     std::copy(_props.begin(), _props.end(), std::back_inserter(props));
-    for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+    for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
     {
         (*i)->getAllProperties(props);
     }
@@ -225,7 +225,7 @@ void Type::getPropertiesMap(PropertyInfoMap& props) const
 {
     check_defined();
     props[this] = _props;
-    for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+    for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
     {
         (*i)->getPropertiesMap(props);
     }
@@ -236,7 +236,7 @@ void Type::getAllMethods(MethodInfoList& methods, FunctionCategory category) con
     check_defined();
     const MethodInfoList& input_methods = (category == PUBLIC_FUNCTIONS ? _methods : _protected_methods);
     std::copy(input_methods.begin(), input_methods.end(), std::back_inserter(methods));
-    for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+    for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
     {
         (*i)->getAllMethods(methods, category);
     }
@@ -246,7 +246,7 @@ void Type::getMethodsMap(MethodInfoMap& methods, FunctionCategory category) cons
 {
     check_defined();
     methods[this] = (category == PUBLIC_FUNCTIONS ? _methods : _protected_methods);
-    for (TypeList::const_iterator i=_base.begin(); i!=_base.end(); ++i)
+    for (TypeList::const_iterator i=_base.begin(), e=_base.end(); i!=e; ++i)
     {
         (*i)->getMethodsMap(methods, category);
     }

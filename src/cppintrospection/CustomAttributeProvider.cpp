@@ -19,7 +19,7 @@ using namespace cppintrospection;
 
 bool CustomAttributeProvider::isDefined(const Type& type, bool inherit) const
 {
-    for (CustomAttributeList::const_iterator i=attribs_.begin(); i!=attribs_.end(); ++i)
+    for (CustomAttributeList::const_iterator i=attribs_.begin(), e=attribs_.end(); i!=e; ++i)
         if (typeid(**i) == type.getStdTypeInfo()) return true;
 
     if (inherit)
@@ -27,7 +27,7 @@ bool CustomAttributeProvider::isDefined(const Type& type, bool inherit) const
         CustomAttributeProviderList providers;
         getInheritedProviders(providers);
 
-        for (CustomAttributeProviderList::const_iterator i=providers.begin(); i!=providers.end(); ++i)
+        for (CustomAttributeProviderList::const_iterator i=providers.begin(), e=providers.end(); i!=e; ++i)
         {
             if ((*i)->isDefined(type, true)) return true;
         }
@@ -38,7 +38,7 @@ bool CustomAttributeProvider::isDefined(const Type& type, bool inherit) const
 
 const CustomAttribute* CustomAttributeProvider::getAttribute(const Type& type, bool inherit) const
 {
-    for (CustomAttributeList::const_iterator i=attribs_.begin(); i!=attribs_.end(); ++i)
+    for (CustomAttributeList::const_iterator i=attribs_.begin(), e=attribs_.end(); i!=e; ++i)
         if (typeid(**i) == type.getStdTypeInfo()) return *i;
 
     if (inherit)
@@ -46,7 +46,7 @@ const CustomAttribute* CustomAttributeProvider::getAttribute(const Type& type, b
         CustomAttributeProviderList providers;
         getInheritedProviders(providers);
 
-        for (CustomAttributeProviderList::const_iterator i=providers.begin(); i!=providers.end(); ++i)
+        for (CustomAttributeProviderList::const_iterator i=providers.begin(), e=providers.end(); i!=e; ++i)
         {
             const CustomAttribute* ca = (*i)->getAttribute(type, true);
             if (ca) return ca;

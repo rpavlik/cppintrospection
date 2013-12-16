@@ -38,7 +38,8 @@ bool MethodInfo::overrides(const MethodInfo* other) const
 
     ParameterInfoList::const_iterator i=_params.begin();
     ParameterInfoList::const_iterator j=other->_params.begin();
-    for (; i!=_params.end(); ++i, ++j)
+    ParameterInfoList::const_iterator e=_params.end();
+    for (; i!=e; ++i, ++j)
     {
         if (&(*i)->getParameterType() != &(*j)->getParameterType())
             return false;
