@@ -18,7 +18,6 @@
 #include <cppintrospection/Value>
 #include <cppintrospection/ReaderWriter>
 
-#include <sstream>
 namespace cppintrospection
 {
 
