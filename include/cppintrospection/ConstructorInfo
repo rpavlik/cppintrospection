@@ -49,33 +49,33 @@ namespace cppintrospection
         virtual ~ConstructorInfo();
 
         /// Returns the brief help of the reflected construtor.
-        inline virtual const std::string& getBriefHelp() const
+        const std::string& getBriefHelp() const
         {
             return _briefHelp;
         }
 
         /// Returns the detailed help of the reflected contructor.
-        inline virtual const std::string& getDetailedHelp() const
+        const std::string& getDetailedHelp() const
         {
             return _detailedHelp;
         }
 
         /// Returns the Type object associated to the type that
         /// declares the reflected constructor.
-        inline const Type& getDeclaringType() const
+        const Type& getDeclaringType() const
         {
             return _declarationType;
         }
  
         /// Returns a list of objects that describe the reflected
         /// constructor's parameters.
-        inline const ParameterInfoList& getParameters() const
+        const ParameterInfoList& getParameters() const
         {
             return _params;
         }
 
         /// Returns true if this constructor is explicit.
-        inline bool isExplicit() const
+        bool isExplicit() const
         {
             return _explicit;
         }

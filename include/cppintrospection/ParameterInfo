@@ -43,29 +43,29 @@ namespace cppintrospection
         };
 
         /// Direct initialization constructor.
-        inline ParameterInfo(const std::string& name, const Type& type, int attribs, const Value& defval = Value());
+        ParameterInfo(const std::string& name, const Type& type, int attribs, const Value& defval = Value());
 
         /// Returns the parameter's name.
-        inline const std::string& getName() const;
+        const std::string& getName() const;
 
         /// Returns the parameter's type.
-        inline const Type& getParameterType() const;
+        const Type& getParameterType() const;
 
         /// Returns the parameter's attributes.
-        inline int getAttributes() const;
+        int getAttributes() const;
         
         /// Returns the default value.
-        inline const Value& getDefaultValue() const;
+        const Value& getDefaultValue() const;
 
         /// Returns whether the parameter has the IN attribute.
-        inline bool isIn() const { return (attribs_ & IN) != 0; }
+        bool isIn() const { return (attribs_ & IN) != 0; }
 
         /// Returns whether the parameter has the OUT attribute.
-        inline bool isOut() const { return (attribs_ & OUT) != 0; }
+        bool isOut() const { return (attribs_ & OUT) != 0; }
 
         /// Returns whether the parameter has both the IN and the 
         /// OUT attribute.
-        inline bool isInOut() const { return isIn() && isOut(); }
+        bool isInOut() const { return isIn() && isOut(); }
 
     private:
 

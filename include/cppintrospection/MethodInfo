@@ -45,33 +45,33 @@ namespace cppintrospection
         };
 
         /// Direct initialization constructor.
-        inline MethodInfo(const std::string& qname, const Type& declarationType, const Type& rtype, const ParameterInfoList& plist, VirtualState virtualState, std::string briefHelp = std::string(), std::string detailedHelp = std::string());
+        MethodInfo(const std::string& qname, const Type& declarationType, const Type& rtype, const ParameterInfoList& plist, VirtualState virtualState, std::string briefHelp = std::string(), std::string detailedHelp = std::string());
 
         /// Direct initialization constructor for static functions (no virtual specifier).
-        inline MethodInfo(const std::string& qname, const Type& declarationType, const Type& rtype, const ParameterInfoList& plist, std::string briefHelp = std::string(), std::string detailedHelp = std::string());
+        MethodInfo(const std::string& qname, const Type& declarationType, const Type& rtype, const ParameterInfoList& plist, std::string briefHelp = std::string(), std::string detailedHelp = std::string());
 
         /// Destructor
         virtual ~MethodInfo();
 
         /// Returns the Type object associated to the type that
         /// declares the reflected method.
-        inline virtual const Type& getDeclaringType() const;        
+        const Type& getDeclaringType() const;        
 
         /// Returns the name of the reflected method.
-        inline virtual const std::string& getName() const;
+        const std::string& getName() const;
 
         /// Returns the return type of the reflected method.
-        inline const Type& getReturnType() const;
+        const Type& getReturnType() const;
 
         /// Returns a list of objects that describe the reflected
         /// method's parameters.
-        inline const ParameterInfoList& getParameters() const;
+        const ParameterInfoList& getParameters() const;
 
         /// Returns the brief help of the reflected method.
-        inline virtual const std::string& getBriefHelp() const;
+        const std::string& getBriefHelp() const;
 
         /// Returns the detailed help of the reflected method.
-        inline virtual const std::string& getDetailedHelp() const;
+        const std::string& getDetailedHelp() const;
 
         /// Returns whether the reflected method is const or not.
         virtual bool isConst() const = 0;

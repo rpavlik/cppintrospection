@@ -81,100 +81,100 @@ namespace cppintrospection
 
         /// Returns a reference to the std::type_info instance associated 
         /// to this Type.
-        inline const std::type_info& getStdTypeInfo() const;
+        const std::type_info& getStdTypeInfo() const;
 
         /// Returns a reference to the ExtendedTypeInfo associated 
         /// to this Type.
-        inline ExtendedTypeInfo getExtendedTypeInfo() const;
+        ExtendedTypeInfo getExtendedTypeInfo() const;
 
         /// Returns true if this Type is defined, false if it's just 
         /// declared. See class Reflector if you want to create a new Type.
-        inline bool isDefined() const;
+        bool isDefined() const;
 
         /// Returns the name of the reflected type.
-        inline const std::string& getName() const;
+        const std::string& getName() const;
 
         /// Returns the namespace of the reflected type.
-        inline const std::string& getNamespace() const;
+        const std::string& getNamespace() const;
 
         /// Returns the qualified name of the reflected type. The qualified 
         /// name is formed by the namespace, if present, plus other modifiers 
         /// like 'const' and/or '*' (pointer) where applicable.
-        inline std::string getQualifiedName() const;
+        std::string getQualifiedName() const;
         
         /// Returns true if either the fully-qualified name or one of the
         /// name aliases match the given argument
-        inline bool matchesName(const std::string& name) const;
+        bool matchesName(const std::string& name) const;
 
         /// Returns the brief help of the reflected type.
-        inline virtual const std::string& getBriefHelp() const;
+        virtual const std::string& getBriefHelp() const;
 
         /// Returns the detailed help of the reflected type.
-        inline virtual const std::string& getDetailedHelp() const;
+        virtual const std::string& getDetailedHelp() const;
 
         /// Returns the number of base types.
         /// This number is zero if the type is not derived from any other 
         /// type.
-        inline int getNumBaseTypes() const;
+        int getNumBaseTypes() const;
 
         /// Returns the i-th base type.
-        inline const Type& getBaseType(int i) const;
+        const Type& getBaseType(int i) const;
         
         /// Returns the base type list.
-        inline const TypeList& getBaseTypeList() const;
+        const TypeList& getBaseTypeList() const;
 
         /// Returns the number of type name aliases.
-        inline int getNumAliases() const;
+        int getNumAliases() const;
 
         /// Returns the i-th name alias
         const std::string& getAlias(int i) const;
 
         /// Returns whether the reflected type is abstract.
-        inline bool isAbstract() const;
+        bool isAbstract() const;
 
         /// Returns whether the reflected type is "atomic", that is
         /// it can be rendered to and decoded from a stream directly.
-        inline bool isAtomic() const;
+        bool isAtomic() const;
 
         /// Returns whether the reflected type is an enumeration.
-        inline bool isEnum() const;
+        bool isEnum() const;
 
         /// Returns whether the reflected type is the type void.
-        inline bool isVoid() const;
+        bool isVoid() const;
 
         /// Returns true if the reflected type is a pointer, false otherwise.
-        inline bool isPointer() const;
+        bool isPointer() const;
 
         /// Returns true if the reflected type is a pointer AND it is const, 
         /// false otherwise.
-        inline bool isConstPointer() const;
+        bool isConstPointer() const;
 
         /// Returns true if the reflected type is a pointer AND it is not 
         /// const, false otherwise.
-        inline bool isNonConstPointer() const;
+        bool isNonConstPointer() const;
 
         /// Returns the pointed type. If the reflected type is not a pointer,
         /// the object returned is typeof(void).
-        inline const Type& getPointedType() const;
+        const Type& getPointedType() const;
 
         /// Returns true if the reflected type is a reference, false otherwise.
-        inline bool isReference() const;
+        bool isReference() const;
 
         /// Returns true if the reflected type is a reference AND it is const, 
         /// false otherwise.
-        inline bool isConstReference() const;
+        bool isConstReference() const;
 
         /// Returns true if the reflected type is a reference AND it is not 
         /// const, false otherwise.
-        inline bool isNonConstReference() const;
+        bool isNonConstReference() const;
 
         /// Returns the referenced type. If the reflected type is not a reference,
         /// the object returned is typeof(void).
-        inline const Type& getReferencedType() const;
+        const Type& getReferencedType() const;
 
         /// Returns the list of properties defined for this type. The list
         /// does not include properties inherited from base types.
-        inline const PropertyInfoList& getProperties() const;
+        const PropertyInfoList& getProperties() const;
 
         /// Fills a list of properties that are either defined in this Type 
         /// or in inherited types.
@@ -185,11 +185,11 @@ namespace cppintrospection
         void getPropertiesMap(PropertyInfoMap& props) const;
 
         /// Returns the list of constructors defined for this type.
-        inline const ConstructorInfoList& getConstructors(FunctionCategory category = PUBLIC_FUNCTIONS) const;
+        const ConstructorInfoList& getConstructors(FunctionCategory category = PUBLIC_FUNCTIONS) const;
 
         /// Returns the list of methods defined for this type. The list
         /// does not include methods inherited from base types.
-        inline const MethodInfoList& getMethods(FunctionCategory category = PUBLIC_FUNCTIONS) const;
+        const MethodInfoList& getMethods(FunctionCategory category = PUBLIC_FUNCTIONS) const;
 
         /// Fills a list of methods that are either defined in this Type 
         /// or in inherited types.
@@ -201,7 +201,7 @@ namespace cppintrospection
 
         /// Returns the map of enumeration labels. If the type is not an
         /// enumeration, an empty map is returned.
-        inline const EnumLabelMap& getEnumLabels() const;
+        const EnumLabelMap& getEnumLabels() const;
 
         /// Searches for a constructor that can be called with the given list 
         /// of arguments without raising type conversion errors. If more than
@@ -239,22 +239,22 @@ namespace cppintrospection
 
         /// Returns the instance of the reader/writer object assigned to 
         /// this type, if any. Otherwise it returns the null pointer.
-        inline const ReaderWriter* getReaderWriter() const;
+        const ReaderWriter* getReaderWriter() const;
 
         /// Returns the instance of the comparator object assigned to
         /// this type, if any. Otherwise it returns the null pointer.
-        inline const Comparator* getComparator() const;
+        const Comparator* getComparator() const;
 
         /// Returns the path to the file where this type is declared,
         /// relative the the OpenSceneGraph include directory.  Returns
         /// the empty string if no path information is available.
-        inline const std::string &getDeclaringFile() const;
+        const std::string &getDeclaringFile() const;
 
         /// Creates an instance of the reflected type. The returned Value 
         /// can be casted to T*, where T is the reflected type. If the type 
         ///    is abstract, an exception is thrown.
         Value createInstance(ValueList& args) const;
-        inline Value createInstance() const;
+        Value createInstance() const;
 
         // This function is called internally to reset all the elements contained in that type.
         // used in the type loading process: it solves a false positive issue on VS 7.1 and 8 compilers in debug builds.

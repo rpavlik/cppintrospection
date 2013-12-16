@@ -133,36 +133,36 @@ namespace cppintrospection
         }
 
         /// Returns the number of indices
-        inline int getNumIndices() const
+        int getNumIndices() const
         {
             return static_cast<int>(getIndexParameters().size());
         }
 
         /// Returns the name of the property being described.
-        inline virtual const std::string& getName() const
+        const std::string& getName() const
         {
             return _name;
         }
 
         /// Returns the brief help of the property being described.
-        inline virtual const std::string& getBriefHelp() const
+        const std::string& getBriefHelp() const
         {
             return _briefHelp;
         }
         /// Returns the detailed help of the property being described.
-        inline virtual const std::string& getDetailedHelp() const
+        const std::string& getDetailedHelp() const
         {
             return _detailedHelp;
         }
 
         /// Returns the type that declares the property.
-        inline virtual const Type& getDeclaringType() const
+        const Type& getDeclaringType() const
         {
             return _declarationType;
         }
 
         /// Returns the type of the reflected property.
-        inline const Type& getPropertyType() const
+        const Type& getPropertyType() const
         {
             const PropertyTypeAttribute *pta = getAttribute<PropertyTypeAttribute>(false);
             if (pta) return pta->getPropertyType();
@@ -170,92 +170,92 @@ namespace cppintrospection
         }
 
         /// Returns the getter method.
-        inline const MethodInfo* getGetMethod() const
+        const MethodInfo* getGetMethod() const
         {
             return _getm;
         }
 
         /// Returns the setter method.
-        inline const MethodInfo* getSetMethod() const
+        const MethodInfo* getSetMethod() const
         {
             return _setm;
         }
 
         /// Returns the counter method.
-        inline const MethodInfo* getCountMethod() const
+        const MethodInfo* getCountMethod() const
         {
             return _numm;
         }
 
         /// Returns the adder method.
-        inline const MethodInfo* getAddMethod() const
+        const MethodInfo* getAddMethod() const
         {
             return _addm;
         }
 
         /// Returns the insert method.
-        inline const MethodInfo* getInsertMethod() const
+        const MethodInfo* getInsertMethod() const
         {
             return _insm;
         }
 
         /// Returns the remover method.
-        inline const MethodInfo* getRemoveMethod() const
+        const MethodInfo* getRemoveMethod() const
         {
             return _remm;
         }
 
         /// Returns whether the property's value can be retrieved.
-        inline bool canGet() const
+        bool canGet() const
         {
             return (_getm != 0) || isDefined<CustomPropertyGetAttribute>(false);
         }
 
         /// Returns whether the property's value can be set.
-        inline bool canSet() const
+        bool canSet() const
         {
             return _setm != 0 || isDefined<CustomPropertySetAttribute>(false);
         }
 
         /// Returns whether the property's array of values can be counted.
-        inline bool canCount() const
+        bool canCount() const
         {
             return _numm != 0 || isDefined<CustomPropertyCountAttribute>(false);
         }
 
         /// Returns whether items can be added to the array property.
-        inline bool canAdd() const
+        bool canAdd() const
         {
             return _addm != 0 || isDefined<CustomPropertyAddAttribute>(false);
         }
 
         /// Returns whether items can be insert to the array property.
-        inline bool canInsert() const
+        bool canInsert() const
         {
             return _insm != 0 || isDefined<CustomPropertyInsertAttribute>(false);
         }
 
         /// Returns whether items can be removed from the array property.
-        inline bool canRemove() const
+        bool canRemove() const
         {
             return _remm != 0 || isDefined<CustomPropertyRemoveAttribute>(false);
         }
 
 
         /// Returns whether the property is simple.
-        inline bool isSimple() const
+        bool isSimple() const
         {
             return !isIndexed() && !isArray();
         }
 
         /// Returns whether the property is indexed.
-        inline bool isIndexed() const
+        bool isIndexed() const
         {
             return getNumIndices() > 0;
         }
 
         /// Returns whether the property is an array.
-        inline bool isArray() const
+        bool isArray() const
         {
             return _is_array;
         }
