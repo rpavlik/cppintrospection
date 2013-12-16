@@ -15,12 +15,14 @@
 #ifndef CPPINTROSPECTION_CUSTOMATTRIBUTE_
 #define CPPINTROSPECTION_CUSTOMATTRIBUTE_
 
+#include <cppintrospection/Export>
+
 namespace cppintrospection
 {
 
     /// The base class for custom attributes. This is an empty class
     /// for now.
-    class CustomAttribute
+    class CPPINTROSPECTION_EXPORT CustomAttribute
     {
     public:
         virtual ~CustomAttribute();

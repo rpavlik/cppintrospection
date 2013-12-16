@@ -17,11 +17,12 @@
 
 #include <cppintrospection/Value>
 #include <cppintrospection/variant_cast>
+#include <cppintrospection/Export>
 #include <list>
 
 namespace cppintrospection
 {
-    struct Converter
+    struct CPPINTROSPECTION_EXPORT Converter
     {
         virtual CastType getCastType() const = 0;
         virtual Value convert(const Value& ) const = 0;
@@ -30,7 +31,7 @@ namespace cppintrospection
     
     typedef std::list<const Converter* > ConverterList;
     
-    class CompositeConverter: public Converter
+    class CPPINTROSPECTION_EXPORT CompositeConverter: public Converter
     {
     public:
         CompositeConverter(const ConverterList& cvt);
