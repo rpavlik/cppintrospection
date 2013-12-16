@@ -27,8 +27,8 @@ namespace cppintrospection
     {
     public:
         // Standard constructor.
-        ConstructorInfo(const Type& declaratiionType, const ParameterInfoList& params, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
-        :   _declarationType(declaratiionType),
+        ConstructorInfo(const Type& declarationType, const ParameterInfoList& params, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
+        :   _declarationType(declarationType),
             _params(params),
             _explicit(false),
             _briefHelp(briefHelp),
@@ -37,8 +37,8 @@ namespace cppintrospection
         }
 
         // Constructor allowing explicit state specification.
-        ConstructorInfo(const Type& declaratiionType, const ParameterInfoList& params, bool isExplicit, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
-        :   _declarationType(declaratiionType),
+        ConstructorInfo(const Type& declarationType, const ParameterInfoList& params, bool isExplicit, std::string briefHelp = std::string(), std::string detailedHelp = std::string())
+        :   _declarationType(declarationType),
             _params(params),
             _explicit(isExplicit),
             _briefHelp(briefHelp),

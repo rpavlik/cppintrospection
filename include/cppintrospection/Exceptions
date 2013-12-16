@@ -127,7 +127,7 @@ namespace cppintrospection
     struct StreamWriteErrorException: public ReflectionException
     {
         StreamWriteErrorException()
-        :    ReflectionException("an error occured while trying to write to a stream")
+        :    ReflectionException("an error occurred while trying to write to a stream")
         {
         }
     };
@@ -135,7 +135,7 @@ namespace cppintrospection
     struct StreamReadErrorException: public ReflectionException
     {
         StreamReadErrorException()
-        :    ReflectionException("an error occured while trying to read from a stream")
+        :    ReflectionException("an error occurred while trying to read from a stream")
         {
         }
     };
