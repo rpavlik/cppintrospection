@@ -142,12 +142,13 @@ Type* Reflection::getOrRegisterType(const ExtendedTypeInfo &ti, bool replace_if_
 void Reflection::registerConverter(const Type& source, const Type& dest, const Converter* cvt)
 {
     const Converter* old = NULL;
-    StaticData::ConverterMap::iterator it = getOrCreateStaticData().convmap[&source].find(&dest);
+    StaticData::ConverterMap & mapFromSource = getOrCreateStaticData().convmap[&source];
+    StaticData::ConverterMap::iterator it = mapFromSource.find(&dest);
 
-    if(it != getOrCreateStaticData().convmap[&source].end())
+    if(it != mapFromSource.end())
         old = it->second;
 
-    getOrCreateStaticData().convmap[&source][&dest] = cvt;
+    mapFromSource[&dest] = cvt;
     
     if(old)
         delete old;
