@@ -19,8 +19,6 @@
 #include <cppintrospection/Reflection>
 #include <cppintrospection/variant_cast_fwd>
 
-#include <cppintrospection/debug>
-
 #include <vector>
 #include <memory>
 #include <string>
