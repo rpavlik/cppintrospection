@@ -51,7 +51,7 @@ namespace cppintrospection
         inline MethodInfo(const std::string& qname, const Type& declarationType, const Type& rtype, const ParameterInfoList& plist, std::string briefHelp = std::string(), std::string detailedHelp = std::string());
 
         /// Destructor
-        inline ~MethodInfo();
+        virtual ~MethodInfo();
 
         /// Returns the Type object associated to the type that
         /// declares the reflected method.
@@ -235,12 +235,6 @@ namespace cppintrospection
     {
         ValueList args;
         return invoke(args);
-    }
-    
-    inline MethodInfo::~MethodInfo()
-    {
-        for (ParameterInfoList::iterator i=_params.begin(); i!=_params.end(); ++i)
-            delete *i;
     }
 
 }

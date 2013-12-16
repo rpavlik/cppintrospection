@@ -1,6 +1,7 @@
 set(SOURCES
 	ConstructorInfo.cpp
 	Converter.cpp
+	CustomAttribute.cpp
 	CustomAttributeProvider.cpp
 	DefaultReflectors.cpp
 	GenericReflectorBase.cpp

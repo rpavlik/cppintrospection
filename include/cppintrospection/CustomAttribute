@@ -23,7 +23,7 @@ namespace cppintrospection
     class CustomAttribute
     {
     public:
-        virtual ~CustomAttribute() {}
+        virtual ~CustomAttribute();
     };
 
 }

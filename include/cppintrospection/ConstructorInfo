@@ -46,11 +46,7 @@ namespace cppintrospection
         {
         }
 
-        virtual ~ConstructorInfo()
-        {
-            for (ParameterInfoList::iterator i=_params.begin(), e=_params.end(); i!=e; ++i)
-                delete *i;
-        }
+        virtual ~ConstructorInfo();
 
         /// Returns the brief help of the reflected construtor.
         inline virtual const std::string& getBriefHelp() const

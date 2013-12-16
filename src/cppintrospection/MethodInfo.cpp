@@ -16,6 +16,12 @@
 
 using namespace cppintrospection;
 
+MethodInfo::~MethodInfo() 
+{
+    for (ParameterInfoList::iterator i=_params.begin(); i!=_params.end(); ++i)
+        delete *i;
+}
+
 void MethodInfo::getInheritedProviders(CustomAttributeProviderList& providers) const
 {
     for (int i=0; i<_declarationType.getNumBaseTypes(); ++i)

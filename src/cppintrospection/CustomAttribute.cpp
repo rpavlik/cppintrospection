@@ -12,24 +12,8 @@
 */
 //cppintrospection - Copyright (C) 2005 Marco Jez
 
-#include <cppintrospection/ConstructorInfo>
+#include <cppintrospection/CustomAttribute>
 
 using namespace cppintrospection;
 
-ConstructorInfo::~ConstructorInfo()
-{
-    for (ParameterInfoList::iterator i=_params.begin(), e=_params.end(); i!=e; ++i)
-        delete *i;
-}
-
-void ConstructorInfo::getInheritedProviders(CustomAttributeProviderList& providers) const
-{
-    for (int i=0; i<_declarationType.getNumBaseTypes(); ++i)
-    {
-        const ConstructorInfo* ci = _declarationType.getBaseType(i).getConstructor(_params);
-        if (ci)
-        {
-            providers.push_back(ci);
-        }
-    }
-}
+CustomAttribute::~CustomAttribute() {}
