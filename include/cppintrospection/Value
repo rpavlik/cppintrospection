@@ -166,7 +166,7 @@ namespace cppintrospection
 
         // Base class for holding values. Provides a clone() method
         // which must be overriden in descendant classes.
-        struct Instance_base
+        struct CPPINTROSPECTION_EXPORT Instance_base
         {
             virtual Instance_base *clone() const = 0;
             virtual ~Instance_base();
@@ -206,7 +206,7 @@ namespace cppintrospection
         // to that value, and another instance that keeps a const
         // reference to that value. These additional instances are queried
         // when casting the Value to a reference type.
-        struct Instance_box_base
+        struct CPPINTROSPECTION_EXPORT Instance_box_base
         {
             Instance_box_base();
 
