@@ -32,7 +32,7 @@
 
 namespace intro = cppintrospection;
 
-void translate_cppintrospection_exceptions(cppintrospection::Exception &e)
+void translate_cppintrospection_exceptions(const cppintrospection::Exception e)
 {
     BOOST_ERROR(e.what());
 }
@@ -62,7 +62,7 @@ public:
     {
         ensureRegistered();
         boost::unit_test::unit_test_monitor.register_exception_translator
-            <intro::Exception &>(&translate_cppintrospection_exceptions);
+            <intro::Exception>(&translate_cppintrospection_exceptions);
         acceptType = &intro::Reflection::getType("Acceptor");
     }
     template <typename T> T getParentAs()
