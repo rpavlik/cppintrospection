@@ -18,6 +18,7 @@
 #include <cppintrospection/Value>
 #include <cppintrospection/variant_cast>
 #include <cppintrospection/Export>
+#include <cppintrospection/ConstructorInfo>
 #include <list>
 
 namespace cppintrospection
@@ -81,6 +82,28 @@ namespace cppintrospection
         virtual CastType getCastType() const { return REINTERPRET_CAST; }
     };
 
+    template <typename S, typename D> struct ConstructionConverter : Converter
+    {
+        ConstructionConverter(ConstructorInfo* ci) : ci_(ci)
+        {
+        }
+        virtual ~ConstructionConverter()
+        {
+        }
+        virtual Value convert(const Value& src) const
+        {
+            ValueList vl(1, src);
+            return ci_->createInstance(vl);
+        }
+
+        /// @todo not sure what to return here. Kind of like a static cast...
+        virtual CastType getCastType() const
+        {
+            return STATIC_CAST;
+        }
+
+        ConstructorInfo* ci_;
+    };
 }
 
 #endif
