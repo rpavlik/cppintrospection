@@ -14,6 +14,7 @@ set(CPACK_PACKAGE_VERSION
 	"${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 
 option(BUILD_GENWRAPPER "Build the wrapper generation tool?" ON)
+option(BUILD_EXAMPLES "Build the introspection examples?" ON)
 option(BUILD_WRAPPERS "Build the wrappers for OpenSceneGraph?" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -44,7 +45,9 @@ endif()
 
 add_definitions(-DCPPINTROSPECTION_CMAKE)
 add_subdirectory(src)
-add_subdirectory(examples)
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 
 if(BUILD_TESTING)
     add_subdirectory(tests)
