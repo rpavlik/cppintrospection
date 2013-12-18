@@ -22,7 +22,7 @@ function doConversion() {
 		for fn in include/cppintrospection/*; do
 			cat $fn | doConversion > "$out/include/osgIntrospection/$(basename $fn)"
 		done
-		for fn in src/cppintrospection/*.cpp; do
+		for fn in src/cppintrospection/*.cpp src/cppintrospection/*.h; do
 		    if [ "$(basename $fn)" != "Version.cpp" ]; then
     			cat $fn | doConversion > "$out/src/osgIntrospection/$(basename $fn)"
     		fi
