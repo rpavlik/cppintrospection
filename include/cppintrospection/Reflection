@@ -19,7 +19,6 @@
 #include <cppintrospection/ExtendedTypeInfo>
 
 #include <typeinfo>
-#include <map>
 #include <vector>
 #include <list>
 
@@ -36,10 +35,6 @@ namespace cppintrospection
     struct Converter;
     
     typedef std::list<const Converter* > ConverterList;
-
-    /// A map of types, indexed by their associated ExtendedTypeInfo
-    /// structure.
-    typedef std::map<ExtendedTypeInfo, Type*> TypeMap;
 
     enum CastType
     {
@@ -67,9 +62,6 @@ namespace cppintrospection
         /// getQualifiedName() method. If the type hasn't been created
         /// yet, an exception is thrown.
         static const Type& getType(const std::string& qname);
-
-        /// Returns the global map of types.
-        static const TypeMap& getTypes();
 
         /// Return the Type object associated to the C++ type 'void'.
         /// This is a shortcut for typeof(void), which may be slow if

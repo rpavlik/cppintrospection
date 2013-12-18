@@ -21,11 +21,13 @@
 #include <OpenThreads/ScopedLock>
 
 #include <memory>
+#include <map>
 
 using namespace cppintrospection;
 
 Reflection::StaticData* Reflection::_static_data = 0;
 
+typedef std::map<ExtendedTypeInfo, Type*> TypeMap;
 struct Reflection::StaticData
 {
     TypeMap typemap;
@@ -52,11 +54,6 @@ Reflection::StaticData::~StaticData()
     }
 }
 
-const TypeMap& Reflection::getTypes()
-{
-    return getOrCreateStaticData().typemap;
-}
-
 Reflection::StaticData& Reflection::getOrCreateStaticData()
 {
     static OpenThreads::Mutex access_mtx;
@@ -74,7 +71,7 @@ Reflection::StaticData& Reflection::getOrCreateStaticData()
 
 const Type& Reflection::getType(const ExtendedTypeInfo &ti)
 {
-    const TypeMap& types = getTypes();
+    const TypeMap& types = getOrCreateStaticData().typemap;
 
     TypeMap::const_iterator i = types.find(ti);
     if (i == types.end())
@@ -86,7 +83,7 @@ const Type& Reflection::getType(const ExtendedTypeInfo &ti)
 
 const Type& Reflection::getType(const std::string& qname)
 {
-    const TypeMap& types = getTypes();
+    const TypeMap& types = getOrCreateStaticData().typemap;
 
     for (TypeMap::const_iterator i=types.begin(), e=types.end(); i!=e; ++i)
     {
