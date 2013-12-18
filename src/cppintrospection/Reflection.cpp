@@ -141,6 +141,9 @@ Type* Reflection::getOrRegisterType(const ExtendedTypeInfo &ti, bool replace_if_
 
 void Reflection::registerConverter(const Type& source, const Type& dest, const Converter* cvt)
 {
+    if (dest.getQualifiedName().find("ValueDest") != std::string::npos) {
+        std::cerr << "Registering converter from " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
+    }
     const Converter* old = NULL;
     StaticData::ConverterMap & mapFromSource = getOrCreateStaticData().convmap[&source];
     StaticData::ConverterMap::iterator it = mapFromSource.find(&dest);
@@ -161,7 +164,9 @@ const Converter* Reflection::getConverter(const Type& source, const Type& dest)
 
 bool Reflection::getConversionPath(const Type& source, const Type& dest, ConverterList& conv)
 {
-
+    if (dest.getQualifiedName().find("ValueDest") != std::string::npos) {
+        std::cerr << "Seeking converter from " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
+    }
     {
         ConverterList temp;
         std::vector<const Type* > chain;
@@ -188,6 +193,11 @@ bool Reflection::getConversionPath(const Type& source, const Type& dest, Convert
 
 bool Reflection::accum_conv_path(const Type& source, const Type& dest, ConverterList& conv, std::vector<const Type* > &chain, CastType castType)
 {
+    bool interested = false;
+    if (dest.getQualifiedName().find("ValueDest") != std::string::npos) {
+        interested = true;
+        std::cerr << "Seeking converter from " << source.getQualifiedName() << " to " << dest.getQualifiedName() << std::endl;
+    }
     // break unwanted loops
     if (std::find(chain.begin(), chain.end(), &source) != chain.end())
         return false;
@@ -198,11 +208,13 @@ bool Reflection::accum_conv_path(const Type& source, const Type& dest, Converter
     // search a converter from "source"
     StaticData::ConverterMapMap::const_iterator i = getOrCreateStaticData().convmap.find(&source);
     if (i == getOrCreateStaticData().convmap.end()) {
+        if (interested) std::cerr << "No converters from source!" << std::endl;
         return false;
     }
 
     // search a converter to "dest"
     const StaticData::ConverterMap& cmap = i->second;
+    if (interested) std::cerr << "Converters from source: " << cmap.size() << std::endl;
     StaticData::ConverterMap::const_iterator j = cmap.find(&dest);
     StaticData::ConverterMap::const_iterator e = cmap.end();
     if (j != e && (j->second->getCastType() == castType))

@@ -75,18 +75,25 @@ bool cppintrospection::areArgumentsCompatible(const ValueList& vl, const Paramet
                 return false;
             continue;
         }
-
+        bool interested = false;
+        if ((*pi)->getParameterType().getQualifiedName().find("ValueDest") != std::string::npos) {
+            interested = true;
+            std::cerr << "Parameter type: " << (*pi)->getParameterType().getQualifiedName() << "; Value type: " << vi->getType().getQualifiedName() << std::endl;
+        }
         if ((*pi)->getParameterType() == vi->getType())
         {
+            if (interested) std::cerr << "Exact match" << std::endl;
             // Exact match.
             ++exact_args;
         }
         else if (vi->tryConvertTo((*pi)->getParameterType()).isEmpty())
         {
+            if (interested) std::cerr << "Convertible match failed" << std::endl;
             // Convertible match failed
             return false;
         }
 
+        if (interested) std::cerr << "Convertible match" << std::endl;
         ++vi;
     }
 

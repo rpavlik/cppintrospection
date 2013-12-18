@@ -81,6 +81,9 @@ Value Value::tryConvertTo(const Type& outtype) const
 {
     check_empty();
 
+    if (outtype.getQualifiedName().find("ValueDest") != std::string::npos) {
+        std::cerr << "Trying to convert " << _type->getQualifiedName() << " to " << outtype.getQualifiedName() << std::endl;
+    }
     if (_type == &outtype)
         return *this;
 

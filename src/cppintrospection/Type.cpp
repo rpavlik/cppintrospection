@@ -108,15 +108,33 @@ const MethodInfo *Type::getCompatibleMethod(const std::string& name, const Value
     typedef std::vector<MethodMatch> MatchList;
     MatchList matches;
 
+    bool interested = false;
+    if (name.find("ValueDest") != std::string::npos) {
+        interested = true;
+        std::cerr << "Looking for a compatible method named " << name << " with values of type:";
+        for (ValueList::const_iterator i=values.begin(), e=values.end(); i!=e; ++i) {
+            std::cerr << " " << i->getType().getQualifiedName() << ";";
+        }
+        std::cerr << std::endl;
+    }
     int pos = 0;
     for (MethodInfoList::const_iterator i=methods->begin(), e=methods->end(); i!=e; ++i, ++pos)
     {
         const MethodInfo *mi = *i;
         if (mi->getName().compare(name) == 0)
         {
+            if (interested) {
+                std::cerr << "Available method has parameters:";
+                const ParameterInfoList& pl = mi->getParameters();
+                for (ParameterInfoList::const_iterator i=pl.begin(), e=pl.end(); i!=e; ++i) {
+                    std::cerr << " " << (*i)->getParameterType().getQualifiedName() << ";";
+                }
+                std::cerr << std::endl;
+            }
             float match;
             if (areArgumentsCompatible(values, mi->getParameters(), match))
             {
+                if (interested) std::cerr << "Matched with percentage " << match << std::endl;
                 MethodMatch mm;
                 mm.list_pos = pos;
                 mm.match = match;
