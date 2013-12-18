@@ -30,7 +30,18 @@ namespace cppintrospection
     class CustomAttributeProvider;
     class CustomAttribute;
     class ExtendedTypeInfo;
+    template <typename C, typename IC, typename P0>
+    struct TypedConstructorInfo1;
 
+    template <typename T> struct removeConstByRef
+    {
+        typedef T type;
+    };
+
+    template <typename T> struct removeConstByRef<const T&>
+    {
+        typedef T type;
+    };
     class CPPINTROSPECTION_EXPORT GenericReflectorBase {
         public:
         GenericReflectorBase(const ExtendedTypeInfo &ti, const std::string & name, const std::string & ns, bool abstract);
@@ -62,6 +73,31 @@ namespace cppintrospection
         /// the automatically-generated default constructor is
         /// removed.
         ConstructorInfo* addConstructor(ConstructorInfo* ci);
+
+        template <typename Src, typename Dest>
+        void registerConversionConstructor(ConstructorInfo* ci)
+        {
+            Reflection::registerConverter(typeof(Src), typeof(Dest),
+                                          new ConstructionConverter
+                                          <Src, Dest>(ci));
+        }
+        /// Overload for constructors that could effectively result in a
+        /// converter.
+        template <typename C, typename IC, typename P0>
+        ConstructorInfo* addConstructor(TypedConstructorInfo1<C, IC, P0>* ci)
+        {
+            if (!ci->isExplicit())
+            {
+                typedef typename removeConstByRef<P0>::type Src;
+                typedef C Dest;
+                registerConversionConstructor<Src, Dest>(ci);
+                registerConversionConstructor<const Src&, Dest>(ci);
+
+                registerConversionConstructor<Src, const Dest&>(ci);
+                registerConversionConstructor<const Src&, const Dest&>(ci);
+            }
+            return addConstructor(static_cast<ConstructorInfo*>(ci));
+        }
 
         /// Adds a protected constructor description to the current
         /// type.
