@@ -10,3 +10,12 @@ add_boost_test(PointerToConst
 	LIBRARIES
 	cppintrospection
 )
+
+add_boost_test(ValueConversion
+	SOURCES
+	ValueConversion.cpp
+	DummyClasses.cpp
+	DummyClasses.h
+	LIBRARIES
+	cppintrospection
+)

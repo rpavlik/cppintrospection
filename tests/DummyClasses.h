@@ -1,14 +1,14 @@
 /** @file
-	@brief Header
+        @brief Header
 
-	@date 2013
+        @date 2013
 
-	@author
-	Ryan Pavlik
-	<rpavlik@iastate.edu> and <abiryan@ryand.net>
-	http://academic.cleardefinition.com/
-	Iowa State University Virtual Reality Applications Center
-	Human-Computer Interaction Graduate Program
+        @author
+        Ryan Pavlik
+        <rpavlik@iastate.edu> and <abiryan@ryand.net>
+        http://academic.cleardefinition.com/
+        Iowa State University Virtual Reality Applications Center
+        Human-Computer Interaction Graduate Program
 */
 
 //          Copyright Iowa State University 2013.
@@ -28,30 +28,77 @@
 // Standard includes
 // - none
 
-class Parent {
-    public:
-        Parent() {}
-        virtual ~Parent();
-        
-        virtual const char * identify() const { return "Parent"; }
+class Parent
+{
+public:
+    Parent()
+    {
+    }
+    virtual ~Parent();
+
+    virtual const char* identify() const
+    {
+        return "Parent";
+    }
 };
 
-class Child : public Parent {
-    public:
-        Child() {}
-        virtual ~Child();
-        
-        virtual const char * identify() const { return "Child"; }
+class Child : public Parent
+{
+public:
+    Child()
+    {
+    }
+    virtual ~Child();
+
+    virtual const char* identify() const
+    {
+        return "Child";
+    }
 };
 
-class Acceptor {
-    public:
-        Acceptor() {};
-        
-        void acceptParentPtr(Parent * p) {}
-        void acceptParentPtrConst(const Parent * p) {}
-        void acceptParentRef(Parent & p) {}
-        void acceptParentRefConst(const Parent & p) {}
+class ValueSrc
+{
+public:
+    ValueSrc()
+    {
+    }
+};
+
+class ValueDest
+{
+public:
+    ValueDest()
+    {
+    }
+    ValueDest(const ValueSrc& /*other*/)
+    {
+    }
+};
+
+class Acceptor
+{
+public:
+    Acceptor() {};
+
+    void acceptParentPtr(Parent* /*p*/)
+    {
+    }
+    void acceptParentPtrConst(const Parent* /*p*/)
+    {
+    }
+    void acceptParentRef(Parent& /*p*/)
+    {
+    }
+    void acceptParentRefConst(const Parent& /*p*/)
+    {
+    }
+
+    void acceptValueDest(ValueDest /*v*/)
+    {
+    }
+    void acceptValueDestRefConst(ValueDest const& /*v*/)
+    {
+    }
 };
 
 void ensureRegistered();
