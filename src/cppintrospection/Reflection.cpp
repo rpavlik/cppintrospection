@@ -22,6 +22,8 @@
 
 #include <memory>
 
+#include "AssocVector.h"
+
 using namespace cppintrospection;
 
 Reflection::StaticData* Reflection::_static_data = 0;
@@ -31,8 +33,13 @@ struct Reflection::StaticData
     TypeMap typemap;
     const Type* type_void;
 
+#ifdef USE_NEW
+    typedef Loki::AssocVector<const Type*, const Converter*> ConverterMap;
+    typedef Loki::AssocVector<const Type*, ConverterMap> ConverterMapMap;
+#else
     typedef std::map<const Type*, const Converter*> ConverterMap;
     typedef std::map<const Type*, ConverterMap> ConverterMapMap;
+#endif
     ConverterMapMap convmap;
 
     ~StaticData();
