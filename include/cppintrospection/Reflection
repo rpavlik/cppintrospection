@@ -17,11 +17,11 @@
 
 #include <cppintrospection/Export>
 #include <cppintrospection/ExtendedTypeInfo>
+#include <cppintrospection/ConverterList>
 
 #include <typeinfo>
 #include <map>
 #include <vector>
-#include <list>
 
 /// This macro emulates the behavior of the standard typeid operator,
 /// returning the Type object associated to the type of the given
@@ -34,8 +34,6 @@ namespace cppintrospection
 
     class Type;
     struct Converter;
-    
-    typedef std::list<const Converter* > ConverterList;
 
     /// A map of types, indexed by their associated ExtendedTypeInfo
     /// structure.

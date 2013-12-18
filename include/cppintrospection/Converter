@@ -16,6 +16,7 @@
 #define CPPINTROSPECTION_CONVERTER_
 
 #include <cppintrospection/Value>
+#include <cppintrospection/ConverterList>
 #include <cppintrospection/variant_cast>
 #include <cppintrospection/Export>
 #include <list>
@@ -28,8 +29,7 @@ namespace cppintrospection
         virtual Value convert(const Value& ) const = 0;
         virtual ~Converter();
     };
-    
-    typedef std::list<const Converter* > ConverterList;
+
     
     class CPPINTROSPECTION_EXPORT CompositeConverter: public Converter
     {

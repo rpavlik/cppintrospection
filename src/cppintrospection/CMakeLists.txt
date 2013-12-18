@@ -19,6 +19,7 @@ set(HEADERS
 	../../include/cppintrospection/Comparator
 	../../include/cppintrospection/ConstructorInfo
 	../../include/cppintrospection/Converter
+	../../include/cppintrospection/ConverterList
 	../../include/cppintrospection/ConverterProxy
 	../../include/cppintrospection/CustomAttribute
 	../../include/cppintrospection/CustomAttributeProvider
