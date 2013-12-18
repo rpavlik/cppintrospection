@@ -74,7 +74,7 @@ Reflection::StaticData& Reflection::getOrCreateStaticData()
 
 const Type& Reflection::getType(const ExtendedTypeInfo &ti)
 {
-    const TypeMap& types = getTypes();
+    const TypeMap& types = getOrCreateStaticData().typemap;
 
     TypeMap::const_iterator i = types.find(ti);
     if (i == types.end())
@@ -86,7 +86,7 @@ const Type& Reflection::getType(const ExtendedTypeInfo &ti)
 
 const Type& Reflection::getType(const std::string& qname)
 {
-    const TypeMap& types = getTypes();
+    const TypeMap& types = getOrCreateStaticData().typemap;
 
     for (TypeMap::const_iterator i=types.begin(), e=types.end(); i!=e; ++i)
     {
