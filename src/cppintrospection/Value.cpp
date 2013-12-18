@@ -107,6 +107,13 @@ Value Value::tryConvertTo(const Type& outtype) const
     ConverterList conv;
     if (Reflection::getConversionPath(*_type, outtype, conv))
     {
+        if (conv.size() == 1)
+        {
+            // Skip an allocation and the overhead of a composite converter
+            // if we're just using a single converter to get there.
+            return (*conv.begin())->convert(*this);
+        }
+
         std::auto_ptr<CompositeConverter> cvt(new CompositeConverter(conv));
         return cvt->convert(*this);
     }
